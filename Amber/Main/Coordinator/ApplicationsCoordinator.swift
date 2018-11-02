@@ -32,6 +32,6 @@ class ApplicationsCoordinator: Coordinator {
     func showSettingsScreen() {
         let settingsVC = SettingsViewController()
         settingsVC.coordinator = self
-        navigationController.pushViewController(UINavigationController(rootViewController: settingsVC), animated: true)
+        navigationController.present(UINavigationController(rootViewController: settingsVC), animated: true)
     }
 }
