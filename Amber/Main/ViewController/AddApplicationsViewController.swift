@@ -101,7 +101,7 @@ extension AddApplicationsViewController: UICollectionViewDelegateFlowLayout, UIC
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.row == 0 {
-            coordinator?.showSearchApplicationsToScreen()
+            coordinator?.showSearchApplicationsToScreen(addApplicationsVC: self)
         } else {
             
         }
@@ -117,5 +117,17 @@ extension AddApplicationsViewController: UICollectionViewDelegateFlowLayout, UIC
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0
+    }
+}
+
+
+// MARK: - Search Application VC Delegate
+/***************************************************************/
+
+extension AddApplicationsViewController: SearchApplicationToViewControllerDelegate {
+    
+    func didSelect(_ cell: UITableViewCell, searchApplication: SearchApplication) {
+        let cell = collectionView.cellForItem(at: IndexPath(row: 0, section: 0)) as! InformationCell
+        cell.textField.text = searchApplication.name
     }
 }

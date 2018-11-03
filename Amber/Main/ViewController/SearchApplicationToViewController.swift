@@ -10,7 +10,13 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
+protocol SearchApplicationToViewControllerDelegate: class {
+    func didSelect(_ cell: UITableViewCell, searchApplication: SearchApplication)
+}
+
 class SearchApplicationToViewController: BaseViewController {
+    
+    weak var delegate: SearchApplicationToViewControllerDelegate?
     
     private var searchApplications = [SearchApplication]() {
         didSet {
@@ -32,6 +38,7 @@ class SearchApplicationToViewController: BaseViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(SearchApplicationCell.self)
+        tableView.separatorStyle = .none
         tableView.tableFooterView = UIView()
     
         view.fillToSuperview(tableView)
@@ -104,12 +111,17 @@ extension SearchApplicationToViewController: UITableViewDelegate, UITableViewDat
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let searchApplication = searchApplications[indexPath.row]
         let cell = cell as! SearchApplicationCell
-        cell.textLabel?.text = searchApplication.name
         cell.model = searchApplication
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let searchApplication = searchApplications[indexPath.row]
+        delegate?.didSelect(tableView.cellForRow(at: indexPath) ?? UITableViewCell(), searchApplication: searchApplication)
+        dismiss(animated: true, completion: nil)
+    }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return tableView.frame.size.height / 8
+        return tableView.frame.size.height / 10
     }
 }
 

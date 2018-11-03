@@ -35,8 +35,9 @@ class ApplicationsCoordinator: Coordinator {
         navigationController.present(UINavigationController(rootViewController: settingsVC), animated: true)
     }
     
-    func showSearchApplicationsToScreen() {
+    func showSearchApplicationsToScreen(addApplicationsVC: AddApplicationsViewController) {
         let searchApplicationsVC = SearchApplicationToViewController()
+        searchApplicationsVC.delegate = addApplicationsVC
         navigationController.present(UINavigationController(rootViewController: searchApplicationsVC), animated: true)
     }
 }
