@@ -40,6 +40,7 @@
 		240837EB218D97A700497B08 /* UICollectionView+ReuseableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240837EA218D97A700497B08 /* UICollectionView+ReuseableView.swift */; };
 		240837EF218DA66600497B08 /* SearchApplicationToViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240837EE218DA66600497B08 /* SearchApplicationToViewController.swift */; };
 		240837F1218DB7FC00497B08 /* SearchApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240837F0218DB7FC00497B08 /* SearchApplication.swift */; };
+		240837F3218DBE5D00497B08 /* SearchApplicationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240837F2218DBE5D00497B08 /* SearchApplicationCell.swift */; };
 		6E1FD9923C00B10962366D4B /* Pods_Amber.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 545B75DD84C148DF8D50C60C /* Pods_Amber.framework */; };
 		B8331DF18008D0C95A16356C /* Pods_AmberTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6173FC4F707114239D8F3589 /* Pods_AmberTests.framework */; };
 /* End PBXBuildFile section */
@@ -100,6 +101,7 @@
 		240837EA218D97A700497B08 /* UICollectionView+ReuseableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionView+ReuseableView.swift"; sourceTree = "<group>"; };
 		240837EE218DA66600497B08 /* SearchApplicationToViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchApplicationToViewController.swift; sourceTree = "<group>"; };
 		240837F0218DB7FC00497B08 /* SearchApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchApplication.swift; sourceTree = "<group>"; };
+		240837F2218DBE5D00497B08 /* SearchApplicationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchApplicationCell.swift; sourceTree = "<group>"; };
 		4B01AD565677843C48FC1484 /* Pods-Amber.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Amber.release.xcconfig"; path = "Pods/Target Support Files/Pods-Amber/Pods-Amber.release.xcconfig"; sourceTree = "<group>"; };
 		545B75DD84C148DF8D50C60C /* Pods_Amber.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Amber.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6173FC4F707114239D8F3589 /* Pods_AmberTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AmberTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -248,6 +250,7 @@
 				240837E2218CE67B00497B08 /* ApplicationCell.swift */,
 				240837E4218CEC3200497B08 /* BoxStateView.swift */,
 				240837E8218D946200497B08 /* InformationCell.swift */,
+				240837F2218DBE5D00497B08 /* SearchApplicationCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -509,11 +512,13 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Amber/Pods-Amber-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -596,6 +601,7 @@
 				240837B8218902DE00497B08 /* AppCoordinator.swift in Sources */,
 				240837E7218D922500497B08 /* LineCircleViewController.swift in Sources */,
 				240837CE218CDDD600497B08 /* UIFont+CustomFonts.swift in Sources */,
+				240837F3218DBE5D00497B08 /* SearchApplicationCell.swift in Sources */,
 				240837D9218CDFD500497B08 /* Application.swift in Sources */,
 				240837C0218905AD00497B08 /* BaseViewController.swift in Sources */,
 				240837EF218DA66600497B08 /* SearchApplicationToViewController.swift in Sources */,

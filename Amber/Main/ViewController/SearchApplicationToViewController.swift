@@ -31,7 +31,7 @@ class SearchApplicationToViewController: BaseViewController {
 
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(UITableViewCell.self)
+        tableView.register(SearchApplicationCell.self)
         tableView.tableFooterView = UIView()
     
         view.fillToSuperview(tableView)
@@ -61,7 +61,7 @@ class SearchApplicationToViewController: BaseViewController {
     
     func getAutoCompletionData(applicationTo: String) {
         
-        Alamofire.request(URL(string: "\(BaseConfig.shared.autoCompletionURLString)companies/suggest?query=\(applicationTo)")!, method: .get).responseJSON { (response) in
+        Alamofire.request(URL(string: "\(BaseConfig.shared.autoCompletionURLString)companies/suggest?query=\(applicationTo.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed) ?? "")")!, method: .get).responseJSON { (response) in
             if response.result.isSuccess {
                 let autoCompletionJSON: JSON = JSON(response.result.value!)
                 self.updateAutoCompletionData(json: autoCompletionJSON)
@@ -98,12 +98,18 @@ extension SearchApplicationToViewController: UITableViewDelegate, UITableViewDat
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return tableView.dequeueReusableCell(UITableViewCell.self, for: indexPath)
+        return tableView.dequeueReusableCell(SearchApplicationCell.self, for: indexPath)
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let searchApplication = searchApplications[indexPath.row]
+        let cell = cell as! SearchApplicationCell
         cell.textLabel?.text = searchApplication.name
+        cell.model = searchApplication
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return tableView.frame.size.height / 8
     }
 }
 
@@ -112,6 +118,8 @@ extension SearchApplicationToViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if !searchText.isEmpty {
             getAutoCompletionData(applicationTo: searchText)
+        } else {
+            searchApplications = []
         }
     }
     
