@@ -7,3 +7,12 @@
 //
 
 import Foundation
+
+class BaseConfig {
+    
+    static let shared = BaseConfig()
+    
+    var autoCompletionURLString: String {
+        return "https://autocomplete.clearbit.com/v1/"
+    }
+}

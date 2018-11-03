@@ -1,5 +1,5 @@
 //
-//  SearchCompanyViewController.swift
+//  SearchApplication.swift
 //  Amber
 //
 //  Created by Giancarlo Buenaflor on 03.11.18.
@@ -7,3 +7,10 @@
 //
 
 import Foundation
+
+struct SearchApplication {
+    
+    let logoPath: String
+    let name: String
+    let domain: String
+}

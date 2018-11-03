@@ -7,25 +7,44 @@
 //
 
 import UIKit
+import Alamofire
+import SwiftyJSON
 
 class SearchApplicationToViewController: BaseViewController {
     
+    private var searchApplications = [SearchApplication]() {
+        didSet {
+            tableView.reloadData()
+        }
+    }
+
+    private let tableView = UITableView()
     private let searchController = UISearchController(searchResultsController: nil)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.hidesSearchBarWhenScrolling = false
         navigationItem.searchController = searchController
-        
-        let dropDownBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "drop_down").withRenderingMode(.alwaysTemplate), style: .plain, target: self, action: #selector(onDropDownPressed))
-        dropDownBarItem.tintColor = .darkGray
-        navigationItem.leftBarButtonItem = dropDownBarItem
+        searchController.searchBar.delegate = self
+        searchController.dimsBackgroundDuringPresentation = false
+
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(UITableViewCell.self)
+        tableView.tableFooterView = UIView()
+    
+        view.fillToSuperview(tableView)
     }
     
     override func setupUI() {
         super.setupUI()
         
         view.backgroundColor = .white
+        
+        let dropDownBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "drop_down").withRenderingMode(.alwaysTemplate), style: .plain, target: self, action: #selector(onDropDownPressed))
+        dropDownBarItem.tintColor = .darkGray
+        navigationItem.leftBarButtonItem = dropDownBarItem
     }
     
     
@@ -40,36 +59,60 @@ class SearchApplicationToViewController: BaseViewController {
     //MARK: - Networking
     /***************************************************************/
     
-//    //Write the getWeatherData method here:
-//    func getWeatherData(url: String, parameters: [String: String]) {
-//        Alamofire.request(url, method: .get, parameters: parameters).responseJSON { (response) in
-//            if response.result.isSuccess {
-//                let weatherJSON: JSON = JSON(response.result.value!)
-//                self.updateWeatherData(json: weatherJSON)
-//            } else {
-//                print("fail")
-//            }
-//        }
-//    }
-//
+    func getAutoCompletionData(applicationTo: String) {
+        
+        Alamofire.request(URL(string: "\(BaseConfig.shared.autoCompletionURLString)companies/suggest?query=\(applicationTo)")!, method: .get).responseJSON { (response) in
+            if response.result.isSuccess {
+                let autoCompletionJSON: JSON = JSON(response.result.value!)
+                self.updateAutoCompletionData(json: autoCompletionJSON)
+            } else {
+                print("error")
+            }
+        }
+    }
     
     
     
     //MARK: - JSON Parsing
     /***************************************************************/
     
+    func updateAutoCompletionData(json: JSON) {
+        
+        if let data = json.array {
+            let searchApplications = data.compactMap({ item -> SearchApplication in
+                let logoPath = item["logo"].stringValue
+                let name = item["name"].stringValue
+                let domain = item["domain"].stringValue
+                return SearchApplication(logoPath: logoPath, name: name, domain: domain)
+            })
+            
+            self.searchApplications = searchApplications
+        }
+    }
+}
+
+extension SearchApplicationToViewController: UITableViewDelegate, UITableViewDataSource {
     
-    //Write the updateWeatherData method here:
-//    func updateWeatherData(json: JSON) {
-//        if let tempResult = json["main"]["temp"].double {
-//            weatherDataModel.temperature = Int(tempResult - 273.15)
-//            weatherDataModel.city = json["name"].stringValue
-//            weatherDataModel.condition = json["weather"][0]["id"].intValue
-//            weatherDataModel.weatherIconName = weatherDataModel.updateWeatherIcon(condition: weatherDataModel.condition)
-//
-//            updateUIWithWeatherData()
-//        } else {
-//            cityLabel.text = "Weather Unavailable"
-//        }
-//    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return searchApplications.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        return tableView.dequeueReusableCell(UITableViewCell.self, for: indexPath)
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let searchApplication = searchApplications[indexPath.row]
+        cell.textLabel?.text = searchApplication.name
+    }
+}
+
+extension SearchApplicationToViewController: UISearchBarDelegate {
+
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if !searchText.isEmpty {
+            getAutoCompletionData(applicationTo: searchText)
+        }
+    }
+    
 }

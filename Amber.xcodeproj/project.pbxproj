@@ -38,8 +38,8 @@
 		240837E7218D922500497B08 /* LineCircleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240837E6218D922500497B08 /* LineCircleViewController.swift */; };
 		240837E9218D946200497B08 /* InformationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240837E8218D946200497B08 /* InformationCell.swift */; };
 		240837EB218D97A700497B08 /* UICollectionView+ReuseableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240837EA218D97A700497B08 /* UICollectionView+ReuseableView.swift */; };
-		240837ED218DA64A00497B08 /* SearchCompanyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240837EC218DA64A00497B08 /* SearchCompanyViewController.swift */; };
 		240837EF218DA66600497B08 /* SearchApplicationToViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240837EE218DA66600497B08 /* SearchApplicationToViewController.swift */; };
+		240837F1218DB7FC00497B08 /* SearchApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240837F0218DB7FC00497B08 /* SearchApplication.swift */; };
 		6E1FD9923C00B10962366D4B /* Pods_Amber.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 545B75DD84C148DF8D50C60C /* Pods_Amber.framework */; };
 		B8331DF18008D0C95A16356C /* Pods_AmberTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6173FC4F707114239D8F3589 /* Pods_AmberTests.framework */; };
 /* End PBXBuildFile section */
@@ -98,8 +98,8 @@
 		240837E6218D922500497B08 /* LineCircleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineCircleViewController.swift; sourceTree = "<group>"; };
 		240837E8218D946200497B08 /* InformationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationCell.swift; sourceTree = "<group>"; };
 		240837EA218D97A700497B08 /* UICollectionView+ReuseableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionView+ReuseableView.swift"; sourceTree = "<group>"; };
-		240837EC218DA64A00497B08 /* SearchCompanyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCompanyViewController.swift; sourceTree = "<group>"; };
 		240837EE218DA66600497B08 /* SearchApplicationToViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchApplicationToViewController.swift; sourceTree = "<group>"; };
+		240837F0218DB7FC00497B08 /* SearchApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchApplication.swift; sourceTree = "<group>"; };
 		4B01AD565677843C48FC1484 /* Pods-Amber.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Amber.release.xcconfig"; path = "Pods/Target Support Files/Pods-Amber/Pods-Amber.release.xcconfig"; sourceTree = "<group>"; };
 		545B75DD84C148DF8D50C60C /* Pods_Amber.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Amber.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6173FC4F707114239D8F3589 /* Pods_AmberTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AmberTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -237,6 +237,7 @@
 			isa = PBXGroup;
 			children = (
 				240837D8218CDFD500497B08 /* Application.swift */,
+				240837F0218DB7FC00497B08 /* SearchApplication.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -258,7 +259,6 @@
 				240837C4218CDA6900497B08 /* AddApplicationsViewController.swift */,
 				240837D6218CDF8C00497B08 /* SettingsViewController.swift */,
 				240837E6218D922500497B08 /* LineCircleViewController.swift */,
-				240837EC218DA64A00497B08 /* SearchCompanyViewController.swift */,
 				240837EE218DA66600497B08 /* SearchApplicationToViewController.swift */,
 			);
 			path = ViewController;
@@ -590,6 +590,7 @@
 				2408377F2189022A00497B08 /* ApplicationsViewController.swift in Sources */,
 				240837D5218CDEB400497B08 /* BaseConfig.swift in Sources */,
 				240837BB218903B800497B08 /* Coordinator.swift in Sources */,
+				240837F1218DB7FC00497B08 /* SearchApplication.swift in Sources */,
 				240837E9218D946200497B08 /* InformationCell.swift in Sources */,
 				240837E3218CE67B00497B08 /* ApplicationCell.swift in Sources */,
 				240837B8218902DE00497B08 /* AppCoordinator.swift in Sources */,
@@ -599,7 +600,6 @@
 				240837C0218905AD00497B08 /* BaseViewController.swift in Sources */,
 				240837EF218DA66600497B08 /* SearchApplicationToViewController.swift in Sources */,
 				240837DD218CE1D800497B08 /* ReusableViewProtocol.swift in Sources */,
-				240837ED218DA64A00497B08 /* SearchCompanyViewController.swift in Sources */,
 				240837E5218CEC3200497B08 /* BoxStateView.swift in Sources */,
 				240837EB218D97A700497B08 /* UICollectionView+ReuseableView.swift in Sources */,
 				240837E1218CE5AD00497B08 /* UIColor+HexValues.swift in Sources */,
