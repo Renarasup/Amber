@@ -64,8 +64,8 @@ class ApplicationCell: UITableViewCell {
         containerView.add(subview: logoImageView) { (v, p) in [
             v.topAnchor.constraint(equalTo: p.topAnchor),
             v.leadingAnchor.constraint(equalTo: p.leadingAnchor),
-            v.heightAnchor.constraint(equalTo: p.heightAnchor, multiplier: 0.2),
-            v.widthAnchor.constraint(equalTo: p.heightAnchor, multiplier: 0.2)
+            v.heightAnchor.constraint(equalTo: p.heightAnchor, multiplier: 0.23),
+            v.widthAnchor.constraint(equalTo: p.heightAnchor, multiplier: 0.23)
             ]}
         
         let boxStateView = BoxStateView(state: model.state)

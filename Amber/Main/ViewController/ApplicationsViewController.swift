@@ -39,9 +39,9 @@ class ApplicationsViewController: BaseViewController {
     // MARK: - Networking
     /***************************************************************/
     private func getData() {
-        let data = Application(state: .applied, applicationToTitle: "Microsoft", sentDate: "01.11.2018", jobTitle: "iOS Developer", salary: 28000, zipCode: "1220 Wien", imageLink: nil, rejectedDate: nil)
+        let data = Application(state: .Applied, applicationToTitle: "Microsoft", sentDate: "01.11.2018", jobTitle: "iOS Developer", salary: 28000, zipCode: "1220 Wien", note: nil, imageLink: nil, rejectedDate: nil)
         
-        let data2 = Application(state: .interview, applicationToTitle: "Google", sentDate: "01.11.2018", jobTitle: "Android Developer", salary: 28000, zipCode: "1020 Wien", imageLink: nil, rejectedDate: nil)
+        let data2 = Application(state: .Interview, applicationToTitle: "Google", sentDate: "01.11.2018", jobTitle: "Android Developer", salary: 28000, zipCode: "1020 Wien", note: nil, imageLink: nil, rejectedDate: nil)
         
         applications.append(data)
         applications.append(data2)

@@ -11,7 +11,7 @@ import UIKit
 struct Application {
     
     enum StateType {
-        case applied, rejected, interview, accepted
+        case Applied, Rejected, Interview, Accepted
     }
     
     var state: StateType
@@ -21,35 +21,50 @@ struct Application {
     var salary: Double
     var zipCode: String
     
+    var note: String?
     var imageLink: URL?
     var rejectedDate: String?
+}
+
+extension Application {
+    enum Information {
+        case State, Job, Salary, ApplicationTo, Date, Note
+        
+        static let all: [Application.Information] = [ ApplicationTo, Job, Salary, State, Date ]
+    }
+}
+
+extension Application.Information {
+    var title: String {
+        switch self {
+        case .ApplicationTo:
+            return "Application To"
+        case .State:
+            return "Current State"
+        case .Job:
+            return "Job Title"
+        default:
+            return "\(self)"
+        }
+    }
 }
 
 extension Application.StateType {
     var color: UIColor {
         switch self {
-        case .applied:
+        case .Applied:
             return UIColor(rgb: 0xb2bec3)
-        case .accepted:
+        case .Accepted:
             return UIColor(rgb: 0xc0392b)
-        case .interview:
+        case .Interview:
             return UIColor(rgb: 0xf39c12)
-        case .rejected:
+        case .Rejected:
             return UIColor(rgb: 0x2ecc71)
         }
     }
     
     var title: String {
-        switch self {
-        case .applied:
-            return "Applied"
-        case .accepted:
-            return "Accepted"
-        case .interview:
-            return "Interview"
-        case .rejected:
-            return "Rejected"
-        }
+        return "\(self)"
     }
 }
 

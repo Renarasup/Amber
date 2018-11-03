@@ -34,6 +34,11 @@
 		240837E1218CE5AD00497B08 /* UIColor+HexValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240837E0218CE5AD00497B08 /* UIColor+HexValues.swift */; };
 		240837E3218CE67B00497B08 /* ApplicationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240837E2218CE67B00497B08 /* ApplicationCell.swift */; };
 		240837E5218CEC3200497B08 /* BoxStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240837E4218CEC3200497B08 /* BoxStateView.swift */; };
+		240837E7218D922500497B08 /* LineCircleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240837E6218D922500497B08 /* LineCircleViewController.swift */; };
+		240837E9218D946200497B08 /* InformationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240837E8218D946200497B08 /* InformationCell.swift */; };
+		240837EB218D97A700497B08 /* UICollectionView+ReuseableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240837EA218D97A700497B08 /* UICollectionView+ReuseableView.swift */; };
+		240837ED218DA64A00497B08 /* SearchCompanyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240837EC218DA64A00497B08 /* SearchCompanyViewController.swift */; };
+		240837EF218DA66600497B08 /* SearchApplicationToViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240837EE218DA66600497B08 /* SearchApplicationToViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +92,11 @@
 		240837E0218CE5AD00497B08 /* UIColor+HexValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+HexValues.swift"; sourceTree = "<group>"; };
 		240837E2218CE67B00497B08 /* ApplicationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationCell.swift; sourceTree = "<group>"; };
 		240837E4218CEC3200497B08 /* BoxStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxStateView.swift; sourceTree = "<group>"; };
+		240837E6218D922500497B08 /* LineCircleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineCircleViewController.swift; sourceTree = "<group>"; };
+		240837E8218D946200497B08 /* InformationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationCell.swift; sourceTree = "<group>"; };
+		240837EA218D97A700497B08 /* UICollectionView+ReuseableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionView+ReuseableView.swift"; sourceTree = "<group>"; };
+		240837EC218DA64A00497B08 /* SearchCompanyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCompanyViewController.swift; sourceTree = "<group>"; };
+		240837EE218DA66600497B08 /* SearchApplicationToViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchApplicationToViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,7 +149,7 @@
 			children = (
 				240837D2218CDEA800497B08 /* Target */,
 				240837B9218903A200497B08 /* Utils */,
-				240837B42189028400497B08 /* Supporting FIles */,
+				240837B42189028400497B08 /* Supporting Files */,
 				240837B02189026300497B08 /* Resources */,
 				240837AF2189025A00497B08 /* Main */,
 				240837AD2189024500497B08 /* AppController */,
@@ -219,6 +229,7 @@
 			children = (
 				240837E2218CE67B00497B08 /* ApplicationCell.swift */,
 				240837E4218CEC3200497B08 /* BoxStateView.swift */,
+				240837E8218D946200497B08 /* InformationCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -229,16 +240,19 @@
 				2408377E2189022A00497B08 /* ApplicationsViewController.swift */,
 				240837C4218CDA6900497B08 /* AddApplicationsViewController.swift */,
 				240837D6218CDF8C00497B08 /* SettingsViewController.swift */,
+				240837E6218D922500497B08 /* LineCircleViewController.swift */,
+				240837EC218DA64A00497B08 /* SearchCompanyViewController.swift */,
+				240837EE218DA66600497B08 /* SearchApplicationToViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
 		};
-		240837B42189028400497B08 /* Supporting FIles */ = {
+		240837B42189028400497B08 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
 				240837882189022D00497B08 /* LaunchScreen.storyboard */,
 			);
-			path = "Supporting FIles";
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		240837B9218903A200497B08 /* Utils */ = {
@@ -268,6 +282,7 @@
 				240837DA218CE19E00497B08 /* UITableView+ReuseableView.swift */,
 				240837CD218CDDD600497B08 /* UIFont+CustomFonts.swift */,
 				240837E0218CE5AD00497B08 /* UIColor+HexValues.swift */,
+				240837EA218D97A700497B08 /* UICollectionView+ReuseableView.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -454,13 +469,18 @@
 				2408377F2189022A00497B08 /* ApplicationsViewController.swift in Sources */,
 				240837D5218CDEB400497B08 /* BaseConfig.swift in Sources */,
 				240837BB218903B800497B08 /* Coordinator.swift in Sources */,
+				240837E9218D946200497B08 /* InformationCell.swift in Sources */,
 				240837E3218CE67B00497B08 /* ApplicationCell.swift in Sources */,
 				240837B8218902DE00497B08 /* AppCoordinator.swift in Sources */,
+				240837E7218D922500497B08 /* LineCircleViewController.swift in Sources */,
 				240837CE218CDDD600497B08 /* UIFont+CustomFonts.swift in Sources */,
 				240837D9218CDFD500497B08 /* Application.swift in Sources */,
 				240837C0218905AD00497B08 /* BaseViewController.swift in Sources */,
+				240837EF218DA66600497B08 /* SearchApplicationToViewController.swift in Sources */,
 				240837DD218CE1D800497B08 /* ReusableViewProtocol.swift in Sources */,
+				240837ED218DA64A00497B08 /* SearchCompanyViewController.swift in Sources */,
 				240837E5218CEC3200497B08 /* BoxStateView.swift in Sources */,
+				240837EB218D97A700497B08 /* UICollectionView+ReuseableView.swift in Sources */,
 				240837E1218CE5AD00497B08 /* UIColor+HexValues.swift in Sources */,
 				240837D0218CDE6E00497B08 /* BaseLabel.swift in Sources */,
 				240837D7218CDF8C00497B08 /* SettingsViewController.swift in Sources */,
