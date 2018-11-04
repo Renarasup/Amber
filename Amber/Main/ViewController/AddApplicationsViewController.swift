@@ -44,6 +44,9 @@ class AddApplicationsViewController: BaseViewController {
         addImageView.image = #imageLiteral(resourceName: "add-plus").withRenderingMode(.alwaysTemplate)
         addImageView.tintColor = .white
         
+        lineView.backgroundColor = UIColor(rgb: 0x3498db)
+        circleView.backgroundColor = UIColor(rgb: 0x3498db)
+        
         addNoteButton.setTitle("Add Notes", for: .normal)
         addNoteButton.setTitleColor(.lightGray, for: .normal)
         addNoteButton.titleLabel?.font = .regular
@@ -68,9 +71,6 @@ class AddApplicationsViewController: BaseViewController {
         noteTextView.backgroundColor = .clear
         noteTextView.font = .medium
         noteTextView.delegate = self
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(onKeyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(onKeyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         setupLayoutViews()
     }
@@ -145,20 +145,24 @@ class AddApplicationsViewController: BaseViewController {
         
         view.backgroundColor = .white
         
-        lineView.backgroundColor = .blue
-        circleView.backgroundColor = .blue
+        let saveBarItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(onSavePressed))
+        navigationItem.rightBarButtonItem = saveBarItem
         
         // Set back title
         navigationController?.navigationBar.topItem?.title = ""
         
         // Add Title Label
-        let titleLabel = BaseLabel(text: "My Applications", font: .regular, textColor: .black, numberOfLines: 1)
+        let titleLabel = BaseLabel(text: "Add Application", font: .regular, textColor: .black, numberOfLines: 1)
         navigationItem.titleView = titleLabel
     }
     
     
     // MARK: - On Handlers
     /***************************************************************/
+    
+    @objc private func onSavePressed() {
+        
+    }
     
     @objc private func onAddNotesPressed() {
         animateTextContainer()
@@ -169,22 +173,6 @@ class AddApplicationsViewController: BaseViewController {
             view.endEditing(true)
         } else {
             deAnimateTextContainer()
-        }
-    }
-    
-    @objc func onKeyboardWillShow(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            if self.view.frame.origin.y == 0{
-                self.view.frame.origin.y -= keyboardSize.height
-            }
-        }
-    }
-    
-    @objc func onKeyboardWillHide(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            if self.view.frame.origin.y != 0{
-                self.view.frame.origin.y += keyboardSize.height
-            }
         }
     }
     
@@ -223,8 +211,11 @@ extension AddApplicationsViewController: UICollectionViewDelegateFlowLayout, UIC
         let cell = cell as! InformationCell
         
         cell.model = information
-        cell.textField.isUserInteractionEnabled = indexPath.row == 0 ? false : true
         
+        if information == .ApplicationTo || information == .State {
+            cell.textField.isUserInteractionEnabled = false
+        }
+    
         if indexPath.row != 0 {
             cell.addLineToTop()
         }
@@ -233,10 +224,14 @@ extension AddApplicationsViewController: UICollectionViewDelegateFlowLayout, UIC
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if indexPath.row == 0 {
+        let information = allInformation[indexPath.row]
+        
+        if information == .ApplicationTo {
             coordinator?.showSearchApplicationsToScreen(addApplicationsVC: self)
-        } else {
-            
+        }
+        
+        if information == .State {
+            coordinator?.showChooseStateScreen(addApplicationsVC: self)
         }
     }
     
@@ -275,11 +270,19 @@ extension AddApplicationsViewController: UITextViewDelegate {
         textViewIsEditing = true
         removeEditNoteButton.setTitle("Done Editing", for: .normal)
         removeEditNoteButton.backgroundColor = UIColor(rgb: 0x2ecc71)
+        
+        UIView.animate(withDuration: 0.5) {
+            self.view.frame.origin.y -= 300
+        }
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
         textViewIsEditing = false
         removeEditNoteButton.setTitle("Remove Notes", for: .normal)
         removeEditNoteButton.backgroundColor = UIColor(rgb: 0xe74c3c)
+        
+        UIView.animate(withDuration: 0.5) {
+            self.view.frame.origin.y += 300
+        }
     }
 }

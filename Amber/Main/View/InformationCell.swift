@@ -33,9 +33,9 @@ class InformationCell: UICollectionViewCell {
         separatorLine.backgroundColor = .darkGray
         textField.backgroundColor = .clear
         
-        circleView.backgroundColor = .blue
-        lineBottomView.backgroundColor = .blue
-        lineTopView.backgroundColor = .blue
+        circleView.backgroundColor = UIColor(rgb: 0x3498db)
+        lineBottomView.backgroundColor = UIColor(rgb: 0x3498db)
+        lineTopView.backgroundColor = UIColor(rgb: 0x3498db)
         
         setupViewLayout()
     }
@@ -59,7 +59,7 @@ class InformationCell: UICollectionViewCell {
         add(subview: separatorLine) { (v, p) in [
             v.bottomAnchor.constraint(equalTo: p.bottomAnchor, constant: -10),
             v.trailingAnchor.constraint(equalTo: p.trailingAnchor, constant: -30),
-            v.leadingAnchor.constraint(equalTo: circleView.trailingAnchor, constant: 30),
+            v.leadingAnchor.constraint(equalTo: circleView.trailingAnchor, constant: 40),
             v.heightAnchor.constraint(equalToConstant: 0.3)
             ]}
 

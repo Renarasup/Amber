@@ -40,4 +40,10 @@ class ApplicationsCoordinator: Coordinator {
         searchApplicationsVC.delegate = addApplicationsVC
         navigationController.present(UINavigationController(rootViewController: searchApplicationsVC), animated: true)
     }
+    
+    func showChooseStateScreen(addApplicationsVC: AddApplicationsViewController) {
+        let chooseStateVC = ChooseStateViewController()
+//        chooseStateVC.delegate = addApplicationsVC
+        navigationController.present(UINavigationController(rootViewController: chooseStateVC), animated: true)
+    }
 }
