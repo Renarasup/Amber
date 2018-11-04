@@ -35,7 +35,6 @@
 		240837E1218CE5AD00497B08 /* UIColor+HexValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240837E0218CE5AD00497B08 /* UIColor+HexValues.swift */; };
 		240837E3218CE67B00497B08 /* ApplicationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240837E2218CE67B00497B08 /* ApplicationCell.swift */; };
 		240837E5218CEC3200497B08 /* BoxStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240837E4218CEC3200497B08 /* BoxStateView.swift */; };
-		240837E7218D922500497B08 /* LineCircleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240837E6218D922500497B08 /* LineCircleViewController.swift */; };
 		240837E9218D946200497B08 /* InformationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240837E8218D946200497B08 /* InformationCell.swift */; };
 		240837EB218D97A700497B08 /* UICollectionView+ReuseableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240837EA218D97A700497B08 /* UICollectionView+ReuseableView.swift */; };
 		240837EF218DA66600497B08 /* SearchApplicationToViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240837EE218DA66600497B08 /* SearchApplicationToViewController.swift */; };
@@ -96,7 +95,6 @@
 		240837E0218CE5AD00497B08 /* UIColor+HexValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+HexValues.swift"; sourceTree = "<group>"; };
 		240837E2218CE67B00497B08 /* ApplicationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationCell.swift; sourceTree = "<group>"; };
 		240837E4218CEC3200497B08 /* BoxStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxStateView.swift; sourceTree = "<group>"; };
-		240837E6218D922500497B08 /* LineCircleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineCircleViewController.swift; sourceTree = "<group>"; };
 		240837E8218D946200497B08 /* InformationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationCell.swift; sourceTree = "<group>"; };
 		240837EA218D97A700497B08 /* UICollectionView+ReuseableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionView+ReuseableView.swift"; sourceTree = "<group>"; };
 		240837EE218DA66600497B08 /* SearchApplicationToViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchApplicationToViewController.swift; sourceTree = "<group>"; };
@@ -261,7 +259,6 @@
 				2408377E2189022A00497B08 /* ApplicationsViewController.swift */,
 				240837C4218CDA6900497B08 /* AddApplicationsViewController.swift */,
 				240837D6218CDF8C00497B08 /* SettingsViewController.swift */,
-				240837E6218D922500497B08 /* LineCircleViewController.swift */,
 				240837EE218DA66600497B08 /* SearchApplicationToViewController.swift */,
 			);
 			path = ViewController;
@@ -599,7 +596,6 @@
 				240837E9218D946200497B08 /* InformationCell.swift in Sources */,
 				240837E3218CE67B00497B08 /* ApplicationCell.swift in Sources */,
 				240837B8218902DE00497B08 /* AppCoordinator.swift in Sources */,
-				240837E7218D922500497B08 /* LineCircleViewController.swift in Sources */,
 				240837CE218CDDD600497B08 /* UIFont+CustomFonts.swift in Sources */,
 				240837F3218DBE5D00497B08 /* SearchApplicationCell.swift in Sources */,
 				240837D9218CDFD500497B08 /* Application.swift in Sources */,

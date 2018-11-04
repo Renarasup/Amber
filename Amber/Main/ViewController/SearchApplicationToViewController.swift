@@ -115,9 +115,12 @@ extension SearchApplicationToViewController: UITableViewDelegate, UITableViewDat
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        view.endEditing(true)
+        
         let searchApplication = searchApplications[indexPath.row]
-        delegate?.didSelect(tableView.cellForRow(at: indexPath) ?? UITableViewCell(), searchApplication: searchApplication)
         dismiss(animated: true, completion: nil)
+        delegate?.didSelect(tableView.cellForRow(at: indexPath) ?? UITableViewCell(), searchApplication: searchApplication)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

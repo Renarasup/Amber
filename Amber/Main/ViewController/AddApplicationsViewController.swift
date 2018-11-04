@@ -12,8 +12,9 @@ class AddApplicationsViewController: BaseViewController {
     
     // Instance Variables
     var coordinator: ApplicationsCoordinator?
-    
+    private let circleHeight: CGFloat = UIScreen.main.bounds.width * 0.05
     private let allInformation = Application.Information.all
+    private var textViewIsEditing = false
     
     // UI Views
     private let collectionView: UICollectionView = {
@@ -22,8 +23,13 @@ class AddApplicationsViewController: BaseViewController {
         return cv
     }()
     
-    // Children VC
-    private let lineCircleVC = LineCircleViewController()
+    private let circleView = UIView()
+    private let lineView = UIView()
+    private let addImageView = UIImageView()
+    private let addNoteButton = UIButton()
+    private let textContainerView = UIView()
+    private let removeEditNoteButton = UIButton()
+    private let noteTextView = UITextView()
     
     // MARK: - Setup Core Components & Delegations
     /***************************************************************/
@@ -34,32 +40,103 @@ class AddApplicationsViewController: BaseViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(InformationCell.self)
-
+        
+        addImageView.image = #imageLiteral(resourceName: "add-plus").withRenderingMode(.alwaysTemplate)
+        addImageView.tintColor = .white
+        
+        addNoteButton.setTitle("Add Notes", for: .normal)
+        addNoteButton.setTitleColor(.lightGray, for: .normal)
+        addNoteButton.titleLabel?.font = .regular
+        addNoteButton.addTarget(self, action: #selector(onAddNotesPressed), for: .touchUpInside)
+        
+        removeEditNoteButton.setTitle("Remove Notes", for: .normal)
+        removeEditNoteButton.setTitleColor(.white, for: .normal)
+        removeEditNoteButton.titleLabel?.font = .regular
+        removeEditNoteButton.backgroundColor = UIColor(rgb: 0xe74c3c)
+        removeEditNoteButton.layer.cornerRadius = 7
+        removeEditNoteButton.addTarget(self, action: #selector(onRemoveEditNotesPressed), for: .touchUpInside)
+        
+        circleView.isUserInteractionEnabled = true
+        circleView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(onAddNotesPressed)))
+        
+        textContainerView.backgroundColor = UIColor(rgb: 0xF3EFEF)
+        textContainerView.layer.borderColor = UIColor(rgb: 0xE5E5E5).cgColor
+        textContainerView.layer.borderWidth = 0.2
+        textContainerView.layer.cornerRadius = 10
+        textContainerView.alpha = 0
+        
+        noteTextView.backgroundColor = .clear
+        noteTextView.font = .medium
+        noteTextView.delegate = self
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(onKeyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(onKeyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
         setupLayoutViews()
     }
     
     private func setupLayoutViews() {
-        addLineCircleVC()
-
         view.add(subview: collectionView) { (v, p) in [
-            v.topAnchor.constraint(equalTo: lineCircleVC.view.topAnchor),
-            v.leadingAnchor.constraint(equalTo: lineCircleVC.view.trailingAnchor),
+            v.topAnchor.constraint(equalTo: p.safeAreaLayoutGuide.topAnchor),
+            v.leadingAnchor.constraint(equalTo: p.leadingAnchor),
             v.trailingAnchor.constraint(equalTo: p.trailingAnchor),
-            v.heightAnchor.constraint(equalTo: lineCircleVC.view.heightAnchor, multiplier: 0.85)
+            v.heightAnchor.constraint(equalTo: p.heightAnchor, multiplier: 0.5)
+            ]}
+        
+        view.add(subview: circleView) { (v, p) in [
+            v.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 50),
+            v.leadingAnchor.constraint(equalTo: p.leadingAnchor, constant: 30),
+            v.heightAnchor.constraint(equalToConstant: circleHeight),
+            v.widthAnchor.constraint(equalToConstant: circleHeight)
+            ]}
+        
+        view.add(subview: lineView) { (v, p) in [
+            v.topAnchor.constraint(equalTo: collectionView.bottomAnchor),
+            v.centerXAnchor.constraint(equalTo: circleView.centerXAnchor),
+            v.bottomAnchor.constraint(equalTo: circleView.centerYAnchor),
+            v.widthAnchor.constraint(equalToConstant: 3)
+            ]}
+        
+        view.add(subview: addImageView) { (v, p) in [
+            v.centerYAnchor.constraint(equalTo: circleView.centerYAnchor),
+            v.centerXAnchor.constraint(equalTo: circleView.centerXAnchor),
+            v.heightAnchor.constraint(equalTo: circleView.heightAnchor, multiplier: 0.7),
+            v.widthAnchor.constraint(equalTo: circleView.heightAnchor, multiplier: 0.7)
+            ]}
+        
+        view.add(subview: addNoteButton) { (v, p) in [
+            v.centerYAnchor.constraint(equalTo: circleView.centerYAnchor),
+            v.leadingAnchor.constraint(equalTo: circleView.trailingAnchor, constant: 15),
+            v.heightAnchor.constraint(equalTo: p.heightAnchor, multiplier: 0.05),
+            v.widthAnchor.constraint(equalTo: p.widthAnchor, multiplier: 0.2)
+            ]}
+        
+        view.add(subview: textContainerView) { (v, p) in [
+            v.topAnchor.constraint(equalTo: circleView.topAnchor),
+            v.leadingAnchor.constraint(equalTo: p.leadingAnchor, constant: 25),
+            v.trailingAnchor.constraint(equalTo: p.trailingAnchor, constant: -25),
+            v.bottomAnchor.constraint(equalTo: p.safeAreaLayoutGuide.bottomAnchor, constant: -25)
+            ]}
+        
+        textContainerView.add(subview: removeEditNoteButton) { (v, p) in [
+            v.bottomAnchor.constraint(equalTo: p.bottomAnchor, constant: -10),
+            v.trailingAnchor.constraint(equalTo: p.trailingAnchor, constant: -10),
+            v.heightAnchor.constraint(equalTo: p.heightAnchor, multiplier: 0.15),
+            v.widthAnchor.constraint(equalTo: p.widthAnchor, multiplier: 0.4)
+            ]}
+        
+        textContainerView.add(subview: noteTextView) { (v, p) in [
+            v.topAnchor.constraint(equalTo: p.topAnchor, constant: 10),
+            v.leadingAnchor.constraint(equalTo: p.leadingAnchor, constant: 10),
+            v.trailingAnchor.constraint(equalTo: p.trailingAnchor, constant: -10),
+            v.bottomAnchor.constraint(equalTo: removeEditNoteButton.topAnchor, constant: -10)
             ]}
     }
     
-    private func addLineCircleVC() {
-        addChild(lineCircleVC)
-        view.add(subview: lineCircleVC.view) { (v, p) in [
-            v.topAnchor.constraint(equalTo: p.safeAreaLayoutGuide.topAnchor, constant: 12),
-            v.leadingAnchor.constraint(equalTo: p.leadingAnchor),
-            v.heightAnchor.constraint(equalTo: p.heightAnchor, multiplier: 0.5),
-            v.widthAnchor.constraint(equalTo: p.widthAnchor, multiplier: 0.22)
-            ]}
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         
-        
-        lineCircleVC.didMove(toParent: self)
+        circleView.layer.cornerRadius = circleView.frame.size.width / 2
     }
     
     // **** Basic UI Setup For The ViewController ****
@@ -68,6 +145,9 @@ class AddApplicationsViewController: BaseViewController {
         
         view.backgroundColor = .white
         
+        lineView.backgroundColor = .blue
+        circleView.backgroundColor = .blue
+        
         // Set back title
         navigationController?.navigationBar.topItem?.title = ""
         
@@ -75,6 +155,54 @@ class AddApplicationsViewController: BaseViewController {
         let titleLabel = BaseLabel(text: "My Applications", font: .regular, textColor: .black, numberOfLines: 1)
         navigationItem.titleView = titleLabel
     }
+    
+    
+    // MARK: - On Handlers
+    /***************************************************************/
+    
+    @objc private func onAddNotesPressed() {
+        animateTextContainer()
+    }
+    
+    @objc private func onRemoveEditNotesPressed() {
+        if textViewIsEditing {
+            view.endEditing(true)
+        } else {
+            deAnimateTextContainer()
+        }
+    }
+    
+    @objc func onKeyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0{
+                self.view.frame.origin.y -= keyboardSize.height
+            }
+        }
+    }
+    
+    @objc func onKeyboardWillHide(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y != 0{
+                self.view.frame.origin.y += keyboardSize.height
+            }
+        }
+    }
+    
+    // MARK: - UI Animations
+    /***************************************************************/
+    
+    private func animateTextContainer() {
+        UIView.animate(withDuration: 0.25) {
+            self.textContainerView.alpha = 1
+        }
+    }
+    
+    private func deAnimateTextContainer() {
+        UIView.animate(withDuration: 0.25) {
+            self.textContainerView.alpha = 0
+        }
+    }
+
 }
 
 // MARK: - UICollectionView Delegate & DataSource Extension
@@ -95,8 +223,13 @@ extension AddApplicationsViewController: UICollectionViewDelegateFlowLayout, UIC
         let cell = cell as! InformationCell
         
         cell.model = information
-        
         cell.textField.isUserInteractionEnabled = indexPath.row == 0 ? false : true
+        
+        if indexPath.row != 0 {
+            cell.addLineToTop()
+        }
+        
+        cell.addLineToBottom()
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -127,7 +260,26 @@ extension AddApplicationsViewController: UICollectionViewDelegateFlowLayout, UIC
 extension AddApplicationsViewController: SearchApplicationToViewControllerDelegate {
     
     func didSelect(_ cell: UITableViewCell, searchApplication: SearchApplication) {
-        let cell = collectionView.cellForItem(at: IndexPath(row: 0, section: 0)) as! InformationCell
-        cell.textField.text = searchApplication.name
+        if let cvCell = collectionView.cellForItem(at: IndexPath(item: 0, section: 0)) as? InformationCell {
+            let tableViewCell = cell as! SearchApplicationCell
+
+            cvCell.textField.text = searchApplication.name
+            cvCell.addLogoImage(tableViewCell.getLogoImage())
+        }
+    }
+}
+
+extension AddApplicationsViewController: UITextViewDelegate {
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        textViewIsEditing = true
+        removeEditNoteButton.setTitle("Done Editing", for: .normal)
+        removeEditNoteButton.backgroundColor = UIColor(rgb: 0x2ecc71)
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        textViewIsEditing = false
+        removeEditNoteButton.setTitle("Remove Notes", for: .normal)
+        removeEditNoteButton.backgroundColor = UIColor(rgb: 0xe74c3c)
     }
 }

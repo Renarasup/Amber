@@ -68,6 +68,14 @@ class SearchApplicationCell: UITableViewCell {
             ]}
     }
     
+    func getLogoImage() -> UIImage {
+        if let image = logoImageView.image {
+            return image
+        } else {
+            return UIImage()
+        }
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
