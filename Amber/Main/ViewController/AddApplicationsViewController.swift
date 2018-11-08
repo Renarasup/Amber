@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class AddApplicationsViewController: BaseViewController {
     
@@ -160,16 +161,58 @@ class AddApplicationsViewController: BaseViewController {
     
     @objc private func onSavePressed() {
         
+        let application = Application()
+        
         var boolsArray = [Bool]()
         for index in allInformation.enumerated() {
             if let cvCell = collectionView.cellForItem(at: IndexPath(item: index.offset, section: 0)) as? InformationCell {
                 boolsArray.append(cvCell.isFilled)
+                guard let text = cvCell.textField.text else { return }
+
+                switch index.element {
+                case .ApplicationTo:
+                    guard let searchApplication = cvCell.searchApplication else { return }
+                    application.applicationToTitle = text
+                    application.imageLink = searchApplication.logoPath
+                case .Date:
+                    application.sentDate = text
+                case .Salary:
+                    application.salary = Double(text) ?? 0
+                case .Job:
+                    application.jobTitle = text
+                case .State:
+                    guard let state = cvCell.state else { return }
+                    application.state = state.rawValue
+                case .ZipCode:
+                    application.zipCode = text
+                default:
+                    break
+                }
+                
+                print(cvCell.isFilled)
             }
+        
+        }
+        
+        if !noteTextView.text.isEmpty {
+            application.note = noteTextView.text
         }
         
         if !boolsArray.contains(false) {
+            do {
+                let realm = try Realm()
+                try realm.write {
+                    realm.add(application)
+                }
+                
+                navigationController?.popViewController(animated: true)
+            } catch let error as NSError {
+                
+                // handle error
+            }
             print(true)
         } else {
+            // alert that note everything is filled out
             print(false)
         }
     }
@@ -267,7 +310,7 @@ extension AddApplicationsViewController: SearchApplicationToViewControllerDelega
         if let cvCell = collectionView.cellForItem(at: IndexPath(item: index, section: 0)) as? InformationCell {
             let tableViewCell = cell as! SearchApplicationCell
 
-            cvCell.textField.text = searchApplication.name
+            cvCell.addSearchApplication(tableViewCell.model)
             cvCell.addLogoImage(tableViewCell.getLogoImage())
             cvCell.isFilled = true
         }

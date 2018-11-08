@@ -7,30 +7,40 @@
 //
 
 import UIKit
+import RealmSwift
 
-struct Application {
+class Application: Object {
     
-    enum StateType {
-        case Applied, Rejected, Interview, Accepted
+    enum StateType: Int {
+        case Applied = 0, Rejected, Interview, Accepted
     }
     
-    var state: StateType
-    var applicationToTitle: String
-    var sentDate: String
-    var jobTitle: String
-    var salary: Double
-    var zipCode: String
+    @objc dynamic var state = StateType.Applied.rawValue
+    var stateEnum: StateType {
+        get {
+            return StateType(rawValue: state)!
+        }
+        set {
+            state = newValue.rawValue
+        }
+    }
     
-    var note: String?
-    var imageLink: URL?
-    var rejectedDate: String?
+    @objc dynamic var applicationToTitle: String = ""
+    @objc dynamic var sentDate: String = ""
+    @objc dynamic var jobTitle: String = ""
+    @objc dynamic var salary: Double = 0
+    @objc dynamic var zipCode: String = ""
+    
+    @objc dynamic var note: String? = nil
+    @objc dynamic var imageLink: String? = nil
+    @objc dynamic var rejectedDate: String? = nil
 }
 
 extension Application {
     enum Information {
-        case State, Job, Salary, ApplicationTo, Date, Note
+        case State, Job, Salary, ApplicationTo, Date, Note, ZipCode
         
-        static let all: [Application.Information] = [ ApplicationTo, Job, Salary, State, Date ]
+        static let all: [Application.Information] = [ ApplicationTo, Job, Salary, State, Date, ZipCode ]
     }
 }
 
@@ -43,6 +53,8 @@ extension Application.Information {
             return "Current State"
         case .Job:
             return "Job Title"
+        case .ZipCode:
+            return "Location"
         default:
             return "\(self)"
         }

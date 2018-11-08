@@ -7,13 +7,18 @@
 //
 
 import UIKit
+import RealmSwift
 
 class ApplicationsViewController: BaseViewController {
     
     // Instance Variables
     var coordinator: ApplicationsCoordinator?
     
-    private var applications: [Application] = []
+    private var applications: [Application] = [] {
+        didSet {
+            tableView.reloadData()
+        }
+    }
     
     // UI Views
     private let tableView = UITableView()
@@ -32,20 +37,42 @@ class ApplicationsViewController: BaseViewController {
         tableView.separatorStyle = .none
         
         view.fillToSuperview(tableView)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
         getData()
     }
     
     // MARK: - Networking
     /***************************************************************/
+    
     private func getData() {
-        let data = Application(state: .Applied, applicationToTitle: "Microsoft", sentDate: "01.11.2018", jobTitle: "iOS Developer", salary: 28000, zipCode: "1220 Wien", note: nil, imageLink: nil, rejectedDate: nil)
+        do {
+            let realm = try Realm()
+            self.applications = Array(realm.objects(Application.self))
+        } catch let error as NSError {
+            
+            // handle error
+        }
         
-        let data2 = Application(state: .Interview, applicationToTitle: "Google", sentDate: "01.11.2018", jobTitle: "Android Developer", salary: 28000, zipCode: "1020 Wien", note: nil, imageLink: nil, rejectedDate: nil)
         
-        applications.append(data)
-        applications.append(data2)
-        tableView.reloadData()
+//        let data = Application(state: .Applied, applicationToTitle: "Microsoft", sentDate: "01.11.2018", jobTitle: "iOS Developer", salary: 28000, zipCode: "1220 Wien", note: nil, imageLink: nil, rejectedDate: nil)
+        
+//        let data = Application()
+//        data.stateEnum = .Applied
+//        data.applicationToTitle = "Microsoft"
+//        data.sentDate = "01.11.2018"
+//        data.jobTitle = ".NET Developer"
+//        data.salary = 28000
+//        data.zipCode = "1220 Wien"
+//
+//        let data2 = Application(state: .Interview, applicationToTitle: "Google", sentDate: "01.11.2018", jobTitle: "Android Developer", salary: 28000, zipCode: "1020 Wien", note: nil, imageLink: nil, rejectedDate: nil)
+        
+//        applications.append(data)
+//        applications.append(data2)
+//        tableView.reloadData()
     }
     
     

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class ApplicationCell: UITableViewCell {
     
@@ -14,13 +15,19 @@ class ApplicationCell: UITableViewCell {
         didSet {
             dateLabel.text = model.sentDate
             applicationToLabel.text = model.applicationToTitle
-            verticalLineView.backgroundColor = model.state.color
+            verticalLineView.backgroundColor = model.stateEnum.color
             
             zipCodeLabel.text = "Location: \(model.zipCode)"
             jobTitleLabel.text = "Job Title: \(model.jobTitle)"
             salaryLabel.text = "Yearly Salary: \(model.salary) €"
             
             setupViewsLayout()
+            
+            guard let imageLink = model.imageLink,
+                let imageURL = URL(string: imageLink)
+                else { return }
+            
+            logoImageView.kf.setImage(with: imageURL)
         }
     }
     
@@ -68,7 +75,7 @@ class ApplicationCell: UITableViewCell {
             v.widthAnchor.constraint(equalTo: p.heightAnchor, multiplier: 0.23)
             ]}
         
-        let boxStateView = BoxStateView(state: model.state)
+        let boxStateView = BoxStateView(state: model.stateEnum)
         boxStateView.layer.cornerRadius = 2
         
         containerView.add(subview: boxStateView) { (v, p) in [

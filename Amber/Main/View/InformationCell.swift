@@ -13,11 +13,21 @@ class InformationCell: UICollectionViewCell {
     var model: Application.Information! {
         didSet {
             textField.placeholder = model.title
+            
+            guard let model = model else {
+                return
+            }
+            
+            if model == .Salary {
+                textField.keyboardType = .numberPad
+            }
         }
     }
     
     let textField = UITextField()
     var isFilled = false
+    var state: Application.StateType?
+    var searchApplication: SearchApplication?
     
     private let circleView = UIView()
     private let lineBottomView = UIView()
@@ -41,7 +51,7 @@ class InformationCell: UICollectionViewCell {
         lineBottomView.backgroundColor = UIColor(rgb: 0x3498db)
         lineTopView.backgroundColor = UIColor(rgb: 0x3498db)
         
-        textField.addTarget(self, action: #selector(textDidChange(_:)), for: .valueChanged)
+        textField.addTarget(self, action: #selector(textDidChange(_:)), for: .editingChanged)
         
         setupViewLayout()
     }
@@ -107,6 +117,11 @@ class InformationCell: UICollectionViewCell {
         logoImageView.image = image
     }
     
+    func addSearchApplication(_ searchApplication: SearchApplication) {
+        textField.text = searchApplication.name
+        self.searchApplication = searchApplication
+    }
+    
     func addStateView(_ state: Application.StateType) {
         
         stateContainerView.layer.cornerRadius = 5
@@ -124,10 +139,12 @@ class InformationCell: UICollectionViewCell {
             v.centerXAnchor.constraint(equalTo: p.centerXAnchor),
             v.centerYAnchor.constraint(equalTo: p.centerYAnchor)
             ]}
+        
+        self.state = state
     }
     
     @objc private func textDidChange(_ sender: UITextField) {
-        guard let text = sender.text else { return }
+        guard let text = sender.text else { return }
         
         if !text.isEmpty {
             isFilled = true
