@@ -56,23 +56,6 @@ class ApplicationsViewController: BaseViewController {
             
             // handle error
         }
-        
-        
-//        let data = Application(state: .Applied, applicationToTitle: "Microsoft", sentDate: "01.11.2018", jobTitle: "iOS Developer", salary: 28000, zipCode: "1220 Wien", note: nil, imageLink: nil, rejectedDate: nil)
-        
-//        let data = Application()
-//        data.stateEnum = .Applied
-//        data.applicationToTitle = "Microsoft"
-//        data.sentDate = "01.11.2018"
-//        data.jobTitle = ".NET Developer"
-//        data.salary = 28000
-//        data.zipCode = "1220 Wien"
-//
-//        let data2 = Application(state: .Interview, applicationToTitle: "Google", sentDate: "01.11.2018", jobTitle: "Android Developer", salary: 28000, zipCode: "1020 Wien", note: nil, imageLink: nil, rejectedDate: nil)
-        
-//        applications.append(data)
-//        applications.append(data2)
-//        tableView.reloadData()
     }
     
     
@@ -135,9 +118,54 @@ extension ApplicationsViewController: UITableViewDelegate, UITableViewDataSource
         
         let application = applications[indexPath.row]
         cell.model = application
+        cell.delegate = self
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let application = applications[indexPath.row]
+        coordinator?.showExistingApplicationScreen(application: application)
+    }
+}
+
+extension ApplicationsViewController: ApplicationCellDelegate {
+    func didLongPress(_ longPressGestureRecognizer: UILongPressGestureRecognizer, in cell: UITableViewCell) {
+        showAlertForCell(cell)
+    }
+    
+    private func showAlertForCell(_ cell: UITableViewCell) {
+        let alertController = UIAlertController(title: "Warning", message: "You are about to delete an application", preferredStyle: .actionSheet)
         
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (_) in
+            guard let indexPath = self.tableView.indexPath(for: cell) else { return }
+            self.deleteRows(at: indexPath)
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        
+        alertController.addAction(deleteAction)
+        alertController.addAction(cancelAction)
+        
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    private func deleteRows(at indexPath: IndexPath) {
+        
+        do {
+            let realm = try Realm()
+            try realm.write {
+                realm.delete(applications[indexPath.row])
+            }
+            
+            self.tableView.beginUpdates()
+            
+            self.applications.remove(at: indexPath.row)
+            self.tableView.deleteRows(at: [indexPath], with: .automatic)
+            
+            self.tableView.endUpdates()
+            
+        } catch let error as NSError {
+            
+            // handle error
+        }
     }
 }

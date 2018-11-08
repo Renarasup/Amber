@@ -9,7 +9,13 @@
 import UIKit
 import Kingfisher
 
+protocol ApplicationCellDelegate: class {
+    func didLongPress(_ longPressGestureRecognizer: UILongPressGestureRecognizer, in cell: UITableViewCell)
+}
+
 class ApplicationCell: UITableViewCell {
+    
+    weak var delegate: ApplicationCellDelegate?
     
     var model: Application! {
         didSet {
@@ -58,6 +64,9 @@ class ApplicationCell: UITableViewCell {
         logoImageView.backgroundColor = .red
         dateLabel.textAlignment = .right
         verticalLineView.layer.cornerRadius = verticalLineWidth / 2
+        
+        let tapGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(onLongTapped(_:)))
+        addGestureRecognizer(tapGestureRecognizer)
     }
     
     private func setupViewsLayout() {
@@ -109,6 +118,53 @@ class ApplicationCell: UITableViewCell {
             v.trailingAnchor.constraint(equalTo: dateLabel.trailingAnchor),
             v.bottomAnchor.constraint(equalTo: verticalLineView.bottomAnchor, constant: -3)
             ]}
+    }
+    
+    @objc private func onLongTapped(_ sender: UILongPressGestureRecognizer) {
+        if sender.state == .began {
+            delegate?.didLongPress(sender, in: self)
+        }
+    }
+    
+    // Make it appears very responsive to touch
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        animate(isHighlighted: true)
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
+        animate(isHighlighted: false)
+    }
+    
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesCancelled(touches, with: event)
+        animate(isHighlighted: false)
+    }
+    
+    private func animate(isHighlighted: Bool, completion: ((Bool) -> Void)?=nil) {
+//        if disabledHighlightedAnimation {
+//            return
+//        }
+//        let animationOptions: UIViewAnimationOptions = GlobalConstants.isEnabledAllowsUserInteractionWhileHighlightingCard
+        let animationOptions: UIView.AnimationOptions = true ? [.allowUserInteraction] : []
+        if isHighlighted {
+            UIView.animate(withDuration: 0.5,
+                           delay: 0,
+                           usingSpringWithDamping: 1,
+                           initialSpringVelocity: 0,
+                           options: animationOptions, animations: {
+                            self.transform = .init(scaleX: 0.96, y: 0.96)
+            }, completion: completion)
+        } else {
+            UIView.animate(withDuration: 0.5,
+                           delay: 0,
+                           usingSpringWithDamping: 1,
+                           initialSpringVelocity: 0,
+                           options: animationOptions, animations: {
+                            self.transform = .identity
+            }, completion: completion)
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {

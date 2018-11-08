@@ -67,11 +67,11 @@ extension Application.StateType {
         case .Applied:
             return UIColor(rgb: 0xb2bec3)
         case .Accepted:
-            return UIColor(rgb: 0xc0392b)
+            return UIColor(rgb: 0x2ecc71)
         case .Interview:
             return UIColor(rgb: 0xf39c12)
         case .Rejected:
-            return UIColor(rgb: 0x2ecc71)
+            return UIColor(rgb: 0xc0392b)
         }
     }
     

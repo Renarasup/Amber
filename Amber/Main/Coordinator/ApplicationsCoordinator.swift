@@ -29,6 +29,12 @@ class ApplicationsCoordinator: Coordinator {
         navigationController.pushViewController(addApplicationsVC, animated: true)
     }
     
+    func showExistingApplicationScreen(application: Application) {
+        let addApplicationsVC = AddApplicationsViewController(application: application)
+        addApplicationsVC.coordinator = self
+        navigationController.pushViewController(addApplicationsVC, animated: true)
+    }
+    
     func showSettingsScreen() {
         let settingsVC = SettingsViewController()
         settingsVC.coordinator = self

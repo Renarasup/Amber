@@ -21,5 +21,13 @@ class SettingsViewController: BaseViewController {
         super.setupUI()
         
         view.backgroundColor = .white
+        
+        let dropDownBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "drop_down").withRenderingMode(.alwaysTemplate), style: .plain, target: self, action: #selector(onDropDownPressed))
+        dropDownBarItem.tintColor = .darkGray
+        navigationItem.leftBarButtonItem = dropDownBarItem
+    }
+    
+    @objc private func onDropDownPressed() {
+        dismiss(animated: true, completion: nil)
     }
 }

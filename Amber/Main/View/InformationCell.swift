@@ -14,15 +14,45 @@ class InformationCell: UICollectionViewCell {
         didSet {
             textField.placeholder = model.title
             
-            guard let model = model else {
+            guard let model = model else {
                 return
             }
             
             if model == .Salary {
                 textField.keyboardType = .numberPad
             }
+            
+            guard let application = application else { return }
+            
+            switch model {
+            case .ApplicationTo:
+                textField.text = application.applicationToTitle
+
+                guard
+                    let imageLink = application.imageLink,
+                    let imageURL = URL(string: imageLink)
+                    else { return }
+                
+                addLogoImage()
+                logoImageView.kf.setImage(with: imageURL)
+            case .Job:
+                textField.text = application.jobTitle
+            case .Salary:
+                textField.text = "\(application.salary)"
+            case .State:
+                addStateView(application.stateEnum)
+                textField.text = application.stateEnum.title
+            case .Date:
+                textField.text = application.sentDate
+            case .ZipCode:
+                textField.text = application.zipCode
+            default:
+                break
+            }
         }
     }
+    
+    var application: Application?
     
     let textField = UITextField()
     var isFilled = false
@@ -52,6 +82,7 @@ class InformationCell: UICollectionViewCell {
         lineTopView.backgroundColor = UIColor(rgb: 0x3498db)
         
         textField.addTarget(self, action: #selector(textDidChange(_:)), for: .editingChanged)
+        textField.delegate = self
         
         setupViewLayout()
     }
@@ -105,7 +136,7 @@ class InformationCell: UICollectionViewCell {
             ]}
     }
 
-    func addLogoImage(_ image: UIImage) {
+    func addLogoImage(_ image: UIImage?=nil) {
         add(subview: logoImageView) { (v, p) in [
             v.bottomAnchor.constraint(equalTo: separatorLine.topAnchor, constant: -5),
             v.trailingAnchor.constraint(equalTo: separatorLine.trailingAnchor),
@@ -114,7 +145,7 @@ class InformationCell: UICollectionViewCell {
             ]}
         
         logoImageView.contentMode = .scaleAspectFit
-        logoImageView.image = image
+        logoImageView.image = image ?? nil
     }
     
     func addSearchApplication(_ searchApplication: SearchApplication) {
@@ -156,3 +187,10 @@ class InformationCell: UICollectionViewCell {
     }
 }
 
+extension InformationCell: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        endEditing(true)
+        return true
+    }
+}

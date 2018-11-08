@@ -54,7 +54,6 @@ class SearchApplicationToViewController: BaseViewController {
         navigationItem.leftBarButtonItem = dropDownBarItem
     }
     
-    
     // MARK: - On Pressed Handlers
     /***************************************************************/
     

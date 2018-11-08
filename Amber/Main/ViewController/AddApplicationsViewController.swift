@@ -15,6 +15,7 @@ class AddApplicationsViewController: BaseViewController {
     var coordinator: ApplicationsCoordinator?
     private let circleHeight: CGFloat = UIScreen.main.bounds.width * 0.05
     private let allInformation = Application.Information.all
+    private var application: Application?
     
     // UI Views
     private let collectionView: UICollectionView = {
@@ -30,6 +31,30 @@ class AddApplicationsViewController: BaseViewController {
     private let textContainerView = UIView()
     private let removeEditNoteButton = UIButton()
     private let noteTextView = UITextView()
+    
+    convenience init(application: Application) {
+        self.init(nibName: nil, bundle: nil)
+        
+        self.application = application
+
+        // Add Title Label
+        let titleLabel = BaseLabel(text: "Manage Application", font: .regular, textColor: .black, numberOfLines: 1)
+        navigationItem.titleView = titleLabel
+        
+        print(application.imageLink)
+    }
+
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nil, bundle: nil)
+        
+        // Add Title Label
+        let titleLabel = BaseLabel(text: "Add Application", font: .regular, textColor: .black, numberOfLines: 1)
+        navigationItem.titleView = titleLabel
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - Setup Core Components & Delegations
     /***************************************************************/
@@ -66,7 +91,17 @@ class AddApplicationsViewController: BaseViewController {
         textContainerView.layer.borderColor = UIColor(rgb: 0xE5E5E5).cgColor
         textContainerView.layer.borderWidth = 0.2
         textContainerView.layer.cornerRadius = 10
-        textContainerView.alpha = 0
+        
+        if let application = application {
+            if let note = application.note {
+                noteTextView.text = note
+                textContainerView.alpha = 1
+            } else {
+                textContainerView.alpha = 0
+            }
+        } else {
+            textContainerView.alpha = 0
+        }
         
         noteTextView.backgroundColor = .clear
         noteTextView.font = .medium
@@ -144,15 +179,12 @@ class AddApplicationsViewController: BaseViewController {
         
         view.backgroundColor = .white
         
+        // Save Bar Item
         let saveBarItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(onSavePressed))
         navigationItem.rightBarButtonItem = saveBarItem
         
         // Set back title
         navigationController?.navigationBar.topItem?.title = ""
-        
-        // Add Title Label
-        let titleLabel = BaseLabel(text: "Add Application", font: .regular, textColor: .black, numberOfLines: 1)
-        navigationItem.titleView = titleLabel
     }
     
     
@@ -160,61 +192,7 @@ class AddApplicationsViewController: BaseViewController {
     /***************************************************************/
     
     @objc private func onSavePressed() {
-        
-        let application = Application()
-        
-        var boolsArray = [Bool]()
-        for index in allInformation.enumerated() {
-            if let cvCell = collectionView.cellForItem(at: IndexPath(item: index.offset, section: 0)) as? InformationCell {
-                boolsArray.append(cvCell.isFilled)
-                guard let text = cvCell.textField.text else { return }
-
-                switch index.element {
-                case .ApplicationTo:
-                    guard let searchApplication = cvCell.searchApplication else { return }
-                    application.applicationToTitle = text
-                    application.imageLink = searchApplication.logoPath
-                case .Date:
-                    application.sentDate = text
-                case .Salary:
-                    application.salary = Double(text) ?? 0
-                case .Job:
-                    application.jobTitle = text
-                case .State:
-                    guard let state = cvCell.state else { return }
-                    application.state = state.rawValue
-                case .ZipCode:
-                    application.zipCode = text
-                default:
-                    break
-                }
-                
-                print(cvCell.isFilled)
-            }
-        
-        }
-        
-        if !noteTextView.text.isEmpty {
-            application.note = noteTextView.text
-        }
-        
-        if !boolsArray.contains(false) {
-            do {
-                let realm = try Realm()
-                try realm.write {
-                    realm.add(application)
-                }
-                
-                navigationController?.popViewController(animated: true)
-            } catch let error as NSError {
-                
-                // handle error
-            }
-            print(true)
-        } else {
-            // alert that note everything is filled out
-            print(false)
-        }
+        setCRUD()
     }
     
     @objc private func onAddNotesPressed() {
@@ -240,7 +218,99 @@ class AddApplicationsViewController: BaseViewController {
             self.textContainerView.alpha = 0
         }
     }
+    
+    // MARK: - Realm CRUD
+    /***************************************************************/
+    
+    private func setCRUD() {
+        let application = Application()
+        var boolsArray = [Bool]()
+        for index in allInformation.enumerated() {
+            if let cvCell = collectionView.cellForItem(at: IndexPath(item: index.offset, section: 0)) as? InformationCell {
+                boolsArray.append(cvCell.isFilled)
+                guard let text = cvCell.textField.text else { return }
+                
+                switch index.element {
+                case .ApplicationTo:
+                    if let searchApplication = cvCell.searchApplication {
+                        application.applicationToTitle = text
+                        application.imageLink = searchApplication.logoPath
+                    } else {
+                        application.applicationToTitle = text
+                    }
+                case .Date:
+                    application.sentDate = text
+                case .Salary:
+                    application.salary = Double(text) ?? 0
+                case .Job:
+                    application.jobTitle = text
+                case .State:
+                    guard let state = cvCell.state else { return }
+                    application.state = state.rawValue
+                case .ZipCode:
+                    application.zipCode = text
+                default:
+                    break
+                }
+            }
+        }
+        
+        if !noteTextView.text.isEmpty {
+            application.note = noteTextView.text
+        }
 
+        if let savedApplication = self.application {
+            
+            if savedApplication.applicationToTitle == application.applicationToTitle &&
+                savedApplication.jobTitle == application.jobTitle &&
+                savedApplication.salary == application.salary &&
+                savedApplication.state == application.state &&
+                savedApplication.sentDate == application.sentDate &&
+                savedApplication.zipCode == application.zipCode &&
+                savedApplication.note == application.note {
+                navigationController?.popViewController(animated: true)
+            } else {
+                do {
+                    let realm = try Realm()
+                    try realm.write {
+                        savedApplication.applicationToTitle = application.applicationToTitle
+                        savedApplication.jobTitle = application.jobTitle
+                        savedApplication.salary = application.salary
+                        savedApplication.state = application.state
+                        savedApplication.sentDate = application.sentDate
+                        savedApplication.zipCode = application.zipCode
+                        savedApplication.note = application.note
+                        savedApplication.imageLink = application.imageLink
+                    }
+
+                    navigationController?.popViewController(animated: true)
+                } catch let error as NSError {
+                    
+                    // handle error
+                }
+            }
+        } else {
+            print("not in saved")
+
+            if !boolsArray.contains(false) {
+                do {
+                    let realm = try Realm()
+                    try realm.write {
+                        realm.add(application)
+                    }
+                    
+                    navigationController?.popViewController(animated: true)
+                } catch let error as NSError {
+                    
+                    // handle error
+                }
+                print(true)
+            } else {
+                // alert that everything should be filled out
+                print(false)
+            }
+        }
+    }
 }
 
 // MARK: - UICollectionView Delegate & DataSource Extension
@@ -259,6 +329,10 @@ extension AddApplicationsViewController: UICollectionViewDelegateFlowLayout, UIC
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         let information = allInformation[indexPath.row]
         let cell = cell as! InformationCell
+        
+        if let application = application {
+            cell.application = application
+        }
         
         cell.model = information
         
