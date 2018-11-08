@@ -14,7 +14,6 @@ class AddApplicationsViewController: BaseViewController {
     var coordinator: ApplicationsCoordinator?
     private let circleHeight: CGFloat = UIScreen.main.bounds.width * 0.05
     private let allInformation = Application.Information.all
-    private var textViewIsEditing = false
     
     // UI Views
     private let collectionView: UICollectionView = {
@@ -70,7 +69,6 @@ class AddApplicationsViewController: BaseViewController {
         
         noteTextView.backgroundColor = .clear
         noteTextView.font = .medium
-        noteTextView.delegate = self
         
         setupLayoutViews()
     }
@@ -165,15 +163,12 @@ class AddApplicationsViewController: BaseViewController {
     }
     
     @objc private func onAddNotesPressed() {
-        animateTextContainer()
+        coordinator?.showEditNoteScreen(text: noteTextView.text ?? "", addApplicationsVC: self)
     }
     
     @objc private func onRemoveEditNotesPressed() {
-        if textViewIsEditing {
-            view.endEditing(true)
-        } else {
-            deAnimateTextContainer()
-        }
+        noteTextView.text = ""
+        deAnimateTextContainer()
     }
     
     // MARK: - UI Animations
@@ -255,7 +250,9 @@ extension AddApplicationsViewController: UICollectionViewDelegateFlowLayout, UIC
 extension AddApplicationsViewController: SearchApplicationToViewControllerDelegate {
     
     func didSelect(_ cell: UITableViewCell, searchApplication: SearchApplication) {
-        if let cvCell = collectionView.cellForItem(at: IndexPath(item: 0, section: 0)) as? InformationCell {
+        guard let index = allInformation.firstIndex(of: .ApplicationTo) else { return }
+
+        if let cvCell = collectionView.cellForItem(at: IndexPath(item: index, section: 0)) as? InformationCell {
             let tableViewCell = cell as! SearchApplicationCell
 
             cvCell.textField.text = searchApplication.name
@@ -264,25 +261,23 @@ extension AddApplicationsViewController: SearchApplicationToViewControllerDelega
     }
 }
 
-extension AddApplicationsViewController: UITextViewDelegate {
+extension AddApplicationsViewController: EditNoteViewControllerDelegate {
     
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        textViewIsEditing = true
-        removeEditNoteButton.setTitle("Done Editing", for: .normal)
-        removeEditNoteButton.backgroundColor = UIColor(rgb: 0x2ecc71)
-        
-        UIView.animate(withDuration: 0.5) {
-            self.view.frame.origin.y -= 300
+    func didPressDone(_ editNoteViewController: EditNoteViewController, text: String) {
+        if !text.isEmpty {
+            noteTextView.text = text
+            animateTextContainer()
         }
     }
+}
+
+extension AddApplicationsViewController: ChooseStateViewControllerDelegate {
     
-    func textViewDidEndEditing(_ textView: UITextView) {
-        textViewIsEditing = false
-        removeEditNoteButton.setTitle("Remove Notes", for: .normal)
-        removeEditNoteButton.backgroundColor = UIColor(rgb: 0xe74c3c)
+    func didChooseState(_ chooseStateViewController: ChooseStateViewController, state: Application.StateType) {
+        guard let index = allInformation.firstIndex(of: .State) else { return }
         
-        UIView.animate(withDuration: 0.5) {
-            self.view.frame.origin.y += 300
+        if let cvCell = collectionView.cellForItem(at: IndexPath(item: index, section: 0)) as? InformationCell {
+            cvCell.addStateView(state)
         }
     }
 }

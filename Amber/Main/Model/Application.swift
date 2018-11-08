@@ -66,6 +66,8 @@ extension Application.StateType {
     var title: String {
         return "\(self)"
     }
+    
+    static let all: [Application.StateType] = [ .Applied, .Accepted, .Interview, .Rejected ]
 }
 
 // ToDo: Interview Rounds

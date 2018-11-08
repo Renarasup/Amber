@@ -24,6 +24,9 @@ class InformationCell: UICollectionViewCell {
     private let logoImageView = UIImageView()
     private let separatorLine = UIView()
     
+    private let stateContainerView = UIView()
+    private let stateTitleLabel = BaseLabel(font: .regular, textColor: .white, numberOfLines: 1)
+    
     private let circleHeight: CGFloat = UIScreen.main.bounds.width * 0.05
     
     override init(frame: CGRect) {
@@ -99,6 +102,25 @@ class InformationCell: UICollectionViewCell {
         
         logoImageView.contentMode = .scaleAspectFit
         logoImageView.image = image
+    }
+    
+    func addStateView(_ state: Application.StateType) {
+        
+        stateContainerView.layer.cornerRadius = 5
+        stateContainerView.backgroundColor = state.color
+        stateTitleLabel.text = state.title
+        
+        add(subview: stateContainerView) { (v, p) in [
+            v.bottomAnchor.constraint(equalTo: separatorLine.topAnchor, constant: -5),
+            v.leadingAnchor.constraint(equalTo: separatorLine.leadingAnchor),
+            v.widthAnchor.constraint(equalTo: separatorLine.widthAnchor, multiplier: 0.5),
+            v.heightAnchor.constraint(equalTo: p.heightAnchor, multiplier: 0.4)
+            ]}
+        
+        stateContainerView.add(subview: stateTitleLabel) { (v, p) in [
+            v.centerXAnchor.constraint(equalTo: p.centerXAnchor),
+            v.centerYAnchor.constraint(equalTo: p.centerYAnchor)
+            ]}
     }
     
     required init?(coder aDecoder: NSCoder) {
