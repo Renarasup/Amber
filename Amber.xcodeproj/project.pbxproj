@@ -10,7 +10,6 @@
 		1BEC0C18CC8FA6E9B115131F /* Pods_AmberUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A40830FF201DBD817731599 /* Pods_AmberUITests.framework */; };
 		2408377D2189022A00497B08 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2408377C2189022A00497B08 /* AppDelegate.swift */; };
 		2408377F2189022A00497B08 /* ApplicationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2408377E2189022A00497B08 /* ApplicationsViewController.swift */; };
-		240837852189022B00497B08 /* Amber.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 240837832189022B00497B08 /* Amber.xcdatamodeld */; };
 		240837872189022D00497B08 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 240837862189022D00497B08 /* Assets.xcassets */; };
 		2408378A2189022D00497B08 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 240837882189022D00497B08 /* LaunchScreen.storyboard */; };
 		240837952189022D00497B08 /* AmberTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240837942189022D00497B08 /* AmberTests.swift */; };
@@ -68,7 +67,6 @@
 		240837792189022A00497B08 /* Amber.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Amber.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2408377C2189022A00497B08 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2408377E2189022A00497B08 /* ApplicationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationsViewController.swift; sourceTree = "<group>"; };
-		240837842189022B00497B08 /* Amber.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Amber.xcdatamodel; sourceTree = "<group>"; };
 		240837862189022D00497B08 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		240837892189022D00497B08 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2408378B2189022D00497B08 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -177,7 +175,6 @@
 				240837AF2189025A00497B08 /* Main */,
 				240837AD2189024500497B08 /* AppController */,
 				2408378B2189022D00497B08 /* Info.plist */,
-				240837832189022B00497B08 /* Amber.xcdatamodeld */,
 			);
 			path = Amber;
 			sourceTree = "<group>";
@@ -519,12 +516,16 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-Amber/Pods-Amber-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
+				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
+				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -620,7 +621,6 @@
 				240837D0218CDE6E00497B08 /* BaseLabel.swift in Sources */,
 				240837D7218CDF8C00497B08 /* SettingsViewController.swift in Sources */,
 				2408377D2189022A00497B08 /* AppDelegate.swift in Sources */,
-				240837852189022B00497B08 /* Amber.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -949,19 +949,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		240837832189022B00497B08 /* Amber.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				240837842189022B00497B08 /* Amber.xcdatamodel */,
-			);
-			currentVersion = 240837842189022B00497B08 /* Amber.xcdatamodel */;
-			path = Amber.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 240837712189022A00497B08 /* Project object */;
 }

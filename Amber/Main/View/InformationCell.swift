@@ -17,6 +17,7 @@ class InformationCell: UICollectionViewCell {
     }
     
     let textField = UITextField()
+    var isFilled = false
     
     private let circleView = UIView()
     private let lineBottomView = UIView()
@@ -39,6 +40,8 @@ class InformationCell: UICollectionViewCell {
         circleView.backgroundColor = UIColor(rgb: 0x3498db)
         lineBottomView.backgroundColor = UIColor(rgb: 0x3498db)
         lineTopView.backgroundColor = UIColor(rgb: 0x3498db)
+        
+        textField.addTarget(self, action: #selector(textDidChange(_:)), for: .valueChanged)
         
         setupViewLayout()
     }
@@ -123,7 +126,16 @@ class InformationCell: UICollectionViewCell {
             ]}
     }
     
+    @objc private func textDidChange(_ sender: UITextField) {
+        guard let text = sender.text else { return }
+        
+        if !text.isEmpty {
+            isFilled = true
+        }
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }
+

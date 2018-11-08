@@ -160,6 +160,18 @@ class AddApplicationsViewController: BaseViewController {
     
     @objc private func onSavePressed() {
         
+        var boolsArray = [Bool]()
+        for index in allInformation.enumerated() {
+            if let cvCell = collectionView.cellForItem(at: IndexPath(item: index.offset, section: 0)) as? InformationCell {
+                boolsArray.append(cvCell.isFilled)
+            }
+        }
+        
+        if !boolsArray.contains(false) {
+            print(true)
+        } else {
+            print(false)
+        }
     }
     
     @objc private func onAddNotesPressed() {
@@ -257,6 +269,7 @@ extension AddApplicationsViewController: SearchApplicationToViewControllerDelega
 
             cvCell.textField.text = searchApplication.name
             cvCell.addLogoImage(tableViewCell.getLogoImage())
+            cvCell.isFilled = true
         }
     }
 }
@@ -278,6 +291,7 @@ extension AddApplicationsViewController: ChooseStateViewControllerDelegate {
         
         if let cvCell = collectionView.cellForItem(at: IndexPath(item: index, section: 0)) as? InformationCell {
             cvCell.addStateView(state)
+            cvCell.isFilled = true
         }
     }
 }
