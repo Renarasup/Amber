@@ -26,7 +26,7 @@ class ApplicationsViewController: BaseViewController {
             tableView.reloadData()
         }
     }
-    private var filterState: Application.StateType = .Applied
+    private var filterState: Application.StateType = .All
 
     // UI Views
     private let tableView = UITableView()
@@ -46,7 +46,7 @@ class ApplicationsViewController: BaseViewController {
         tableView.separatorStyle = .none
         tableView.tableHeaderView = tableHeader
         tableHeader.delegate = self
-        
+        tableHeader.setState(filterState)
         view.fillToSuperview(tableView)
     }
     
@@ -64,14 +64,20 @@ class ApplicationsViewController: BaseViewController {
             let realm = try Realm()
             self.applications = Array(realm.objects(Application.self))
             
-            let tempApplications = applications.filter { (application) -> Bool in
-                if application.state == filterState.rawValue {
-                    return true
+            if filterState != .All {
+                let tempApplications = applications.filter { (application) -> Bool in
+                    if application.state == filterState.rawValue {
+                        return true
+                    }
+                    return false
                 }
-                return false
+                
+                filterApplications = tempApplications
+            } else {
+                filterApplications = self.applications
             }
             
-            filterApplications = tempApplications
+
         } catch let error as NSError {
             // handle error
             

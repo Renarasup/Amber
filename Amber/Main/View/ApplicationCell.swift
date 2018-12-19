@@ -93,7 +93,7 @@ class ApplicationCell: UITableViewCell {
             ]}
         
         let boxStateView = BoxStateView(state: model.stateEnum)
-        boxStateView.layer.cornerRadius = 2
+        boxStateView.layer.cornerRadius = 10
         
         containerView.add(subview: dateLabel) { (v, p) in [
             v.centerYAnchor.constraint(equalTo: logoImageView.centerYAnchor),

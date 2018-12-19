@@ -12,7 +12,7 @@ import RealmSwift
 class Application: Object {
     
     enum StateType: Int {
-        case Applied = 0, Rejected, Interview, Accepted
+        case Applied = 0, Rejected, Interview, Accepted, All
     }
     
     @objc dynamic var state = StateType.Applied.rawValue
@@ -72,6 +72,8 @@ extension Application.StateType {
             return UIColor(rgb: 0xf39c12)
         case .Rejected:
             return UIColor(rgb: 0xc0392b)
+        case .All:
+            return UIColor(rgb: 0xc3498db)
         }
     }
     

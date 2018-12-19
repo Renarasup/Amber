@@ -15,7 +15,8 @@ protocol ChooseStateViewControllerDelegate: class {
 class ChooseStateViewController: BaseViewController {
     
     weak var delegate: ChooseStateViewControllerDelegate?
-    private let all = Application.StateType.all
+    
+    private var all = Application.StateType.all
     
     private let tableView = UITableView()
     
@@ -50,6 +51,11 @@ class ChooseStateViewController: BaseViewController {
     
     @objc private func onDropDownPressed() {
         dismiss(animated: true, completion: nil)
+    }
+    
+    // For Filter purpose
+    func addAllFilterState() {
+        all.append(Application.StateType.All)
     }
 }
 
