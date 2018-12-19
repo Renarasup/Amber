@@ -26,7 +26,8 @@ class SearchApplicationToViewController: BaseViewController {
 
     private let tableView = UITableView()
     private let searchController = UISearchController(searchResultsController: nil)
-    
+    private let activityIndicator = UIActivityIndicatorView(style: .gray)
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -34,12 +35,15 @@ class SearchApplicationToViewController: BaseViewController {
         navigationItem.searchController = searchController
         searchController.searchBar.delegate = self
         searchController.dimsBackgroundDuringPresentation = false
-
+        searchController.hidesNavigationBarDuringPresentation = false
+        
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(SearchApplicationCell.self)
         tableView.separatorStyle = .none
         tableView.tableFooterView = UIView()
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: activityIndicator)
     
         view.fillToSuperview(tableView)
     }
@@ -93,6 +97,7 @@ class SearchApplicationToViewController: BaseViewController {
             })
             
             self.searchApplications = searchApplications
+            activityIndicator.stopAnimating()
         }
     }
 }
@@ -130,10 +135,12 @@ extension SearchApplicationToViewController: UITableViewDelegate, UITableViewDat
 extension SearchApplicationToViewController: UISearchBarDelegate {
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        activityIndicator.startAnimating()
         if !searchText.isEmpty {
             getAutoCompletionData(applicationTo: searchText)
         } else {
             searchApplications = []
+            activityIndicator.stopAnimating()
         }
     }
     

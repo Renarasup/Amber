@@ -28,11 +28,11 @@ class ApplicationCell: UITableViewCell {
             salaryLabel.text = "Yearly Salary: \(model.salary) €"
             
             setupViewsLayout()
-            
+            print(model.imageLink)
             guard let imageLink = model.imageLink,
                 let imageURL = URL(string: imageLink)
                 else { return }
-            
+            print(imageURL)
             logoImageView.kf.setImage(with: imageURL)
         }
     }

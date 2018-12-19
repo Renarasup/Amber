@@ -140,8 +140,8 @@ class InformationCell: UICollectionViewCell {
         add(subview: logoImageView) { (v, p) in [
             v.bottomAnchor.constraint(equalTo: separatorLine.topAnchor, constant: -5),
             v.trailingAnchor.constraint(equalTo: separatorLine.trailingAnchor),
-            v.widthAnchor.constraint(equalTo: p.heightAnchor, multiplier: 0.28),
-            v.heightAnchor.constraint(equalTo: p.heightAnchor, multiplier: 0.28)
+            v.widthAnchor.constraint(equalTo: p.heightAnchor, multiplier: 0.35),
+            v.heightAnchor.constraint(equalTo: p.heightAnchor, multiplier: 0.35)
             ]}
         
         logoImageView.contentMode = .scaleAspectFit

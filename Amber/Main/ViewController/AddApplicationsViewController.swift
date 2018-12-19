@@ -40,8 +40,6 @@ class AddApplicationsViewController: BaseViewController {
         // Add Title Label
         let titleLabel = BaseLabel(text: "Manage Application", font: .regular, textColor: .black, numberOfLines: 1)
         navigationItem.titleView = titleLabel
-        
-        print(application.imageLink)
     }
 
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -107,6 +105,8 @@ class AddApplicationsViewController: BaseViewController {
         noteTextView.font = .medium
         
         setupLayoutViews()
+        
+        print(application?.imageLink)
     }
     
     private func setupLayoutViews() {
@@ -234,9 +234,15 @@ class AddApplicationsViewController: BaseViewController {
                 case .ApplicationTo:
                     if let searchApplication = cvCell.searchApplication {
                         application.applicationToTitle = text
-                        application.imageLink = searchApplication.logoPath
+                        
+                        if self.application?.imageLink ?? "" != searchApplication.logoPath {
+                            application.imageLink = searchApplication.logoPath
+                        } else {
+                            application.imageLink = self.application?.imageLink
+                        }
                     } else {
                         application.applicationToTitle = text
+                        application.imageLink = self.application?.imageLink
                     }
                 case .Date:
                     application.sentDate = text
@@ -260,34 +266,65 @@ class AddApplicationsViewController: BaseViewController {
         }
 
         if let savedApplication = self.application {
+//            print(savedApplication.applicationToTitle, application.applicationToTitle)
+//            print(savedApplication.jobTitle, application.jobTitle)
+//            print(savedApplication.salary, application.salary)
+//            print(savedApplication.state, application.state)
+//            print(savedApplication.sentDate, application.sentDate)
+//            print(savedApplication.zipCode, application.zipCode)
+//            print(savedApplication.note == application.note)
+            print(savedApplication.imageLink == application.imageLink)
             
-            if savedApplication.applicationToTitle == application.applicationToTitle &&
-                savedApplication.jobTitle == application.jobTitle &&
-                savedApplication.salary == application.salary &&
-                savedApplication.state == application.state &&
-                savedApplication.sentDate == application.sentDate &&
-                savedApplication.zipCode == application.zipCode &&
-                savedApplication.note == application.note {
-                navigationController?.popViewController(animated: true)
-            } else {
-                do {
-                    let realm = try Realm()
-                    try realm.write {
-                        savedApplication.applicationToTitle = application.applicationToTitle
-                        savedApplication.jobTitle = application.jobTitle
-                        savedApplication.salary = application.salary
-                        savedApplication.state = application.state
-                        savedApplication.sentDate = application.sentDate
-                        savedApplication.zipCode = application.zipCode
-                        savedApplication.note = application.note
-                        savedApplication.imageLink = application.imageLink
-                    }
-
-                    navigationController?.popViewController(animated: true)
-                } catch let error as NSError {
-                    
-                    // handle error
+//            if savedApplication.applicationToTitle == application.applicationToTitle &&
+//                savedApplication.jobTitle == application.jobTitle &&
+//                savedApplication.salary == application.salary &&
+//                savedApplication.state == application.state &&
+//                savedApplication.sentDate == application.sentDate &&
+//                savedApplication.zipCode == application.zipCode &&
+//                savedApplication.note == application.note &&
+//                savedApplication.imageLink == application.imageLink {
+//
+//                print("in here already exists")
+//                navigationController?.popViewController(animated: true)
+//            } else {
+//                do {
+//                    let realm = try Realm()
+//                    try realm.write {
+//                        savedApplication.applicationToTitle = application.applicationToTitle
+//                        savedApplication.jobTitle = application.jobTitle
+//                        savedApplication.salary = application.salary
+//                        savedApplication.state = application.state
+//                        savedApplication.sentDate = application.sentDate
+//                        savedApplication.zipCode = application.zipCode
+//                        savedApplication.note = application.note
+//                        savedApplication.imageLink = application.imageLink
+//                    }
+//                    print("doesn't exist or is overwritten")
+//
+//                    navigationController?.popViewController(animated: true)
+//                } catch let error as NSError {
+//
+//                    // handle error
+//                }
+            let imageLink = application.imageLink ?? ""
+            do {
+                let realm = try Realm()
+                try realm.write {
+                    savedApplication.applicationToTitle = application.applicationToTitle
+                    savedApplication.jobTitle = application.jobTitle
+                    savedApplication.salary = application.salary
+                    savedApplication.state = application.state
+                    savedApplication.sentDate = application.sentDate
+                    savedApplication.zipCode = application.zipCode
+                    savedApplication.note = application.note
+                    savedApplication.imageLink = imageLink
                 }
+                
+                navigationController?.popViewController(animated: true)
+            } catch let error as NSError {
+                
+                // handle error
+            
             }
         } else {
             print("not in saved")
