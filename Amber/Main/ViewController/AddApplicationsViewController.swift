@@ -266,46 +266,6 @@ class AddApplicationsViewController: BaseViewController {
         }
 
         if let savedApplication = self.application {
-//            print(savedApplication.applicationToTitle, application.applicationToTitle)
-//            print(savedApplication.jobTitle, application.jobTitle)
-//            print(savedApplication.salary, application.salary)
-//            print(savedApplication.state, application.state)
-//            print(savedApplication.sentDate, application.sentDate)
-//            print(savedApplication.zipCode, application.zipCode)
-//            print(savedApplication.note == application.note)
-            print(savedApplication.imageLink == application.imageLink)
-            
-//            if savedApplication.applicationToTitle == application.applicationToTitle &&
-//                savedApplication.jobTitle == application.jobTitle &&
-//                savedApplication.salary == application.salary &&
-//                savedApplication.state == application.state &&
-//                savedApplication.sentDate == application.sentDate &&
-//                savedApplication.zipCode == application.zipCode &&
-//                savedApplication.note == application.note &&
-//                savedApplication.imageLink == application.imageLink {
-//
-//                print("in here already exists")
-//                navigationController?.popViewController(animated: true)
-//            } else {
-//                do {
-//                    let realm = try Realm()
-//                    try realm.write {
-//                        savedApplication.applicationToTitle = application.applicationToTitle
-//                        savedApplication.jobTitle = application.jobTitle
-//                        savedApplication.salary = application.salary
-//                        savedApplication.state = application.state
-//                        savedApplication.sentDate = application.sentDate
-//                        savedApplication.zipCode = application.zipCode
-//                        savedApplication.note = application.note
-//                        savedApplication.imageLink = application.imageLink
-//                    }
-//                    print("doesn't exist or is overwritten")
-//
-//                    navigationController?.popViewController(animated: true)
-//                } catch let error as NSError {
-//
-//                    // handle error
-//                }
             let imageLink = application.imageLink ?? ""
             do {
                 let realm = try Realm()
@@ -327,8 +287,8 @@ class AddApplicationsViewController: BaseViewController {
             
             }
         } else {
-            print("not in saved")
 
+            // It's a new application
             if !boolsArray.contains(false) {
                 do {
                     let realm = try Realm()

@@ -13,15 +13,24 @@ class ApplicationsViewController: BaseViewController {
     
     // Instance Variables
     var coordinator: ApplicationsCoordinator?
-    
+
     private var applications: [Application] = [] {
         didSet {
             tableView.reloadData()
         }
     }
     
+    // Filter
+    private var filterApplications: [Application] = [] {
+        didSet {
+            tableView.reloadData()
+        }
+    }
+    private var filterState: Application.StateType = .Applied
+
     // UI Views
     private let tableView = UITableView()
+    private lazy var tableHeader = ApplicationHeader(frame: CGRect(x: 0, y: 0, width: 0, height: view.frame.height * 0.085))
 
     
     // MARK: - Setup Core Components & Delegations
@@ -35,6 +44,8 @@ class ApplicationsViewController: BaseViewController {
         tableView.register(ApplicationCell.self)
         tableView.tableFooterView = UIView()
         tableView.separatorStyle = .none
+        tableView.tableHeaderView = tableHeader
+        tableHeader.delegate = self
         
         view.fillToSuperview(tableView)
     }
@@ -52,9 +63,18 @@ class ApplicationsViewController: BaseViewController {
         do {
             let realm = try Realm()
             self.applications = Array(realm.objects(Application.self))
-        } catch let error as NSError {
             
+            let tempApplications = applications.filter { (application) -> Bool in
+                if application.state == filterState.rawValue {
+                    return true
+                }
+                return false
+            }
+            
+            filterApplications = tempApplications
+        } catch let error as NSError {
             // handle error
+            
         }
     }
     
@@ -101,11 +121,11 @@ class ApplicationsViewController: BaseViewController {
 extension ApplicationsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return applications.count
+        return filterApplications.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return tableView.frame.size.height * 0.2
+        return tableView.frame.size.height * 0.22
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -116,13 +136,13 @@ extension ApplicationsViewController: UITableViewDelegate, UITableViewDataSource
         
         let cell = cell as! ApplicationCell
         
-        let application = applications[indexPath.row]
+        let application = filterApplications[indexPath.row]
         cell.model = application
         cell.delegate = self
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let application = applications[indexPath.row]
+        let application = filterApplications[indexPath.row]
         coordinator?.showExistingApplicationScreen(application: application)
     }
 }
@@ -167,5 +187,18 @@ extension ApplicationsViewController: ApplicationCellDelegate {
             
             // handle error
         }
+    }
+}
+
+extension ApplicationsViewController: ApplicationHeaderDelegate {
+    func didClick(_ header: ApplicationHeader) {
+        coordinator?.showChooseStateScreen(applicationVC: self)
+    }
+}
+
+extension ApplicationsViewController: ChooseStateViewControllerDelegate {
+    func didChooseState(_ chooseStateViewController: ChooseStateViewController, state: Application.StateType) {
+        tableHeader.setState(state)
+        filterState = state
     }
 }

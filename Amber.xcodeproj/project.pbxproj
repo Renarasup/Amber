@@ -42,6 +42,7 @@
 		240837F5218F094200497B08 /* ChooseStateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240837F4218F094200497B08 /* ChooseStateViewController.swift */; };
 		240837F72194402000497B08 /* EditNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240837F62194402000497B08 /* EditNoteViewController.swift */; };
 		240837F9219447C400497B08 /* ChooseStateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240837F8219447C400497B08 /* ChooseStateCell.swift */; };
+		241F5A3621CAF6C4009C09A5 /* ApplicationHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241F5A3521CAF6C4009C09A5 /* ApplicationHeader.swift */; };
 		24FA054E21949DC2006F7DB8 /* RealmHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24FA054D21949DC2006F7DB8 /* RealmHelper.swift */; };
 		6E1FD9923C00B10962366D4B /* Pods_Amber.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 545B75DD84C148DF8D50C60C /* Pods_Amber.framework */; };
 		B8331DF18008D0C95A16356C /* Pods_AmberTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6173FC4F707114239D8F3589 /* Pods_AmberTests.framework */; };
@@ -105,6 +106,7 @@
 		240837F4218F094200497B08 /* ChooseStateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseStateViewController.swift; sourceTree = "<group>"; };
 		240837F62194402000497B08 /* EditNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNoteViewController.swift; sourceTree = "<group>"; };
 		240837F8219447C400497B08 /* ChooseStateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseStateCell.swift; sourceTree = "<group>"; };
+		241F5A3521CAF6C4009C09A5 /* ApplicationHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationHeader.swift; sourceTree = "<group>"; };
 		24FA054D21949DC2006F7DB8 /* RealmHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmHelper.swift; sourceTree = "<group>"; };
 		4B01AD565677843C48FC1484 /* Pods-Amber.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Amber.release.xcconfig"; path = "Pods/Target Support Files/Pods-Amber/Pods-Amber.release.xcconfig"; sourceTree = "<group>"; };
 		545B75DD84C148DF8D50C60C /* Pods_Amber.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Amber.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -251,6 +253,7 @@
 			isa = PBXGroup;
 			children = (
 				240837E2218CE67B00497B08 /* ApplicationCell.swift */,
+				241F5A3521CAF6C4009C09A5 /* ApplicationHeader.swift */,
 				240837E4218CEC3200497B08 /* BoxStateView.swift */,
 				240837E8218D946200497B08 /* InformationCell.swift */,
 				240837F2218DBE5D00497B08 /* SearchApplicationCell.swift */,
@@ -610,6 +613,7 @@
 				240837C5218CDA6900497B08 /* AddApplicationsViewController.swift in Sources */,
 				240837F5218F094200497B08 /* ChooseStateViewController.swift in Sources */,
 				240837F72194402000497B08 /* EditNoteViewController.swift in Sources */,
+				241F5A3621CAF6C4009C09A5 /* ApplicationHeader.swift in Sources */,
 				240837B6218902AB00497B08 /* MainController.swift in Sources */,
 				240837BD218903F400497B08 /* ApplicationsCoordinator.swift in Sources */,
 				2408377F2189022A00497B08 /* ApplicationsViewController.swift in Sources */,

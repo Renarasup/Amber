@@ -53,6 +53,12 @@ class ApplicationsCoordinator: Coordinator {
         navigationController.present(UINavigationController(rootViewController: chooseStateVC), animated: true)
     }
     
+    func showChooseStateScreen(applicationVC: ApplicationsViewController) {
+        let chooseStateVC = ChooseStateViewController()
+        chooseStateVC.delegate = applicationVC
+        navigationController.present(UINavigationController(rootViewController: chooseStateVC), animated: true)
+    }
+
     func showEditNoteScreen(text: String, addApplicationsVC: AddApplicationsViewController) {
         let editNoteVC = EditNoteViewController(text: text)
         editNoteVC.delegate = addApplicationsVC

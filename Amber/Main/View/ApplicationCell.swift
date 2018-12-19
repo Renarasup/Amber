@@ -27,13 +27,18 @@ class ApplicationCell: UITableViewCell {
             jobTitleLabel.text = "Job Title: \(model.jobTitle)"
             salaryLabel.text = "Yearly Salary: \(model.salary) €"
             
+            // Add it here because of BoxStateView
             setupViewsLayout()
-            print(model.imageLink)
+
             guard let imageLink = model.imageLink,
                 let imageURL = URL(string: imageLink)
                 else { return }
-            print(imageURL)
+
             logoImageView.kf.setImage(with: imageURL)
+
+            layoutSubviews()
+            logoImageView.layer.cornerRadius = (containerView.frame.height * 0.3) / 2
+            logoImageView.clipsToBounds = true
         }
     }
     
@@ -59,10 +64,13 @@ class ApplicationCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        // Other UI Styling
+        // UI Styling
         selectionStyle = .none
-        logoImageView.backgroundColor = .red
         dateLabel.textAlignment = .right
+        containerView.backgroundColor = UIColor(red:0.95, green:0.95, blue:0.96, alpha:1.0).withAlphaComponent(0.65)
+        containerView.layer.cornerRadius = 10
+        containerView.layer.borderWidth = 1.5
+        containerView.layer.borderColor = UIColor(red:0.95, green:0.95, blue:0.96, alpha:1.0).cgColor
         verticalLineView.layer.cornerRadius = verticalLineWidth / 2
         
         let tapGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(onLongTapped(_:)))
@@ -78,25 +86,25 @@ class ApplicationCell: UITableViewCell {
             ]}
         
         containerView.add(subview: logoImageView) { (v, p) in [
-            v.topAnchor.constraint(equalTo: p.topAnchor),
-            v.leadingAnchor.constraint(equalTo: p.leadingAnchor),
-            v.heightAnchor.constraint(equalTo: p.heightAnchor, multiplier: 0.23),
-            v.widthAnchor.constraint(equalTo: p.heightAnchor, multiplier: 0.23)
+            v.topAnchor.constraint(equalTo: p.topAnchor, constant: 10),
+            v.leadingAnchor.constraint(equalTo: p.leadingAnchor, constant: 10),
+            v.heightAnchor.constraint(equalTo: p.heightAnchor, multiplier: 0.3),
+            v.widthAnchor.constraint(equalTo: p.heightAnchor, multiplier: 0.3)
             ]}
         
         let boxStateView = BoxStateView(state: model.stateEnum)
         boxStateView.layer.cornerRadius = 2
         
+        containerView.add(subview: dateLabel) { (v, p) in [
+            v.centerYAnchor.constraint(equalTo: logoImageView.centerYAnchor),
+            v.trailingAnchor.constraint(equalTo: p.trailingAnchor, constant: -10)
+            ]}
+        
         containerView.add(subview: boxStateView) { (v, p) in [
-            v.centerXAnchor.constraint(equalTo: p.centerXAnchor),
+            v.trailingAnchor.constraint(equalTo: dateLabel.leadingAnchor, constant: -5),
             v.centerYAnchor.constraint(equalTo: logoImageView.centerYAnchor),
             v.heightAnchor.constraint(equalTo: p.heightAnchor, multiplier: 0.15),
             v.widthAnchor.constraint(equalTo: p.widthAnchor, multiplier: 0.23)
-            ]}
-        
-        containerView.add(subview: dateLabel) { (v, p) in [
-            v.centerYAnchor.constraint(equalTo: logoImageView.centerYAnchor),
-            v.leadingAnchor.constraint(equalTo: boxStateView.trailingAnchor, constant: 5)
             ]}
         
         containerView.add(subview: applicationToLabel) { (v, p) in [
@@ -119,14 +127,14 @@ class ApplicationCell: UITableViewCell {
             v.bottomAnchor.constraint(equalTo: verticalLineView.bottomAnchor, constant: -3)
             ]}
     }
-    
+
     @objc private func onLongTapped(_ sender: UILongPressGestureRecognizer) {
         if sender.state == .began {
             delegate?.didLongPress(sender, in: self)
         }
     }
     
-    // Make it appears very responsive to touch
+    // Make it appear to be very responsive to touch
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         animate(isHighlighted: true)
