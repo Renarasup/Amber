@@ -105,8 +105,6 @@ class AddApplicationsViewController: BaseViewController {
         noteTextView.font = .medium
         
         setupLayoutViews()
-        
-        print(application?.imageLink)
     }
     
     private func setupLayoutViews() {

@@ -43,6 +43,10 @@
 		240837F72194402000497B08 /* EditNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240837F62194402000497B08 /* EditNoteViewController.swift */; };
 		240837F9219447C400497B08 /* ChooseStateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240837F8219447C400497B08 /* ChooseStateCell.swift */; };
 		241F5A3621CAF6C4009C09A5 /* ApplicationHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241F5A3521CAF6C4009C09A5 /* ApplicationHeader.swift */; };
+		2498D39721CBFE9D0041F261 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2498D39621CBFDAA0041F261 /* Roboto-Bold.ttf */; };
+		2498D39921CC141C0041F261 /* UIColor+CustomColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2498D39821CC141C0041F261 /* UIColor+CustomColors.swift */; };
+		2498D39C21CC15590041F261 /* GlobalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2498D39B21CC15590041F261 /* GlobalConstants.swift */; };
+		2498D39E21CC1AD50041F261 /* HeaderBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2498D39D21CC1AD50041F261 /* HeaderBoxView.swift */; };
 		24FA054E21949DC2006F7DB8 /* RealmHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24FA054D21949DC2006F7DB8 /* RealmHelper.swift */; };
 		6E1FD9923C00B10962366D4B /* Pods_Amber.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 545B75DD84C148DF8D50C60C /* Pods_Amber.framework */; };
 		B8331DF18008D0C95A16356C /* Pods_AmberTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6173FC4F707114239D8F3589 /* Pods_AmberTests.framework */; };
@@ -107,6 +111,10 @@
 		240837F62194402000497B08 /* EditNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditNoteViewController.swift; sourceTree = "<group>"; };
 		240837F8219447C400497B08 /* ChooseStateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseStateCell.swift; sourceTree = "<group>"; };
 		241F5A3521CAF6C4009C09A5 /* ApplicationHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationHeader.swift; sourceTree = "<group>"; };
+		2498D39621CBFDAA0041F261 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
+		2498D39821CC141C0041F261 /* UIColor+CustomColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+CustomColors.swift"; sourceTree = "<group>"; };
+		2498D39B21CC15590041F261 /* GlobalConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalConstants.swift; sourceTree = "<group>"; };
+		2498D39D21CC1AD50041F261 /* HeaderBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderBoxView.swift; sourceTree = "<group>"; };
 		24FA054D21949DC2006F7DB8 /* RealmHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmHelper.swift; sourceTree = "<group>"; };
 		4B01AD565677843C48FC1484 /* Pods-Amber.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Amber.release.xcconfig"; path = "Pods/Target Support Files/Pods-Amber/Pods-Amber.release.xcconfig"; sourceTree = "<group>"; };
 		545B75DD84C148DF8D50C60C /* Pods_Amber.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Amber.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -252,8 +260,8 @@
 		240837B22189027000497B08 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				2498D39A21CC14990041F261 /* Header */,
 				240837E2218CE67B00497B08 /* ApplicationCell.swift */,
-				241F5A3521CAF6C4009C09A5 /* ApplicationHeader.swift */,
 				240837E4218CEC3200497B08 /* BoxStateView.swift */,
 				240837E8218D946200497B08 /* InformationCell.swift */,
 				240837F2218DBE5D00497B08 /* SearchApplicationCell.swift */,
@@ -286,6 +294,7 @@
 		240837B9218903A200497B08 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				2498D39B21CC15590041F261 /* GlobalConstants.swift */,
 				240837DC218CE1D800497B08 /* ReusableViewProtocol.swift */,
 				24FA054C21949D77006F7DB8 /* Realm */,
 				240837C32189063E00497B08 /* Colors */,
@@ -327,6 +336,7 @@
 		240837C32189063E00497B08 /* Colors */ = {
 			isa = PBXGroup;
 			children = (
+				2498D39821CC141C0041F261 /* UIColor+CustomColors.swift */,
 			);
 			path = Colors;
 			sourceTree = "<group>";
@@ -334,6 +344,7 @@
 		240837C6218CDC6B00497B08 /* Roboto */ = {
 			isa = PBXGroup;
 			children = (
+				2498D39621CBFDAA0041F261 /* Roboto-Bold.ttf */,
 				240837C7218CDC7600497B08 /* Roboto-Light.ttf */,
 				240837C8218CDC7600497B08 /* Roboto-Medium.ttf */,
 				240837C9218CDC7700497B08 /* Roboto-Regular.ttf */,
@@ -355,6 +366,15 @@
 				240837D4218CDEB400497B08 /* BaseConfig.swift */,
 			);
 			path = Config;
+			sourceTree = "<group>";
+		};
+		2498D39A21CC14990041F261 /* Header */ = {
+			isa = PBXGroup;
+			children = (
+				241F5A3521CAF6C4009C09A5 /* ApplicationHeader.swift */,
+				2498D39D21CC1AD50041F261 /* HeaderBoxView.swift */,
+			);
+			path = Header;
 			sourceTree = "<group>";
 		};
 		24FA054C21949D77006F7DB8 /* Realm */ = {
@@ -498,6 +518,7 @@
 			files = (
 				240837CB218CDC7700497B08 /* Roboto-Medium.ttf in Resources */,
 				2408378A2189022D00497B08 /* LaunchScreen.storyboard in Resources */,
+				2498D39721CBFE9D0041F261 /* Roboto-Bold.ttf in Resources */,
 				240837CC218CDC7700497B08 /* Roboto-Regular.ttf in Resources */,
 				240837872189022D00497B08 /* Assets.xcassets in Resources */,
 				240837CA218CDC7700497B08 /* Roboto-Light.ttf in Resources */,
@@ -620,10 +641,13 @@
 				240837D5218CDEB400497B08 /* BaseConfig.swift in Sources */,
 				240837BB218903B800497B08 /* Coordinator.swift in Sources */,
 				240837F1218DB7FC00497B08 /* SearchApplication.swift in Sources */,
+				2498D39E21CC1AD50041F261 /* HeaderBoxView.swift in Sources */,
+				2498D39C21CC15590041F261 /* GlobalConstants.swift in Sources */,
 				240837E9218D946200497B08 /* InformationCell.swift in Sources */,
 				240837E3218CE67B00497B08 /* ApplicationCell.swift in Sources */,
 				240837B8218902DE00497B08 /* AppCoordinator.swift in Sources */,
 				240837F9219447C400497B08 /* ChooseStateCell.swift in Sources */,
+				2498D39921CC141C0041F261 /* UIColor+CustomColors.swift in Sources */,
 				240837CE218CDDD600497B08 /* UIFont+CustomFonts.swift in Sources */,
 				240837F3218DBE5D00497B08 /* SearchApplicationCell.swift in Sources */,
 				240837D9218CDFD500497B08 /* Application.swift in Sources */,

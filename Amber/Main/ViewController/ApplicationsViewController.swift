@@ -30,7 +30,7 @@ class ApplicationsViewController: BaseViewController {
 
     // UI Views
     private let tableView = UITableView()
-    private lazy var tableHeader = ApplicationHeader(frame: CGRect(x: 0, y: 0, width: 0, height: view.frame.height * 0.085))
+    private lazy var tableHeader = ApplicationHeader(frame: CGRect(x: 0, y: 0, width: 0, height: view.frame.height * 0.30))
 
     
     // MARK: - Setup Core Components & Delegations

@@ -9,6 +9,9 @@
 import UIKit
 
 extension UIFont {
+    public class var bold: UIFont {
+        return UIFont(name: "Roboto-Bold", size: 17.0)! // ?? UIFont.systemFont(ofSize: 15.0, weight: UIFontWeightBlack)
+    }
     public class var regular: UIFont {
         return UIFont(name: "Roboto-Regular", size: 17.0)! // ?? UIFont.systemFont(ofSize: 15.0, weight: UIFontWeightBlack)
     }

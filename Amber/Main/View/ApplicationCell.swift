@@ -68,7 +68,7 @@ class ApplicationCell: UITableViewCell {
         selectionStyle = .none
         dateLabel.textAlignment = .right
         containerView.backgroundColor = UIColor(red:0.95, green:0.95, blue:0.96, alpha:1.0).withAlphaComponent(0.65)
-        containerView.layer.cornerRadius = 10
+        containerView.layer.cornerRadius = 5
         containerView.layer.borderWidth = 1.5
         containerView.layer.borderColor = UIColor(red:0.95, green:0.95, blue:0.96, alpha:1.0).cgColor
         verticalLineView.layer.cornerRadius = verticalLineWidth / 2
@@ -93,7 +93,7 @@ class ApplicationCell: UITableViewCell {
             ]}
         
         let boxStateView = BoxStateView(state: model.stateEnum)
-        boxStateView.layer.cornerRadius = 10
+        boxStateView.layer.cornerRadius = 3
         
         containerView.add(subview: dateLabel) { (v, p) in [
             v.centerYAnchor.constraint(equalTo: logoImageView.centerYAnchor),
