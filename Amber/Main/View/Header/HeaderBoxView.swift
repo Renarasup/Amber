@@ -19,6 +19,7 @@ class HeaderBoxView: UIView {
     
     // Don't let the name confuse you, it just looks like one
     private let progressBar = UIView()
+    private let progressFillView = UIView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -32,6 +33,9 @@ class HeaderBoxView: UIView {
         layer.shadowOpacity = 1
         layer.shadowRadius = 4.0
         layer.shadowColor = UIColor.init(rgb: 0x9C9C9C).cgColor
+        
+        topContainerView.layer.cornerRadius = Constants.smallCornerRadius
+        topContainerView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
         
         imageView.tintColor = .white
 
@@ -78,15 +82,18 @@ class HeaderBoxView: UIView {
     }
     
     func addProgressBar(percentage: CGFloat) {
-        layoutIfNeeded()
-        print(intrinsicContentSize.width)
-        print(bottomContainerView.intrinsicContentSize.width)
-        
         bottomContainerView.add(subview: progressBar) { (v, p) in [
             v.bottomAnchor.constraint(equalTo: p.bottomAnchor),
             v.leadingAnchor.constraint(equalTo: p.leadingAnchor, constant: Constants.padding - 5),
             v.heightAnchor.constraint(equalToConstant: 2),
-            v.widthAnchor.constraint(equalToConstant: (frame.width * percentage) - 5)
+            v.trailingAnchor.constraint(equalTo: p.trailingAnchor, constant: -Constants.padding + 5)
+            ]}
+        
+        progressBar.add(subview: progressFillView) { (v, p) in [
+            v.bottomAnchor.constraint(equalTo: p.bottomAnchor),
+            v.leadingAnchor.constraint(equalTo: p.leadingAnchor),
+            v.topAnchor.constraint(equalTo: p.topAnchor),
+            v.widthAnchor.constraint(equalTo: p.widthAnchor, multiplier: percentage)
             ]}
     }
     
@@ -96,7 +103,7 @@ class HeaderBoxView: UIView {
 
     func setValues(color: UIColor, image: UIImage, text: String, subText: String) {
         topContainerView.backgroundColor = color
-        progressBar.backgroundColor = color
+        progressFillView.backgroundColor = color
         imageView.image = image.withRenderingMode(.alwaysTemplate)
         titleLabel.text = text
         subTitleLabel.text = subText

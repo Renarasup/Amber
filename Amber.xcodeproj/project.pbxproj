@@ -32,7 +32,6 @@
 		240837DD218CE1D800497B08 /* ReusableViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240837DC218CE1D800497B08 /* ReusableViewProtocol.swift */; };
 		240837DF218CE22000497B08 /* UIView+AutoLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240837DE218CE22000497B08 /* UIView+AutoLayout.swift */; };
 		240837E1218CE5AD00497B08 /* UIColor+HexValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240837E0218CE5AD00497B08 /* UIColor+HexValues.swift */; };
-		240837E3218CE67B00497B08 /* ApplicationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240837E2218CE67B00497B08 /* ApplicationCell.swift */; };
 		240837E5218CEC3200497B08 /* BoxStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240837E4218CEC3200497B08 /* BoxStateView.swift */; };
 		240837E9218D946200497B08 /* InformationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240837E8218D946200497B08 /* InformationCell.swift */; };
 		240837EB218D97A700497B08 /* UICollectionView+ReuseableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240837EA218D97A700497B08 /* UICollectionView+ReuseableView.swift */; };
@@ -47,6 +46,7 @@
 		2498D39921CC141C0041F261 /* UIColor+CustomColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2498D39821CC141C0041F261 /* UIColor+CustomColors.swift */; };
 		2498D39C21CC15590041F261 /* GlobalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2498D39B21CC15590041F261 /* GlobalConstants.swift */; };
 		2498D39E21CC1AD50041F261 /* HeaderBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2498D39D21CC1AD50041F261 /* HeaderBoxView.swift */; };
+		2498D3A021CC29C40041F261 /* ApplicationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2498D39F21CC29C40041F261 /* ApplicationCell.swift */; };
 		24FA054E21949DC2006F7DB8 /* RealmHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24FA054D21949DC2006F7DB8 /* RealmHelper.swift */; };
 		6E1FD9923C00B10962366D4B /* Pods_Amber.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 545B75DD84C148DF8D50C60C /* Pods_Amber.framework */; };
 		B8331DF18008D0C95A16356C /* Pods_AmberTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6173FC4F707114239D8F3589 /* Pods_AmberTests.framework */; };
@@ -100,7 +100,6 @@
 		240837DC218CE1D800497B08 /* ReusableViewProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReusableViewProtocol.swift; sourceTree = "<group>"; };
 		240837DE218CE22000497B08 /* UIView+AutoLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+AutoLayout.swift"; sourceTree = "<group>"; };
 		240837E0218CE5AD00497B08 /* UIColor+HexValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+HexValues.swift"; sourceTree = "<group>"; };
-		240837E2218CE67B00497B08 /* ApplicationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationCell.swift; sourceTree = "<group>"; };
 		240837E4218CEC3200497B08 /* BoxStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxStateView.swift; sourceTree = "<group>"; };
 		240837E8218D946200497B08 /* InformationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationCell.swift; sourceTree = "<group>"; };
 		240837EA218D97A700497B08 /* UICollectionView+ReuseableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionView+ReuseableView.swift"; sourceTree = "<group>"; };
@@ -115,6 +114,7 @@
 		2498D39821CC141C0041F261 /* UIColor+CustomColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+CustomColors.swift"; sourceTree = "<group>"; };
 		2498D39B21CC15590041F261 /* GlobalConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalConstants.swift; sourceTree = "<group>"; };
 		2498D39D21CC1AD50041F261 /* HeaderBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderBoxView.swift; sourceTree = "<group>"; };
+		2498D39F21CC29C40041F261 /* ApplicationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationCell.swift; sourceTree = "<group>"; };
 		24FA054D21949DC2006F7DB8 /* RealmHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmHelper.swift; sourceTree = "<group>"; };
 		4B01AD565677843C48FC1484 /* Pods-Amber.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Amber.release.xcconfig"; path = "Pods/Target Support Files/Pods-Amber/Pods-Amber.release.xcconfig"; sourceTree = "<group>"; };
 		545B75DD84C148DF8D50C60C /* Pods_Amber.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Amber.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -261,11 +261,11 @@
 			isa = PBXGroup;
 			children = (
 				2498D39A21CC14990041F261 /* Header */,
-				240837E2218CE67B00497B08 /* ApplicationCell.swift */,
 				240837E4218CEC3200497B08 /* BoxStateView.swift */,
 				240837E8218D946200497B08 /* InformationCell.swift */,
 				240837F2218DBE5D00497B08 /* SearchApplicationCell.swift */,
 				240837F8219447C400497B08 /* ChooseStateCell.swift */,
+				2498D39F21CC29C40041F261 /* ApplicationCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -633,6 +633,7 @@
 				240837DF218CE22000497B08 /* UIView+AutoLayout.swift in Sources */,
 				240837C5218CDA6900497B08 /* AddApplicationsViewController.swift in Sources */,
 				240837F5218F094200497B08 /* ChooseStateViewController.swift in Sources */,
+				2498D3A021CC29C40041F261 /* ApplicationCell.swift in Sources */,
 				240837F72194402000497B08 /* EditNoteViewController.swift in Sources */,
 				241F5A3621CAF6C4009C09A5 /* ApplicationHeader.swift in Sources */,
 				240837B6218902AB00497B08 /* MainController.swift in Sources */,
@@ -644,7 +645,6 @@
 				2498D39E21CC1AD50041F261 /* HeaderBoxView.swift in Sources */,
 				2498D39C21CC15590041F261 /* GlobalConstants.swift in Sources */,
 				240837E9218D946200497B08 /* InformationCell.swift in Sources */,
-				240837E3218CE67B00497B08 /* ApplicationCell.swift in Sources */,
 				240837B8218902DE00497B08 /* AppCoordinator.swift in Sources */,
 				240837F9219447C400497B08 /* ChooseStateCell.swift in Sources */,
 				2498D39921CC141C0041F261 /* UIColor+CustomColors.swift in Sources */,

@@ -26,6 +26,8 @@ class ApplicationHeader: UIView {
     private let leftContainerView = UIView()
     private let rightContainerView = UIView()
     
+    private let separatorLine = UIView()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -42,6 +44,8 @@ class ApplicationHeader: UIView {
         cheatSheetContainerView.layer.cornerRadius = Constants.bigCornerRadius
         cheatSheetContainerView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(onFilterTap)))
         cheatSheetContainerView.setValues(color: UIColor.CheatSheetBox, image: #imageLiteral(resourceName: "sheets"), text: "Cheat Sheet", subText: "None available")
+        
+        separatorLine.backgroundColor = .lightGray
         
         setupViewsLayout()
     }
@@ -91,6 +95,14 @@ class ApplicationHeader: UIView {
         cheatSheetContainerView.add(subview: cheatSheetLabel) { (v, p) in [
             v.centerXAnchor.constraint(equalTo: p.centerXAnchor),
             v.centerYAnchor.constraint(equalTo: p.centerYAnchor)
+            ]}
+        
+        // Adding Separator Line at the bottom
+        add(subview: separatorLine) { (v, p) in [
+            v.bottomAnchor.constraint(equalTo: p.bottomAnchor),
+            v.leadingAnchor.constraint(equalTo: p.leadingAnchor, constant: Constants.padding),
+            v.trailingAnchor.constraint(equalTo: p.trailingAnchor, constant: -Constants.padding),
+            v.heightAnchor.constraint(equalToConstant: 0.5)
             ]}
     }
     
