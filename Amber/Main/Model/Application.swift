@@ -80,6 +80,8 @@ extension Application.StateType {
     }
     
     static let all: [Application.StateType] = [ .Applied, .Accepted, .Interview, .Rejected ]
+    
+    static let dataSource: [String] = [Application.StateType.Applied.title, Application.StateType.Accepted.title, Application.StateType.Interview.title, Application.StateType.Rejected.title]
 }
 
 // ToDo: Interview Rounds

@@ -25,7 +25,7 @@ class SortView: UIView {
     
     private var all = Application.StateType.all
     
-    private let titleLabel = BaseLabel(text: "Applications", font: .regular, textColor: .black, numberOfLines: 1)
+    private let titleLabel = BaseLabel(text: "Applications", font: .bold, textColor: .black, numberOfLines: 1)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -39,8 +39,7 @@ class SortView: UIView {
         topContainerView.backgroundColor = UIColor.init(rgb: 0xF6F6F6)
         
         confirmButton.backgroundColor = UIColor.Highlight
-        confirmButton.setTitle("Confirm", for: .normal)
-        confirmButton.setTitleColor(.white, for: .normal)
+        confirmButton.setAttributedTitle(NSAttributedString(string: "Confirm", attributes: [NSAttributedString.Key.foregroundColor : UIColor.white, NSAttributedString.Key.font : UIFont.bold]), for: .normal)
         confirmButton.layer.cornerRadius = Constants.bigCornerRadius
         confirmButton.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
         confirmButton.addTarget(self, action: #selector(onConfirmTapped), for: .touchUpInside)
@@ -50,6 +49,9 @@ class SortView: UIView {
         tableView.register(SortCell.self)
         tableView.bounces = false
         tableView.separatorStyle = .none
+        
+        layer.borderWidth = 0.5
+        layer.borderColor = UIColor.lightGray.cgColor
         
         // Append it manually
         all.append(.All)

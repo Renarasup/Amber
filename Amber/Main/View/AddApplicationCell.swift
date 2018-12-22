@@ -11,16 +11,70 @@ import Kingfisher
 
 class AddApplicationCell: UICollectionViewCell {
     
-    var model: Application.Information! {
-        didSet {
-            textField.attributedPlaceholder = NSAttributedString(string: model.title, attributes: textFieldPlaceholderAttributes)
+    func setInput(application: Application, model: Application.Information) {
+        
+        self.model = model
+        
+        textField.attributedPlaceholder = NSAttributedString(string: model.title, attributes: textFieldPlaceholderAttributes)
+        
+        switch model {
+        case .ApplicationTo:
+            textField.text = application.applicationToTitle
+            
+            guard
+                let imageLink = application.imageLink,
+                let imageURL = URL(string: imageLink)
+                else { return }
+            logoPath = imageLink
+            imageView.kf.setImage(with: imageURL)
+
+        case .Job:
+            textField.text = application.jobTitle
+        case .Salary:
+            addSalaryTextField()
+            textField.text = "\(application.salary)"
+        case .State:
+//            addStateView(application.stateEnum)
+            pickerDataSource.append(Application.StateType.dataSource)
+            state = application.stateEnum
+            textField.text = application.stateEnum.title
+            
+            let pickerView = UIPickerView()
+            
+            pickerView.delegate = self
+            pickerView.dataSource = self
+            textField.inputView = pickerView
+        case .Date:
+            let datePickerView: UIDatePicker = UIDatePicker()
+            datePickerView.datePickerMode = UIDatePicker.Mode.date
+            
+            datePickerView.addTarget(self, action: #selector(onDatePickerValueChanged(_:)), for: UIControl.Event.valueChanged)
+            
+            textField.inputView = datePickerView
+            textField.text = application.sentDate
+        case .ZipCode:
+            textField.text = application.zipCode
+        default:
+            break
         }
     }
     
-    private let containerView = UIView()
-    private let textField = UITextField()
-    private let imageView = UIImageView()
+    func setInput(model: Application.Information) {
+        textField.attributedPlaceholder = NSAttributedString(string: model.title, attributes: textFieldPlaceholderAttributes)
+    }
     
+    var pickerDataSource = [[String]]()
+    
+    var logoPath: String?
+    var state: Application.StateType?
+    
+    let textField = UITextField()
+    
+    private var model: Application.Information!
+    private let containerView = UIView()
+    private let imageView = UIImageView()
+    private let salaryTextField = UITextField()
+
     private let textFieldPlaceholderAttributes = [
         NSAttributedString.Key.foregroundColor: UIColor.lightGray,
         NSAttributedString.Key.font : UIFont.bold
@@ -51,7 +105,7 @@ class AddApplicationCell: UICollectionViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        imageView.layer.cornerRadius = imageView.frame.height / 2
+        imageView.layer.cornerRadius = (containerView.frame.height * 0.7) / 2
         imageView.clipsToBounds = true
     }
     
@@ -69,6 +123,8 @@ class AddApplicationCell: UICollectionViewCell {
             v.widthAnchor.constraint(equalTo: p.widthAnchor, multiplier: 0.7),
             v.heightAnchor.constraint(equalTo: p.heightAnchor, multiplier: 0.7)
             ]}
+        
+        addLogoImageView()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -77,6 +133,20 @@ class AddApplicationCell: UICollectionViewCell {
     
     @objc private func onDoneToolBarTapped() {
         endEditing(true)
+    }
+    
+    @objc private func onDatePickerValueChanged(_ sender: UIDatePicker) {
+        let dateFormatterGet = DateFormatter()
+        dateFormatterGet.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
+        
+        let dateFormatterPrint = DateFormatter()
+        dateFormatterPrint.dateFormat = "dd.MM.yyyy"
+        
+        if let date = dateFormatterGet.date(from: "\(sender.date)") {
+            textField.text = dateFormatterPrint.string(from: date)
+        } else {
+            print("There was an error decoding the string")
+        }
     }
     
     func update(text: String) {
@@ -90,17 +160,71 @@ class AddApplicationCell: UICollectionViewCell {
         guard let url = URL(string: imageLink) else {
             return
         }
+        
+        logoPath = imageLink
         imageView.kf.setImage(with: url)
     }
     
-    func setSearchCompanyMode() {
+    private func addSalaryTextField() {
+        salaryTextField.text = "Yearly"
+        salaryTextField.textColor = .lightGray
+        
+        let pickerView = UIPickerView()
+        
+        pickerView.delegate = self
+        pickerView.dataSource = self
+
+        if !pickerDataSource.contains(SalaryPicker.dataSource) {
+            pickerDataSource.append(SalaryPicker.dataSource)
+        }
+        
+        salaryTextField.inputView = pickerView
+        
+        containerView.add(subview: salaryTextField) { (v, p) in [
+            v.centerYAnchor.constraint(equalTo: p.centerYAnchor),
+            v.trailingAnchor.constraint(equalTo: p.trailingAnchor, constant: -Constants.padding),
+            v.leadingAnchor.constraint(equalTo: textField.trailingAnchor, constant: Constants.padding),
+            v.heightAnchor.constraint(equalTo: p.heightAnchor, multiplier: 0.7)
+            ]}
+    }
+    
+    private func addLogoImageView() {
         containerView.add(subview: imageView) { (v, p) in [
             v.centerYAnchor.constraint(equalTo: p.centerYAnchor),
             v.trailingAnchor.constraint(equalTo: p.trailingAnchor, constant: -Constants.padding),
             v.widthAnchor.constraint(equalTo: p.heightAnchor, multiplier: 0.7),
             v.heightAnchor.constraint(equalTo: p.heightAnchor, multiplier: 0.7)
             ]}
+    }
     
+    func disableUserInteraction() {
         textField.isUserInteractionEnabled = false
+    }
+}
+
+
+extension AddApplicationCell: UIPickerViewDelegate, UIPickerViewDataSource {
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return pickerDataSource.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return pickerDataSource[component].count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return pickerDataSource[component][row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if let model = model {
+            if model == .Salary {
+                salaryTextField.text = pickerDataSource[component][row]
+            }
+            if model == .State {
+                textField.text = pickerDataSource[component][row]
+            }
+        }
     }
 }

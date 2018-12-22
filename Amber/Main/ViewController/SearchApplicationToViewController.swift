@@ -30,13 +30,14 @@ class SearchApplicationToViewController: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+ 
         navigationItem.hidesSearchBarWhenScrolling = false
         navigationItem.searchController = searchController
+        searchController.delegate = self
         searchController.searchBar.delegate = self
         searchController.dimsBackgroundDuringPresentation = false
         searchController.hidesNavigationBarDuringPresentation = false
-        
+
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(SearchApplicationCell.self)
@@ -44,7 +45,7 @@ class SearchApplicationToViewController: BaseViewController {
         tableView.tableFooterView = UIView()
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: activityIndicator)
-    
+        
         view.fillToSuperview(tableView)
     }
     
@@ -132,7 +133,7 @@ extension SearchApplicationToViewController: UITableViewDelegate, UITableViewDat
     }
 }
 
-extension SearchApplicationToViewController: UISearchBarDelegate {
+extension SearchApplicationToViewController: UISearchBarDelegate, UISearchControllerDelegate {
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         activityIndicator.startAnimating()
@@ -144,4 +145,11 @@ extension SearchApplicationToViewController: UISearchBarDelegate {
         }
     }
     
+    func didPresentSearchController(_ searchController: UISearchController) {
+        print("in here presenting")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { // change 2 to desired number of seconds
+            self.searchController.searchBar.becomeFirstResponder()
+        }
+        
+    }
 }

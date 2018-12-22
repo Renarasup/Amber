@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class AddApplicationViewController: BaseViewController {
     
@@ -32,8 +33,6 @@ class AddApplicationViewController: BaseViewController {
     private let textContainerView = UIView()
     private let removeEditNoteButton = UIButton()
     
-    private var offsetY: CGFloat = 0
-
     
     // MARK: - Setup Core Components & Delegations
     /***************************************************************/
@@ -60,7 +59,24 @@ class AddApplicationViewController: BaseViewController {
         doneToolbar.tintColor = .Highlight
         noteTextView.inputAccessoryView = doneToolbar
         
+        // Set initial information
+        setApplicationInformation()
+        
+        // Call the Views Layout function
         setupViewsLayout()
+    }
+    
+    private func setApplicationInformation() {
+        if let application = self.application {
+            if let note = application.note {
+                noteTextView.text = note
+                textContainerView.alpha = 1
+            } else {
+                textContainerView.alpha = 0
+            }
+        } else {
+            textContainerView.alpha = 0
+        }
     }
 
     override func viewDidLayoutSubviews() {
@@ -77,24 +93,24 @@ class AddApplicationViewController: BaseViewController {
             v.heightAnchor.constraint(equalTo: p.heightAnchor, multiplier: 0.55)
             ]}
         
-//        view.add(subview: noteContainerView) { (v, p) in [
-//            v.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: Constants.padding),
-//            v.centerXAnchor.constraint(equalTo: p.centerXAnchor),
-//            v.widthAnchor.constraint(equalTo: p.widthAnchor, multiplier: 0.15),
-//            v.heightAnchor.constraint(equalTo: p.widthAnchor, multiplier: 0.15)
-//            ]}
-//
-//        noteContainerView.add(subview: noteAddImageView) { (v, p) in [
-//            v.centerYAnchor.constraint(equalTo: p.centerYAnchor),
-//            v.centerXAnchor.constraint(equalTo: p.centerXAnchor),
-//            v.widthAnchor.constraint(equalTo: p.widthAnchor, multiplier: 0.4),
-//            v.heightAnchor.constraint(equalTo: p.widthAnchor, multiplier: 0.4)
-//            ]}
-//
-//        view.add(subview: noteLabel) { (v, p) in [
-//            v.topAnchor.constraint(equalTo: noteContainerView.bottomAnchor, constant: Constants.padding - 5),
-//            v.centerXAnchor.constraint(equalTo: p.centerXAnchor)
-//            ]}
+        view.add(subview: noteContainerView) { (v, p) in [
+            v.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: Constants.padding),
+            v.centerXAnchor.constraint(equalTo: p.centerXAnchor),
+            v.widthAnchor.constraint(equalTo: p.widthAnchor, multiplier: 0.15),
+            v.heightAnchor.constraint(equalTo: p.widthAnchor, multiplier: 0.15)
+            ]}
+
+        noteContainerView.add(subview: noteAddImageView) { (v, p) in [
+            v.centerYAnchor.constraint(equalTo: p.centerYAnchor),
+            v.centerXAnchor.constraint(equalTo: p.centerXAnchor),
+            v.widthAnchor.constraint(equalTo: p.widthAnchor, multiplier: 0.4),
+            v.heightAnchor.constraint(equalTo: p.widthAnchor, multiplier: 0.4)
+            ]}
+
+        view.add(subview: noteLabel) { (v, p) in [
+            v.topAnchor.constraint(equalTo: noteContainerView.bottomAnchor, constant: Constants.padding - 5),
+            v.centerXAnchor.constraint(equalTo: p.centerXAnchor)
+            ]}
         
         view.add(subview: textContainerView) { (v, p) in [
             v.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: Constants.padding),
@@ -102,14 +118,14 @@ class AddApplicationViewController: BaseViewController {
             v.trailingAnchor.constraint(equalTo: p.trailingAnchor, constant: -Constants.padding),
             v.bottomAnchor.constraint(equalTo: p.safeAreaLayoutGuide.bottomAnchor, constant: -Constants.padding - 5)
             ]}
-        
+
         textContainerView.add(subview: removeEditNoteButton) { (v, p) in [
             v.bottomAnchor.constraint(equalTo: p.bottomAnchor, constant: -Constants.padding),
             v.trailingAnchor.constraint(equalTo: p.trailingAnchor, constant: -Constants.padding),
             v.heightAnchor.constraint(equalTo: p.heightAnchor, multiplier: 0.15),
             v.widthAnchor.constraint(equalTo: p.widthAnchor, multiplier: 0.4)
             ]}
-        
+
         textContainerView.add(subview: noteTextView) { (v, p) in [
             v.topAnchor.constraint(equalTo: p.topAnchor, constant: Constants.padding),
             v.leadingAnchor.constraint(equalTo: p.leadingAnchor, constant: Constants.padding),
@@ -127,8 +143,6 @@ class AddApplicationViewController: BaseViewController {
         
         // Notes
         textContainerView.backgroundColor = UIColor(rgb: 0xF3EFEF)
-        textContainerView.layer.borderColor = UIColor(rgb: 0xE5E5E5).cgColor
-        textContainerView.layer.borderWidth = 0.2
         textContainerView.layer.cornerRadius = Constants.bigCornerRadius
         textContainerView.addShadows()
         
@@ -150,7 +164,7 @@ class AddApplicationViewController: BaseViewController {
         navigationController?.navigationBar.topItem?.title = ""
         
         // Uses the same color as applicationHeader
-        noteContainerView.backgroundColor = UIColor.ApplicationHeader
+        noteContainerView.backgroundColor = .Highlight
         noteAddImageView.image = #imageLiteral(resourceName: "add-plus").withRenderingMode(.alwaysTemplate)
         noteAddImageView.tintColor = .white
     }
@@ -192,8 +206,8 @@ class AddApplicationViewController: BaseViewController {
     }
     
     @objc private func onRemoveEditNotesPressed() {
-//        noteTextView.text = ""
-//        deAnimateTextContainer()
+        noteTextView.text = ""
+        deAnimateTextContainer()
     }
     
     @objc private func onDoneToolBarTapped() {
@@ -205,7 +219,83 @@ class AddApplicationViewController: BaseViewController {
     /***************************************************************/
     
     private func setCRUD() {
+        let application = Application()
+        var boolsArray = [Bool]()
+        for index in allInformation.enumerated() {
+            if let cvCell = collectionView.cellForItem(at: IndexPath(item: index.offset, section: 0)) as? AddApplicationCell {
+//                boolsArray.append(cvCell.isFilled)
+                guard let text = cvCell.textField.text else { return }
+                
+                switch index.element {
+                case .ApplicationTo:
+                    print("logopath: ", cvCell.logoPath)
+                    if let logoPath = cvCell.logoPath {
+                        application.applicationToTitle = text
+                        
+                        if self.application?.imageLink ?? "" != logoPath {
+                            application.imageLink = logoPath
+                        } else {
+                            application.imageLink = self.application?.imageLink
+                        }
+                    } else {
+                        application.applicationToTitle = text
+                        application.imageLink = self.application?.imageLink
+                    }
+                case .Date:
+                    application.sentDate = text
+                case .Salary:
+                    application.salary = Double(text) ?? 0
+                case .Job:
+                    application.jobTitle = text
+                case .State:
+                    guard let state = cvCell.state else { return }
+                    application.state = state.rawValue
+                case .ZipCode:
+                    application.zipCode = text
+                default:
+                    break
+                }
+            }
+        }
         
+        if !noteTextView.text.isEmpty {
+            application.note = noteTextView.text
+        }
+        
+        // If application exists, overwrite it with the values from above
+        if let savedApplication = self.application {
+            let imageLink = application.imageLink ?? ""
+            do {
+                let realm = try Realm()
+                try realm.write {
+                    savedApplication.applicationToTitle = application.applicationToTitle
+                    savedApplication.jobTitle = application.jobTitle
+                    savedApplication.salary = application.salary
+                    savedApplication.state = application.state
+                    savedApplication.sentDate = application.sentDate
+                    savedApplication.zipCode = application.zipCode
+                    savedApplication.note = application.note
+                    savedApplication.imageLink = imageLink
+                }
+                
+                navigationController?.popViewController(animated: true)
+            } catch let error as NSError {
+                
+                // handle error
+                
+            }
+        }
+    }
+    
+    // MARK: - Animations
+    /***************************************************************/
+
+    private func deAnimateTextContainer() {
+        UIView.animate(withDuration: 0.25) {
+            self.noteTextView.alpha = 0
+            self.textContainerView.alpha = 0
+            self.removeEditNoteButton.alpha = 0
+        }
     }
 }
 
@@ -225,10 +315,14 @@ extension AddApplicationViewController: UICollectionViewDelegateFlowLayout, UICo
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         let cell = cell as! AddApplicationCell
         
-        cell.model = allInformation[indexPath.row]
+        if let application = application {
+            cell.setInput(application: application, model: allInformation[indexPath.row])
+        } else {
+            cell.setInput(model: allInformation[indexPath.row])
+        }
         
-        if indexPath.row == 0 {
-            cell.setSearchCompanyMode()
+        if allInformation[indexPath.row] == .ApplicationTo {
+            cell.disableUserInteraction()
         }
     }
     
@@ -263,6 +357,9 @@ extension AddApplicationViewController: SearchApplicationToViewControllerDelegat
 
 extension AddApplicationViewController: EditNoteViewControllerDelegate {
     func didPressDone(_ editNoteViewController: EditNoteViewController, text: String) {
-        
+        if !text.isEmpty {
+            noteTextView.text = text
+            textContainerView.alpha = 1
+        }
     }
 }
