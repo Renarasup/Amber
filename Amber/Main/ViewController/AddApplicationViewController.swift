@@ -228,7 +228,6 @@ class AddApplicationViewController: BaseViewController {
                 
                 switch index.element {
                 case .ApplicationTo:
-                    print("logopath: ", cvCell.logoPath)
                     if let logoPath = cvCell.logoPath {
                         application.applicationToTitle = text
                         
@@ -282,7 +281,6 @@ class AddApplicationViewController: BaseViewController {
             } catch let error as NSError {
                 
                 // handle error
-                
             }
         }
     }

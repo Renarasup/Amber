@@ -34,7 +34,6 @@ class AddApplicationCell: UICollectionViewCell {
             addSalaryTextField()
             textField.text = "\(application.salary)"
         case .State:
-//            addStateView(application.stateEnum)
             pickerDataSource.append(Application.StateType.dataSource)
             state = application.stateEnum
             textField.text = application.stateEnum.title
@@ -44,6 +43,11 @@ class AddApplicationCell: UICollectionViewCell {
             pickerView.delegate = self
             pickerView.dataSource = self
             textField.inputView = pickerView
+            
+            addStateView(application.stateEnum)
+            
+            bringSubviewToFront(textField)
+            
         case .Date:
             let datePickerView: UIDatePicker = UIDatePicker()
             datePickerView.datePickerMode = UIDatePicker.Mode.date
@@ -74,6 +78,8 @@ class AddApplicationCell: UICollectionViewCell {
     private let containerView = UIView()
     private let imageView = UIImageView()
     private let salaryTextField = UITextField()
+    private let stateContainerView = UIView()
+    private let stateTitleLabel = BaseLabel(font: .regular, textColor: .white, numberOfLines: 1)
 
     private let textFieldPlaceholderAttributes = [
         NSAttributedString.Key.foregroundColor: UIColor.lightGray,
@@ -197,6 +203,31 @@ class AddApplicationCell: UICollectionViewCell {
             ]}
     }
     
+    private func addStateView(_ state: Application.StateType) {
+        
+        stateContainerView.layer.cornerRadius = Constants.smallCornerRadius
+        stateContainerView.backgroundColor = state.color
+        stateTitleLabel.text = state.title
+        
+        containerView.add(subview: stateContainerView) { (v, p) in [
+            v.centerYAnchor.constraint(equalTo: p.centerYAnchor),
+            v.leadingAnchor.constraint(equalTo: p.leadingAnchor, constant: Constants.padding),
+            v.heightAnchor.constraint(equalTo: p.heightAnchor, multiplier: 0.4),
+            v.widthAnchor.constraint(equalTo: p.widthAnchor, multiplier: 0.3)
+            ]}
+        
+        stateContainerView.add(subview: stateTitleLabel) { (v, p) in [
+            v.centerXAnchor.constraint(equalTo: p.centerXAnchor),
+            v.centerYAnchor.constraint(equalTo: p.centerYAnchor)
+            ]}
+        
+        stateContainerView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(onStateContainerTapped)))
+        }
+    
+    @objc private func onStateContainerTapped() {
+        textField.becomeFirstResponder()
+    }
+    
     func disableUserInteraction() {
         textField.isUserInteractionEnabled = false
     }
@@ -223,7 +254,11 @@ extension AddApplicationCell: UIPickerViewDelegate, UIPickerViewDataSource {
                 salaryTextField.text = pickerDataSource[component][row]
             }
             if model == .State {
-                textField.text = pickerDataSource[component][row]
+                stateTitleLabel.text = pickerDataSource[component][row]
+                state = Application.StateType.all[row]
+                UIView.animate(withDuration: 0.25) {
+                    self.stateContainerView.backgroundColor = Application.StateType.all[row].color
+                }
             }
         }
     }

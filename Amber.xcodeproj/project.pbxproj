@@ -31,7 +31,6 @@
 		240837DF218CE22000497B08 /* UIView+AutoLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240837DE218CE22000497B08 /* UIView+AutoLayout.swift */; };
 		240837E1218CE5AD00497B08 /* UIColor+HexValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240837E0218CE5AD00497B08 /* UIColor+HexValues.swift */; };
 		240837E5218CEC3200497B08 /* BoxStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240837E4218CEC3200497B08 /* BoxStateView.swift */; };
-		240837E9218D946200497B08 /* InformationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240837E8218D946200497B08 /* InformationCell.swift */; };
 		240837EB218D97A700497B08 /* UICollectionView+ReuseableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240837EA218D97A700497B08 /* UICollectionView+ReuseableView.swift */; };
 		240837EF218DA66600497B08 /* SearchApplicationToViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240837EE218DA66600497B08 /* SearchApplicationToViewController.swift */; };
 		240837F1218DB7FC00497B08 /* SearchApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240837F0218DB7FC00497B08 /* SearchApplication.swift */; };
@@ -105,7 +104,6 @@
 		240837DE218CE22000497B08 /* UIView+AutoLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+AutoLayout.swift"; sourceTree = "<group>"; };
 		240837E0218CE5AD00497B08 /* UIColor+HexValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+HexValues.swift"; sourceTree = "<group>"; };
 		240837E4218CEC3200497B08 /* BoxStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoxStateView.swift; sourceTree = "<group>"; };
-		240837E8218D946200497B08 /* InformationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InformationCell.swift; sourceTree = "<group>"; };
 		240837EA218D97A700497B08 /* UICollectionView+ReuseableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UICollectionView+ReuseableView.swift"; sourceTree = "<group>"; };
 		240837EE218DA66600497B08 /* SearchApplicationToViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchApplicationToViewController.swift; sourceTree = "<group>"; };
 		240837F0218DB7FC00497B08 /* SearchApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchApplication.swift; sourceTree = "<group>"; };
@@ -272,7 +270,6 @@
 			isa = PBXGroup;
 			children = (
 				240837E4218CEC3200497B08 /* BoxStateView.swift */,
-				240837E8218D946200497B08 /* InformationCell.swift */,
 				240837F2218DBE5D00497B08 /* SearchApplicationCell.swift */,
 				240837F8219447C400497B08 /* ChooseStateCell.swift */,
 				2498D3A121CC2A300041F261 /* ApplicationMainCell.swift */,
@@ -653,7 +650,6 @@
 				2498D39C21CC15590041F261 /* GlobalConstants.swift in Sources */,
 				2498D3A421CCD82F0041F261 /* AddApplicationViewController.swift in Sources */,
 				2498D3AF21CE65570041F261 /* CustomSearchBarView.swift in Sources */,
-				240837E9218D946200497B08 /* InformationCell.swift in Sources */,
 				240837B8218902DE00497B08 /* AppCoordinator.swift in Sources */,
 				2498D3A221CC2A300041F261 /* ApplicationMainCell.swift in Sources */,
 				240837F9219447C400497B08 /* ChooseStateCell.swift in Sources */,
