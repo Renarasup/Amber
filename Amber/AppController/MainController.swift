@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import IQKeyboardManagerSwift
 
 class AppController {
     
@@ -29,6 +30,9 @@ class AppController {
         guard let window = window else {
             fatalError("Cannot layout app with a nil window.")
         }
+        
+        // Keyboard handling
+        IQKeyboardManager.shared.enable = true
         
         // UI Setup
         setupUI()

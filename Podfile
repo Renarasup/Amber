@@ -10,6 +10,7 @@ pod 'Alamofire', '~> 4.7'
 pod 'SwiftyJSON', '~> 4.0'
 pod 'Kingfisher', '~> 4.0'
 pod 'RealmSwift'
+pod 'IQKeyboardManagerSwift'
 
   target 'AmberTests' do
     inherit! :search_paths

@@ -263,12 +263,6 @@ extension ApplicationsViewController: ApplicationCellDelegate {
     }
 }
 
-extension ApplicationsViewController: ApplicationHeaderDelegate {
-    func didClick(_ header: ApplicationHeader) {
-        coordinator?.showChooseStateScreen(applicationVC: self)
-    }
-}
-
 extension ApplicationsViewController: ChooseStateViewControllerDelegate {
     func didChooseState(_ chooseStateViewController: ChooseStateViewController, state: Application.StateType) {
 //        tableHeader.setState(state, filteredNumOfApplications: filterApplications.count, totalNumOfApplications: applications.count)

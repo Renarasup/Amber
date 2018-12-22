@@ -38,7 +38,7 @@ class SortView: UIView {
         topContainerView.layer.cornerRadius = Constants.bigCornerRadius
         topContainerView.backgroundColor = UIColor.init(rgb: 0xF6F6F6)
         
-        confirmButton.backgroundColor = UIColor.init(rgb: 0x30336b)
+        confirmButton.backgroundColor = UIColor.Highlight
         confirmButton.setTitle("Confirm", for: .normal)
         confirmButton.setTitleColor(.white, for: .normal)
         confirmButton.layer.cornerRadius = Constants.bigCornerRadius

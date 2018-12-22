@@ -32,6 +32,17 @@ class AddApplicationCell: UICollectionViewCell {
         containerView.backgroundColor = UIColor.init(rgb: 0xE9E9E9)
         containerView.layer.cornerRadius = Constants.bigCornerRadius
         
+        textField.autocorrectionType = .no
+        
+        let doneToolbar = UIToolbar(frame:CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
+        doneToolbar.barStyle = .default
+        doneToolbar.items = [
+            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+            UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(onDoneToolBarTapped))]
+        doneToolbar.sizeToFit()
+        doneToolbar.tintColor = .Highlight
+        textField.inputAccessoryView = doneToolbar
+        
         addShadows()
         
         setupViewsLayout()
@@ -62,6 +73,10 @@ class AddApplicationCell: UICollectionViewCell {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    @objc private func onDoneToolBarTapped() {
+        endEditing(true)
     }
     
     func update(text: String) {

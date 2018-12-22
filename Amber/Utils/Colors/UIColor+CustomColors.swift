@@ -9,6 +9,9 @@
 import UIKit
 
 extension UIColor {
+    public class var Highlight: UIColor {
+        return UIColor(rgb: 0x30336b)
+    }
     public class var ApplicationHeader: UIColor {
         return UIColor(rgb: 0xc7ecee)
     }
