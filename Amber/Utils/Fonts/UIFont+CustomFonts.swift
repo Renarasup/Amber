@@ -9,19 +9,19 @@
 import UIKit
 
 extension UIFont {
-    public class var bold: UIFont {
+    open class var bold: UIFont {
         return UIFont(name: "Roboto-Bold", size: 17.0)! // ?? UIFont.systemFont(ofSize: 15.0, weight: UIFontWeightBlack)
     }
-    public class var large: UIFont {
+    open class var large: UIFont {
         return UIFont(name: "Roboto-Regular", size: 19.0)! // ?? UIFont.systemFont(ofSize: 15.0, weight: UIFontWeightBlack)
     }
-    public class var regular: UIFont {
+    open class var regular: UIFont {
         return UIFont(name: "Roboto-Regular", size: 17.0)! // ?? UIFont.systemFont(ofSize: 15.0, weight: UIFontWeightBlack)
     }
-    public class var medium: UIFont {
+    open class var medium: UIFont {
         return UIFont(name: "Roboto-Regular", size: 15.0)! // ?? UIFont.systemFont(ofSize: 15.0, weight: UIFontWeightBlack)
     }
-    public class var light: UIFont {
+    open class var light: UIFont {
         return UIFont(name: "Roboto-Regular", size: 12.0)! // ?? UIFont.systemFont(ofSize: 15.0, weight: UIFontWeightBlack)
     }
 }

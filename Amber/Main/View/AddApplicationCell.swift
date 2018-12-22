@@ -32,7 +32,10 @@ class AddApplicationCell: UICollectionViewCell {
             textField.text = application.jobTitle
         case .Salary:
             addSalaryTextField()
+            setCurrencies()
+            
             textField.text = "\(application.salary)"
+            textField.keyboardType = .numberPad
         case .State:
             pickerDataSource.append(Application.StateType.dataSource)
             state = application.stateEnum
@@ -94,14 +97,14 @@ class AddApplicationCell: UICollectionViewCell {
         
         textField.autocorrectionType = .no
         
-        let doneToolbar = UIToolbar(frame:CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
-        doneToolbar.barStyle = .default
-        doneToolbar.items = [
-            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
-            UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(onDoneToolBarTapped))]
-        doneToolbar.sizeToFit()
-        doneToolbar.tintColor = .Highlight
-        textField.inputAccessoryView = doneToolbar
+//        let doneToolbar = UIToolbar(frame:CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
+//        doneToolbar.barStyle = .default
+//        doneToolbar.items = [
+//            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
+//            UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(onDoneToolBarTapped))]
+//        doneToolbar.sizeToFit()
+//        doneToolbar.tintColor = .Highlight
+//        textField.inputAccessoryView = doneToolbar
         
         addShadows()
         
@@ -122,7 +125,7 @@ class AddApplicationCell: UICollectionViewCell {
             v.trailingAnchor.constraint(equalTo: p.trailingAnchor, constant: -Constants.padding),
             v.bottomAnchor.constraint(equalTo: p.bottomAnchor, constant: -Constants.padding + 5)
             ]}
-        
+
         containerView.add(subview: textField) { (v, p) in [
             v.centerYAnchor.constraint(equalTo: p.centerYAnchor),
             v.leadingAnchor.constraint(equalTo: p.leadingAnchor, constant: Constants.padding),
@@ -171,8 +174,22 @@ class AddApplicationCell: UICollectionViewCell {
         imageView.kf.setImage(with: url)
     }
     
+    private func setCurrencies() {
+        CurrencyManager.loadCurrencyList { (response) in
+            var allCurrencies = [String]()
+            for currency in response {
+                let symbol = currency.value.symbol
+                let code = currency.value.code
+                
+                allCurrencies.append("\(symbol) (\(code))")
+            }
+            pickerDataSource.append(allCurrencies)
+        }
+
+    }
     private func addSalaryTextField() {
-        salaryTextField.text = "Yearly"
+        salaryTextField.text = "Yearly in € (EUR)"
+        salaryTextField.textAlignment = .right
         salaryTextField.textColor = .lightGray
         
         let pickerView = UIPickerView()
@@ -185,6 +202,15 @@ class AddApplicationCell: UICollectionViewCell {
         }
         
         salaryTextField.inputView = pickerView
+        
+        textField.removeFromSuperview()
+        
+        containerView.add(subview: textField) { (v, p) in [
+            v.centerYAnchor.constraint(equalTo: p.centerYAnchor),
+            v.leadingAnchor.constraint(equalTo: p.leadingAnchor, constant: Constants.padding),
+            v.widthAnchor.constraint(equalTo: p.widthAnchor, multiplier: 0.5),
+            v.heightAnchor.constraint(equalTo: p.heightAnchor, multiplier: 0.7)
+            ]}
         
         containerView.add(subview: salaryTextField) { (v, p) in [
             v.centerYAnchor.constraint(equalTo: p.centerYAnchor),
@@ -251,7 +277,8 @@ extension AddApplicationCell: UIPickerViewDelegate, UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if let model = model {
             if model == .Salary {
-                salaryTextField.text = pickerDataSource[component][row]
+                
+                salaryTextField.text = "\(pickerDataSource[0][pickerView.selectedRow(inComponent: 0)]) in \(pickerDataSource[1][pickerView.selectedRow(inComponent: 1)])"
             }
             if model == .State {
                 stateTitleLabel.text = pickerDataSource[component][row]

@@ -16,11 +16,11 @@ class BaseConfig {
         return "https://autocomplete.clearbit.com/v1/"
     }
     
-    var sightEngineAPIUser: String {
-        return "973593626"
-    }
-    
-    var sightEndineAPISecret: String {
-        return "QYHToVsXcsdj6nuStgJt"
-    }
+//    var sightEngineAPIUser: String {
+//        return "973593626"
+//    }
+//    
+//    var sightEndineAPISecret: String {
+//        return "QYHToVsXcsdj6nuStgJt"
+//    }
 }
