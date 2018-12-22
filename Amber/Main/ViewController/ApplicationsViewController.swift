@@ -20,6 +20,8 @@ class ApplicationsViewController: BaseViewController {
         }
     }
     
+    private var sortHeight: NSLayoutConstraint!
+    
     // Filter
     private var filterApplications: [Application] = [] {
         didSet {
@@ -30,8 +32,11 @@ class ApplicationsViewController: BaseViewController {
 
     // UI Views
     private let tableView = UITableView()
-    private lazy var tableHeader = ApplicationHeader(frame: CGRect(x: 0, y: 0, width: 0, height: view.frame.height * 0.30))
-
+    
+    private let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
+    private lazy var blurEffectView = UIVisualEffectView(effect: blurEffect)
+    
+    private let sortView = SortView()
     
     // MARK: - Setup Core Components & Delegations
     /***************************************************************/
@@ -41,13 +46,14 @@ class ApplicationsViewController: BaseViewController {
         
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(ApplicationCell.self)
+        tableView.register(ApplicationMainCell.self)
         tableView.tableFooterView = UIView()
         tableView.separatorStyle = .none
-        tableView.tableHeaderView = tableHeader
-        tableHeader.delegate = self
-        tableHeader.setState(filterState)
-        view.fillToSuperview(tableView)
+        
+        sortView.delegate = self
+        sortView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(onSortPanned(_:))))
+
+        setupViewsLayout()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -77,13 +83,32 @@ class ApplicationsViewController: BaseViewController {
                 filterApplications = self.applications
             }
             
-
+//            tableHeader.setState(filterState, filteredNumOfApplications: filterApplications.count, totalNumOfApplications: applications.count)
+            
         } catch let error as NSError {
             // handle error
             
         }
     }
     
+    // MARK: - AutoLayout & Views Layouting
+    /***************************************************************/
+
+    private func setupViewsLayout() {
+        view.fillToSuperview(tableView)
+        
+        // Setup Blur View for sorting
+        let window = UIApplication.shared.keyWindow!
+        blurEffectView.frame = window.bounds
+        window.addSubview(blurEffectView)
+
+        window.add(subview: sortView) { (v, p) in [
+            v.heightAnchor.constraint(equalToConstant: view.frame.height * 0.6),
+            v.bottomAnchor.constraint(equalTo: p.safeAreaLayoutGuide.bottomAnchor, constant: -Constants.padding + 5),
+            v.leadingAnchor.constraint(equalTo: p.leadingAnchor, constant: Constants.padding - 5),
+            v.trailingAnchor.constraint(equalTo: p.trailingAnchor, constant: -Constants.padding + 5),
+            ]}
+    }
     
     // MARK: - Basic UI Setup
     /***************************************************************/
@@ -93,6 +118,13 @@ class ApplicationsViewController: BaseViewController {
         
         view.backgroundColor = .white
         
+        // BlurView
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        blurEffectView.alpha = 0
+        
+        // Sort View
+        sortView.alpha = 0
+        
         // Add Title Label
         let titleLabel = BaseLabel(text: "My Applications", font: .regular, textColor: .black, numberOfLines: 1)
         navigationItem.titleView = titleLabel
@@ -100,12 +132,14 @@ class ApplicationsViewController: BaseViewController {
         // Setup Navigation Items
         let settingsBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "settings").withRenderingMode(.alwaysTemplate), style: .plain, target: self, action: #selector(onSettingsPressed))
         let addApplicationBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "add-plus").withRenderingMode(.alwaysTemplate), style: .plain, target: self, action: #selector(onAddApplicationsPressed))
+        let sortBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "filter").withRenderingMode(.alwaysTemplate), style: .plain, target: self, action: #selector(onSortPressed))
         
         settingsBarItem.tintColor = .darkGray
         addApplicationBarItem.tintColor = .darkGray
+        sortBarItem.tintColor = .darkGray
         
         navigationItem.leftBarButtonItem = settingsBarItem
-        navigationItem.rightBarButtonItem = addApplicationBarItem
+        navigationItem.rightBarButtonItems = [addApplicationBarItem, sortBarItem]
     }
     
     
@@ -118,6 +152,39 @@ class ApplicationsViewController: BaseViewController {
     
     @objc private func onAddApplicationsPressed() {
         coordinator?.showAddApplicationsScreen()
+    }
+    
+    @objc private func onSortPressed() {
+        animateSortView()
+    }
+    var prevTranslationY: CGFloat = 0
+    var currTranslationY: CGFloat = 0
+    
+    @objc private func onSortPanned(_ sender: UIPanGestureRecognizer) {
+        if sender.state == .ended {
+            if sender.translation(in: sortView).y > 0 {
+                deAnimateSortView()
+            }
+        }
+    }
+    
+    // MARK: - Animations
+    /***************************************************************/
+    
+    private func animateSortView() {
+
+        UIView.animate(withDuration: 0.25) {
+            self.blurEffectView.alpha = 1
+            self.sortView.alpha = 1
+        }
+    }
+    
+    private func deAnimateSortView() {
+        
+        UIView.animate(withDuration: 0.25) {
+            self.blurEffectView.alpha = 0
+            self.sortView.alpha = 0
+        }
     }
 }
 
@@ -135,12 +202,12 @@ extension ApplicationsViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return tableView.dequeueReusableCell(ApplicationCell.self, for: indexPath)
+        return tableView.dequeueReusableCell(ApplicationMainCell.self, for: indexPath)
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
-        let cell = cell as! ApplicationCell
+        let cell = cell as! ApplicationMainCell
         
         let application = filterApplications[indexPath.row]
         cell.model = application
@@ -204,7 +271,19 @@ extension ApplicationsViewController: ApplicationHeaderDelegate {
 
 extension ApplicationsViewController: ChooseStateViewControllerDelegate {
     func didChooseState(_ chooseStateViewController: ChooseStateViewController, state: Application.StateType) {
-        tableHeader.setState(state)
+//        tableHeader.setState(state, filteredNumOfApplications: filterApplications.count, totalNumOfApplications: applications.count)
         filterState = state
+    }
+}
+
+extension ApplicationsViewController: SortViewDelegate {
+    
+    func didChooseState(_ sortView: SortView, state: Application.StateType) {
+        filterState = state
+        
+        // Refresh
+        getData()
+        
+        deAnimateSortView()
     }
 }

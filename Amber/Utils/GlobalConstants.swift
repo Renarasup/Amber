@@ -11,6 +11,6 @@ import UIKit
 struct Constants {
     static let padding: CGFloat = 15
     
-    static let bigCornerRadius: CGFloat = 10
-    static let smallCornerRadius: CGFloat = 5
+    static let bigCornerRadius: CGFloat = 6
+    static let smallCornerRadius: CGFloat = 3
 }

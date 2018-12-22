@@ -111,9 +111,9 @@ class ApplicationHeader: UIView {
     }
     
     // Set Filter State and change Styling accordingly - called from ApplicationViewController
-    func setState(_ state: Application.StateType) {
-        filterView.setValues(color: state.color, image: #imageLiteral(resourceName: "filter"), text: state.title, subText: "9/9")
-        filterView.addProgressBar(percentage: 0.8)
+    func setState(_ state: Application.StateType, filteredNumOfApplications: Int, totalNumOfApplications: Int) {
+        filterView.setValues(color: state.color, image: #imageLiteral(resourceName: "filter"), text: state.title, subText: "\(filteredNumOfApplications)/\(totalNumOfApplications)")
+        filterView.addProgressBar(percentage: CGFloat(Double(filteredNumOfApplications) / Double(totalNumOfApplications)))
     }
     
     required init?(coder aDecoder: NSCoder) {

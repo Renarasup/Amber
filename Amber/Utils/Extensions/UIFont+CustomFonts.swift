@@ -12,6 +12,9 @@ extension UIFont {
     public class var bold: UIFont {
         return UIFont(name: "Roboto-Bold", size: 17.0)! // ?? UIFont.systemFont(ofSize: 15.0, weight: UIFontWeightBlack)
     }
+    public class var large: UIFont {
+        return UIFont(name: "Roboto-Regular", size: 19.0)! // ?? UIFont.systemFont(ofSize: 15.0, weight: UIFontWeightBlack)
+    }
     public class var regular: UIFont {
         return UIFont(name: "Roboto-Regular", size: 17.0)! // ?? UIFont.systemFont(ofSize: 15.0, weight: UIFontWeightBlack)
     }

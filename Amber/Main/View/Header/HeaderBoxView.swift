@@ -29,13 +29,7 @@ class HeaderBoxView: UIView {
         topContainerView.layer.cornerRadius = Constants.bigCornerRadius
         topContainerView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
         
-        layer.shadowOffset = CGSize(width: 0, height: 2)
-        layer.shadowOpacity = 1
-        layer.shadowRadius = 4.0
-        layer.shadowColor = UIColor.init(rgb: 0x9C9C9C).cgColor
-        
-        topContainerView.layer.cornerRadius = Constants.smallCornerRadius
-        topContainerView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+        addShadows()
         
         imageView.tintColor = .white
 
@@ -79,6 +73,47 @@ class HeaderBoxView: UIView {
             v.bottomAnchor.constraint(equalTo: p.bottomAnchor, constant: -Constants.padding + 5),
             v.leadingAnchor.constraint(equalTo: p.leadingAnchor, constant: Constants.padding - 5)
             ]}
+    }
+    
+    // Make it appear to be very responsive to touch
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        animate(isHighlighted: true)
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
+        animate(isHighlighted: false)
+    }
+    
+    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesCancelled(touches, with: event)
+        animate(isHighlighted: false)
+    }
+    
+    private func animate(isHighlighted: Bool, completion: ((Bool) -> Void)?=nil) {
+        //        if disabledHighlightedAnimation {
+        //            return
+        //        }
+        //        let animationOptions: UIViewAnimationOptions = GlobalConstants.isEnabledAllowsUserInteractionWhileHighlightingCard
+        let animationOptions: UIView.AnimationOptions = true ? [.allowUserInteraction] : []
+        if isHighlighted {
+            UIView.animate(withDuration: 0.5,
+                           delay: 0,
+                           usingSpringWithDamping: 1,
+                           initialSpringVelocity: 0,
+                           options: animationOptions, animations: {
+                            self.transform = .init(scaleX: 0.96, y: 0.96)
+            }, completion: completion)
+        } else {
+            UIView.animate(withDuration: 0.5,
+                           delay: 0,
+                           usingSpringWithDamping: 1,
+                           initialSpringVelocity: 0,
+                           options: animationOptions, animations: {
+                            self.transform = .identity
+            }, completion: completion)
+        }
     }
     
     func addProgressBar(percentage: CGFloat) {

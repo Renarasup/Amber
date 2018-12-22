@@ -40,7 +40,7 @@ extension Application {
     enum Information {
         case State, Job, Salary, ApplicationTo, Date, Note, ZipCode
         
-        static let all: [Application.Information] = [ ApplicationTo, Job, Salary, State, Date, ZipCode ]
+        static let all: [Application.Information] = [ ApplicationTo, Job, Salary, State, Date]
     }
 }
 
@@ -48,13 +48,11 @@ extension Application.Information {
     var title: String {
         switch self {
         case .ApplicationTo:
-            return "Application To"
+            return "Company"
         case .State:
-            return "Current State"
+            return "Status"
         case .Job:
             return "Job Title"
-        case .ZipCode:
-            return "Location"
         default:
             return "\(self)"
         }
@@ -65,11 +63,11 @@ extension Application.StateType {
     var color: UIColor {
         switch self {
         case .Applied:
-            return UIColor(rgb: 0xb2bec3)
+            return UIColor(rgb: 0x95A5A6)
         case .Accepted:
             return UIColor(rgb: 0x2ecc71)
         case .Interview:
-            return UIColor(rgb: 0xf39c12)
+            return UIColor(rgb: 0xFF9F43) //f39c12
         case .Rejected:
             return UIColor(rgb: 0xc0392b)
         case .All:

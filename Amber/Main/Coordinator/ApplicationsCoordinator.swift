@@ -24,13 +24,13 @@ class ApplicationsCoordinator: Coordinator {
     }
     
     func showAddApplicationsScreen() {
-        let addApplicationsVC = AddApplicationsViewController()
+        let addApplicationsVC = AddApplicationViewController()
         addApplicationsVC.coordinator = self
         navigationController.pushViewController(addApplicationsVC, animated: true)
     }
     
     func showExistingApplicationScreen(application: Application) {
-        let addApplicationsVC = AddApplicationsViewController(application: application)
+        let addApplicationsVC = AddApplicationViewController(application: application)
         addApplicationsVC.coordinator = self
         navigationController.pushViewController(addApplicationsVC, animated: true)
     }
@@ -41,7 +41,7 @@ class ApplicationsCoordinator: Coordinator {
         navigationController.present(UINavigationController(rootViewController: settingsVC), animated: true)
     }
     
-    func showSearchApplicationsToScreen(addApplicationsVC: AddApplicationsViewController) {
+    func showSearchApplicationsToScreen(addApplicationsVC: AddApplicationViewController) {
         let searchApplicationsVC = SearchApplicationToViewController()
         searchApplicationsVC.delegate = addApplicationsVC
         navigationController.present(UINavigationController(rootViewController: searchApplicationsVC), animated: true)
@@ -61,9 +61,11 @@ class ApplicationsCoordinator: Coordinator {
         navigationController.present(UINavigationController(rootViewController: chooseStateVC), animated: true)
     }
 
-    func showEditNoteScreen(text: String, addApplicationsVC: AddApplicationsViewController) {
+    func showEditNoteScreen(text: String, addApplicationsVC: AddApplicationViewController) {
         let editNoteVC = EditNoteViewController(text: text)
         editNoteVC.delegate = addApplicationsVC
         navigationController.present(UINavigationController(rootViewController: editNoteVC), animated: true)
     }
+    
+    
 }

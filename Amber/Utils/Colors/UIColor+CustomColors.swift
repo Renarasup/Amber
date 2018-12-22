@@ -10,7 +10,7 @@ import UIKit
 
 extension UIColor {
     public class var ApplicationHeader: UIColor {
-        return UIColor(rgb: 0xC8D6E5).withAlphaComponent(0.65)
+        return UIColor(rgb: 0xc7ecee)
     }
     public class var CheatSheetBox: UIColor {
         return UIColor(rgb: 0xD35400)

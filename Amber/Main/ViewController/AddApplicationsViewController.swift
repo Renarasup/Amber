@@ -194,7 +194,7 @@ class AddApplicationsViewController: BaseViewController {
     }
     
     @objc private func onAddNotesPressed() {
-        coordinator?.showEditNoteScreen(text: noteTextView.text ?? "", addApplicationsVC: self)
+//        coordinator?.showEditNoteScreen(text: noteTextView.text ?? "", addApplicationsVC: self)
     }
     
     @objc private func onRemoveEditNotesPressed() {
@@ -346,7 +346,7 @@ extension AddApplicationsViewController: UICollectionViewDelegateFlowLayout, UIC
         let information = allInformation[indexPath.row]
         
         if information == .ApplicationTo {
-            coordinator?.showSearchApplicationsToScreen(addApplicationsVC: self)
+//            coordinator?.showSearchApplicationsToScreen(addApplicationsVC: self)
         }
         
         if information == .State {

@@ -46,7 +46,12 @@
 		2498D39921CC141C0041F261 /* UIColor+CustomColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2498D39821CC141C0041F261 /* UIColor+CustomColors.swift */; };
 		2498D39C21CC15590041F261 /* GlobalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2498D39B21CC15590041F261 /* GlobalConstants.swift */; };
 		2498D39E21CC1AD50041F261 /* HeaderBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2498D39D21CC1AD50041F261 /* HeaderBoxView.swift */; };
-		2498D3A021CC29C40041F261 /* ApplicationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2498D39F21CC29C40041F261 /* ApplicationCell.swift */; };
+		2498D3A221CC2A300041F261 /* ApplicationMainCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2498D3A121CC2A300041F261 /* ApplicationMainCell.swift */; };
+		2498D3A421CCD82F0041F261 /* AddApplicationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2498D3A321CCD82F0041F261 /* AddApplicationViewController.swift */; };
+		2498D3A621CCDB830041F261 /* AddApplicationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2498D3A521CCDB830041F261 /* AddApplicationCell.swift */; };
+		2498D3A821CCDF7D0041F261 /* UIView+Shadows.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2498D3A721CCDF7D0041F261 /* UIView+Shadows.swift */; };
+		2498D3AA21CD87130041F261 /* SortView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2498D3A921CD87130041F261 /* SortView.swift */; };
+		2498D3AC21CE3BC20041F261 /* SortCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2498D3AB21CE3BC20041F261 /* SortCell.swift */; };
 		24FA054E21949DC2006F7DB8 /* RealmHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24FA054D21949DC2006F7DB8 /* RealmHelper.swift */; };
 		6E1FD9923C00B10962366D4B /* Pods_Amber.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 545B75DD84C148DF8D50C60C /* Pods_Amber.framework */; };
 		B8331DF18008D0C95A16356C /* Pods_AmberTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6173FC4F707114239D8F3589 /* Pods_AmberTests.framework */; };
@@ -114,7 +119,12 @@
 		2498D39821CC141C0041F261 /* UIColor+CustomColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+CustomColors.swift"; sourceTree = "<group>"; };
 		2498D39B21CC15590041F261 /* GlobalConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalConstants.swift; sourceTree = "<group>"; };
 		2498D39D21CC1AD50041F261 /* HeaderBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderBoxView.swift; sourceTree = "<group>"; };
-		2498D39F21CC29C40041F261 /* ApplicationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationCell.swift; sourceTree = "<group>"; };
+		2498D3A121CC2A300041F261 /* ApplicationMainCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationMainCell.swift; sourceTree = "<group>"; };
+		2498D3A321CCD82F0041F261 /* AddApplicationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddApplicationViewController.swift; sourceTree = "<group>"; };
+		2498D3A521CCDB830041F261 /* AddApplicationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddApplicationCell.swift; sourceTree = "<group>"; };
+		2498D3A721CCDF7D0041F261 /* UIView+Shadows.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Shadows.swift"; sourceTree = "<group>"; };
+		2498D3A921CD87130041F261 /* SortView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortView.swift; sourceTree = "<group>"; };
+		2498D3AB21CE3BC20041F261 /* SortCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortCell.swift; sourceTree = "<group>"; };
 		24FA054D21949DC2006F7DB8 /* RealmHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmHelper.swift; sourceTree = "<group>"; };
 		4B01AD565677843C48FC1484 /* Pods-Amber.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Amber.release.xcconfig"; path = "Pods/Target Support Files/Pods-Amber/Pods-Amber.release.xcconfig"; sourceTree = "<group>"; };
 		545B75DD84C148DF8D50C60C /* Pods_Amber.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Amber.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -265,7 +275,10 @@
 				240837E8218D946200497B08 /* InformationCell.swift */,
 				240837F2218DBE5D00497B08 /* SearchApplicationCell.swift */,
 				240837F8219447C400497B08 /* ChooseStateCell.swift */,
-				2498D39F21CC29C40041F261 /* ApplicationCell.swift */,
+				2498D3A121CC2A300041F261 /* ApplicationMainCell.swift */,
+				2498D3A521CCDB830041F261 /* AddApplicationCell.swift */,
+				2498D3A921CD87130041F261 /* SortView.swift */,
+				2498D3AB21CE3BC20041F261 /* SortCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -275,6 +288,7 @@
 			children = (
 				2408377E2189022A00497B08 /* ApplicationsViewController.swift */,
 				240837C4218CDA6900497B08 /* AddApplicationsViewController.swift */,
+				2498D3A321CCD82F0041F261 /* AddApplicationViewController.swift */,
 				240837D6218CDF8C00497B08 /* SettingsViewController.swift */,
 				240837EE218DA66600497B08 /* SearchApplicationToViewController.swift */,
 				240837F4218F094200497B08 /* ChooseStateViewController.swift */,
@@ -321,6 +335,7 @@
 				240837CD218CDDD600497B08 /* UIFont+CustomFonts.swift */,
 				240837E0218CE5AD00497B08 /* UIColor+HexValues.swift */,
 				240837EA218D97A700497B08 /* UICollectionView+ReuseableView.swift */,
+				2498D3A721CCDF7D0041F261 /* UIView+Shadows.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -632,28 +647,33 @@
 				240837DB218CE19E00497B08 /* UITableView+ReuseableView.swift in Sources */,
 				240837DF218CE22000497B08 /* UIView+AutoLayout.swift in Sources */,
 				240837C5218CDA6900497B08 /* AddApplicationsViewController.swift in Sources */,
+				2498D3AC21CE3BC20041F261 /* SortCell.swift in Sources */,
 				240837F5218F094200497B08 /* ChooseStateViewController.swift in Sources */,
-				2498D3A021CC29C40041F261 /* ApplicationCell.swift in Sources */,
 				240837F72194402000497B08 /* EditNoteViewController.swift in Sources */,
 				241F5A3621CAF6C4009C09A5 /* ApplicationHeader.swift in Sources */,
 				240837B6218902AB00497B08 /* MainController.swift in Sources */,
 				240837BD218903F400497B08 /* ApplicationsCoordinator.swift in Sources */,
 				2408377F2189022A00497B08 /* ApplicationsViewController.swift in Sources */,
 				240837D5218CDEB400497B08 /* BaseConfig.swift in Sources */,
+				2498D3A821CCDF7D0041F261 /* UIView+Shadows.swift in Sources */,
 				240837BB218903B800497B08 /* Coordinator.swift in Sources */,
 				240837F1218DB7FC00497B08 /* SearchApplication.swift in Sources */,
 				2498D39E21CC1AD50041F261 /* HeaderBoxView.swift in Sources */,
 				2498D39C21CC15590041F261 /* GlobalConstants.swift in Sources */,
+				2498D3A421CCD82F0041F261 /* AddApplicationViewController.swift in Sources */,
 				240837E9218D946200497B08 /* InformationCell.swift in Sources */,
 				240837B8218902DE00497B08 /* AppCoordinator.swift in Sources */,
+				2498D3A221CC2A300041F261 /* ApplicationMainCell.swift in Sources */,
 				240837F9219447C400497B08 /* ChooseStateCell.swift in Sources */,
 				2498D39921CC141C0041F261 /* UIColor+CustomColors.swift in Sources */,
 				240837CE218CDDD600497B08 /* UIFont+CustomFonts.swift in Sources */,
 				240837F3218DBE5D00497B08 /* SearchApplicationCell.swift in Sources */,
 				240837D9218CDFD500497B08 /* Application.swift in Sources */,
+				2498D3AA21CD87130041F261 /* SortView.swift in Sources */,
 				240837C0218905AD00497B08 /* BaseViewController.swift in Sources */,
 				240837EF218DA66600497B08 /* SearchApplicationToViewController.swift in Sources */,
 				240837DD218CE1D800497B08 /* ReusableViewProtocol.swift in Sources */,
+				2498D3A621CCDB830041F261 /* AddApplicationCell.swift in Sources */,
 				240837E5218CEC3200497B08 /* BoxStateView.swift in Sources */,
 				240837EB218D97A700497B08 /* UICollectionView+ReuseableView.swift in Sources */,
 				240837E1218CE5AD00497B08 /* UIColor+HexValues.swift in Sources */,
