@@ -67,5 +67,13 @@ class ApplicationsCoordinator: Coordinator {
         navigationController.present(UINavigationController(rootViewController: editNoteVC), animated: true)
     }
     
+    func showSortByScreen(settingsVC: SettingsViewController) {
+        let sortByVC = SortBySettingsViewController()
+        settingsVC.navigationController?.pushViewController(sortByVC, animated: true)
+    }
     
+    func showDefaultCurrencyScreen(settingsVC: SettingsViewController) {
+        let defaultCurrencyVC = DefaultCurrencySettingsViewController()
+        settingsVC.navigationController?.pushViewController(defaultCurrencyVC, animated: true)
+    }
 }

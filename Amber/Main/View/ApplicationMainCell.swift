@@ -49,10 +49,10 @@ class ApplicationMainCell: UITableViewCell {
 
         selectionStyle = .none
         
-        containerView.layer.shadowOffset = CGSize(width: 0, height: 2)
-        containerView.layer.shadowOpacity = 1
-        containerView.layer.shadowRadius = 4.0
-        containerView.layer.shadowColor = UIColor.init(rgb: 0x9C9C9C).cgColor
+//        containerView.layer.shadowOffset = CGSize(width: 0, height: 2)
+//        containerView.layer.shadowOpacity = 1
+//        containerView.layer.shadowRadius = 4.0
+//        containerView.layer.shadowColor = UIColor.init(rgb: 0x9C9C9C).cgColor
         
         containerView.layer.cornerRadius = Constants.bigCornerRadius
         

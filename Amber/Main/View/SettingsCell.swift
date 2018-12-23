@@ -64,11 +64,11 @@ struct SortApplicationsByItem: SettingsItem {
     
     func configure(cell: SettingsCell) {
         cell.textLabel?.text = "Sort Applications by"
-        cell.detailTextLabel?.text = "Date"
+        cell.detailTextLabel?.text = SortBy(rawValue: KeyManager.shared.sortBy)?.title
     }
     
     func didSelect(settingsVC: SettingsViewController) {
-        
+        settingsVC.coordinator?.showSortByScreen(settingsVC: settingsVC)
     }
 }
 
@@ -79,11 +79,11 @@ struct DefaultCurrencyItem: SettingsItem {
     
     func configure(cell: SettingsCell) {
         cell.textLabel?.text = "Default Currency"
-        cell.detailTextLabel?.text = "EUR (€)"
+        cell.detailTextLabel?.text = KeyManager.shared.defaultCurrency
     }
     
     func didSelect(settingsVC: SettingsViewController) {
-        
+        settingsVC.coordinator?.showDefaultCurrencyScreen(settingsVC: settingsVC)
     }
 }
 

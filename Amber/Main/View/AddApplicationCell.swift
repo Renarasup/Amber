@@ -13,9 +13,7 @@ class AddApplicationCell: UICollectionViewCell {
     
     func setInput(application: Application, model: Application.Information) {
         
-        self.model = model
-        
-        textField.attributedPlaceholder = NSAttributedString(string: model.title, attributes: textFieldPlaceholderAttributes)
+        setInput(model: model)
         
         switch model {
         case .ApplicationTo:
@@ -31,33 +29,14 @@ class AddApplicationCell: UICollectionViewCell {
         case .Job:
             textField.text = application.jobTitle
         case .Salary:
-            addSalaryTextField()
-            setCurrencies()
-            
             textField.text = "\(application.salary)"
             textField.keyboardType = .numberPad
         case .State:
-            pickerDataSource.append(Application.StateType.dataSource)
             state = application.stateEnum
             textField.text = application.stateEnum.title
-            
-            let pickerView = UIPickerView()
-            
-            pickerView.delegate = self
-            pickerView.dataSource = self
-            textField.inputView = pickerView
-            
             addStateView(application.stateEnum)
-            
             bringSubviewToFront(textField)
-            
         case .Date:
-            let datePickerView: UIDatePicker = UIDatePicker()
-            datePickerView.datePickerMode = UIDatePicker.Mode.date
-            
-            datePickerView.addTarget(self, action: #selector(onDatePickerValueChanged(_:)), for: UIControl.Event.valueChanged)
-            
-            textField.inputView = datePickerView
             textField.text = application.sentDate
         case .ZipCode:
             textField.text = application.zipCode
@@ -67,7 +46,32 @@ class AddApplicationCell: UICollectionViewCell {
     }
     
     func setInput(model: Application.Information) {
+        
+        self.model = model
         textField.attributedPlaceholder = NSAttributedString(string: model.title, attributes: textFieldPlaceholderAttributes)
+        
+        if model == .Salary {
+            addSalaryTextField()
+            setCurrencies()
+            textField.keyboardType = .numberPad
+        }
+        if model == .Date {
+            let datePickerView: UIDatePicker = UIDatePicker()
+            datePickerView.datePickerMode = UIDatePicker.Mode.date
+            
+            datePickerView.addTarget(self, action: #selector(onDatePickerValueChanged(_:)), for: UIControl.Event.valueChanged)
+            
+            textField.inputView = datePickerView
+        }
+        if model == .State {
+            pickerDataSource.append(Application.StateType.dataSource)
+            let pickerView = UIPickerView()
+            
+            pickerView.delegate = self
+            pickerView.dataSource = self
+            textField.inputView = pickerView
+            addStateView()
+        }
     }
     
     var pickerDataSource = [[String]]()
@@ -97,16 +101,7 @@ class AddApplicationCell: UICollectionViewCell {
         
         textField.autocorrectionType = .no
         
-//        let doneToolbar = UIToolbar(frame:CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 50))
-//        doneToolbar.barStyle = .default
-//        doneToolbar.items = [
-//            UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil),
-//            UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(onDoneToolBarTapped))]
-//        doneToolbar.sizeToFit()
-//        doneToolbar.tintColor = .Highlight
-//        textField.inputAccessoryView = doneToolbar
-        
-        addShadows()
+//        addShadows()
         
         setupViewsLayout()
     }
@@ -230,10 +225,16 @@ class AddApplicationCell: UICollectionViewCell {
     }
     
     private func addStateView(_ state: Application.StateType) {
-        
-        stateContainerView.layer.cornerRadius = Constants.smallCornerRadius
+        addStateView()
         stateContainerView.backgroundColor = state.color
         stateTitleLabel.text = state.title
+    }
+    
+    private func addStateView() {
+        
+        stateContainerView.layer.cornerRadius = Constants.smallCornerRadius
+        stateContainerView.backgroundColor = Application.StateType.Applied.color
+        stateTitleLabel.text = Application.StateType.Applied.title
         
         containerView.add(subview: stateContainerView) { (v, p) in [
             v.centerYAnchor.constraint(equalTo: p.centerYAnchor),
@@ -248,7 +249,8 @@ class AddApplicationCell: UICollectionViewCell {
             ]}
         
         stateContainerView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(onStateContainerTapped)))
-        }
+
+    }
     
     @objc private func onStateContainerTapped() {
         textField.becomeFirstResponder()

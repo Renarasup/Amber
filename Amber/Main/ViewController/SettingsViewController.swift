@@ -22,11 +22,17 @@ class SettingsViewController: BaseViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UITableViewCell.self)
-        tableView.backgroundColor = .white
+        tableView.backgroundColor = UIColor(rgb: 0xF7F7F7)
         
         view.fillToSuperview(tableView)
         
         updateView()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        tableView.reloadData()
     }
     
     func updateView() {

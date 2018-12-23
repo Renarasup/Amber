@@ -55,6 +55,10 @@
 		2498D3B721CED7EA0041F261 /* Common-Currency.json in Resources */ = {isa = PBXBuildFile; fileRef = 2498D3B621CED7EA0041F261 /* Common-Currency.json */; };
 		2498D3B921CEE1CB0041F261 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2498D3B821CEE1CB0041F261 /* Settings.swift */; };
 		2498D3BB21CEE1EC0041F261 /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2498D3BA21CEE1EC0041F261 /* SettingsCell.swift */; };
+		2498D3BF21CF743F0041F261 /* SortBySettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2498D3BE21CF743F0041F261 /* SortBySettingsViewController.swift */; };
+		2498D3C121CF752B0041F261 /* SortBy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2498D3C021CF752B0041F261 /* SortBy.swift */; };
+		2498D3C321CF76540041F261 /* KeyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2498D3C221CF76540041F261 /* KeyManager.swift */; };
+		2498D3C521CF7CEB0041F261 /* DefaultCurrencySettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2498D3C421CF7CEB0041F261 /* DefaultCurrencySettingsViewController.swift */; };
 		24FA054E21949DC2006F7DB8 /* RealmHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24FA054D21949DC2006F7DB8 /* RealmHelper.swift */; };
 		6E1FD9923C00B10962366D4B /* Pods_Amber.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 545B75DD84C148DF8D50C60C /* Pods_Amber.framework */; };
 		B8331DF18008D0C95A16356C /* Pods_AmberTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6173FC4F707114239D8F3589 /* Pods_AmberTests.framework */; };
@@ -131,6 +135,10 @@
 		2498D3B621CED7EA0041F261 /* Common-Currency.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Common-Currency.json"; sourceTree = "<group>"; };
 		2498D3B821CEE1CB0041F261 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		2498D3BA21CEE1EC0041F261 /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
+		2498D3BE21CF743F0041F261 /* SortBySettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortBySettingsViewController.swift; sourceTree = "<group>"; };
+		2498D3C021CF752B0041F261 /* SortBy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortBy.swift; sourceTree = "<group>"; };
+		2498D3C221CF76540041F261 /* KeyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyManager.swift; sourceTree = "<group>"; };
+		2498D3C421CF7CEB0041F261 /* DefaultCurrencySettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCurrencySettingsViewController.swift; sourceTree = "<group>"; };
 		24FA054D21949DC2006F7DB8 /* RealmHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmHelper.swift; sourceTree = "<group>"; };
 		4B01AD565677843C48FC1484 /* Pods-Amber.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Amber.release.xcconfig"; path = "Pods/Target Support Files/Pods-Amber/Pods-Amber.release.xcconfig"; sourceTree = "<group>"; };
 		545B75DD84C148DF8D50C60C /* Pods_Amber.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Amber.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -272,6 +280,7 @@
 				2498D3B221CEB9230041F261 /* AddApplicationPickers.swift */,
 				2498D3B421CECCBB0041F261 /* Currency.swift */,
 				2498D3B821CEE1CB0041F261 /* Settings.swift */,
+				2498D3C021CF752B0041F261 /* SortBy.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -298,10 +307,12 @@
 			children = (
 				2408377E2189022A00497B08 /* ApplicationsViewController.swift */,
 				2498D3A321CCD82F0041F261 /* AddApplicationViewController.swift */,
-				240837D6218CDF8C00497B08 /* SettingsViewController.swift */,
 				240837EE218DA66600497B08 /* SearchApplicationToViewController.swift */,
 				240837F4218F094200497B08 /* ChooseStateViewController.swift */,
 				240837F62194402000497B08 /* EditNoteViewController.swift */,
+				240837D6218CDF8C00497B08 /* SettingsViewController.swift */,
+				2498D3C421CF7CEB0041F261 /* DefaultCurrencySettingsViewController.swift */,
+				2498D3BE21CF743F0041F261 /* SortBySettingsViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -320,6 +331,7 @@
 			children = (
 				2498D39B21CC15590041F261 /* GlobalConstants.swift */,
 				240837DC218CE1D800497B08 /* ReusableViewProtocol.swift */,
+				2498D3C221CF76540041F261 /* KeyManager.swift */,
 				24FA054C21949D77006F7DB8 /* Realm */,
 				2498D3BC21CEE6900041F261 /* Fonts */,
 				240837C32189063E00497B08 /* Colors */,
@@ -660,6 +672,7 @@
 				240837DB218CE19E00497B08 /* UITableView+ReuseableView.swift in Sources */,
 				240837DF218CE22000497B08 /* UIView+AutoLayout.swift in Sources */,
 				2498D3AC21CE3BC20041F261 /* SortCell.swift in Sources */,
+				2498D3C521CF7CEB0041F261 /* DefaultCurrencySettingsViewController.swift in Sources */,
 				240837F5218F094200497B08 /* ChooseStateViewController.swift in Sources */,
 				240837F72194402000497B08 /* EditNoteViewController.swift in Sources */,
 				240837B6218902AB00497B08 /* MainController.swift in Sources */,
@@ -679,15 +692,18 @@
 				2498D39921CC141C0041F261 /* UIColor+CustomColors.swift in Sources */,
 				240837CE218CDDD600497B08 /* UIFont+CustomFonts.swift in Sources */,
 				240837F3218DBE5D00497B08 /* SearchApplicationCell.swift in Sources */,
+				2498D3C321CF76540041F261 /* KeyManager.swift in Sources */,
 				240837D9218CDFD500497B08 /* Application.swift in Sources */,
 				2498D3B521CECCBB0041F261 /* Currency.swift in Sources */,
 				2498D3AA21CD87130041F261 /* SortView.swift in Sources */,
 				240837C0218905AD00497B08 /* BaseViewController.swift in Sources */,
 				240837EF218DA66600497B08 /* SearchApplicationToViewController.swift in Sources */,
+				2498D3C121CF752B0041F261 /* SortBy.swift in Sources */,
 				240837DD218CE1D800497B08 /* ReusableViewProtocol.swift in Sources */,
 				2498D3A621CCDB830041F261 /* AddApplicationCell.swift in Sources */,
 				240837E5218CEC3200497B08 /* BoxStateView.swift in Sources */,
 				2498D3B321CEB9230041F261 /* AddApplicationPickers.swift in Sources */,
+				2498D3BF21CF743F0041F261 /* SortBySettingsViewController.swift in Sources */,
 				240837EB218D97A700497B08 /* UICollectionView+ReuseableView.swift in Sources */,
 				240837E1218CE5AD00497B08 /* UIColor+HexValues.swift in Sources */,
 				240837D0218CDE6E00497B08 /* BaseLabel.swift in Sources */,

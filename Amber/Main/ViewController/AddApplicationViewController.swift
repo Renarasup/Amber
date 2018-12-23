@@ -144,7 +144,7 @@ class AddApplicationViewController: BaseViewController {
         // Notes
         textContainerView.backgroundColor = UIColor(rgb: 0xF3EFEF)
         textContainerView.layer.cornerRadius = Constants.bigCornerRadius
-        textContainerView.addShadows()
+//        textContainerView.addShadows()
         
         noteTextView.backgroundColor = .clear
         noteTextView.font = .medium
@@ -282,6 +282,9 @@ class AddApplicationViewController: BaseViewController {
                 
                 // handle error
             }
+        } else {
+            // If this is a new application
+            
         }
     }
     
