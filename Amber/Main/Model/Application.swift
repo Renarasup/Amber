@@ -38,7 +38,7 @@ class Application: Object {
 
 extension Application {
     enum Information {
-        case State, Job, Salary, ApplicationTo, Date, Note, ZipCode
+        case State, Job, Salary, ApplicationTo, Date, Note
         
         static let all: [Application.Information] = [ ApplicationTo, Job, Salary, State, Date]
     }

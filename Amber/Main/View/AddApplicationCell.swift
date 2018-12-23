@@ -38,8 +38,6 @@ class AddApplicationCell: UICollectionViewCell {
             bringSubviewToFront(textField)
         case .Date:
             textField.text = application.sentDate
-        case .ZipCode:
-            textField.text = application.zipCode
         default:
             break
         }
@@ -48,7 +46,7 @@ class AddApplicationCell: UICollectionViewCell {
     func setInput(model: Application.Information) {
         
         self.model = model
-        textField.attributedPlaceholder = NSAttributedString(string: model.title, attributes: textFieldPlaceholderAttributes)
+        textField.attributedPlaceholder = NSAttributedString(string: model.title, attributes: textFieldPlaceholderAttributes as [NSAttributedString.Key : Any])
         
         if model == .Salary {
             addSalaryTextField()
@@ -60,6 +58,18 @@ class AddApplicationCell: UICollectionViewCell {
             datePickerView.datePickerMode = UIDatePicker.Mode.date
             
             datePickerView.addTarget(self, action: #selector(onDatePickerValueChanged(_:)), for: UIControl.Event.valueChanged)
+            
+            let dateFormatterGet = DateFormatter()
+            dateFormatterGet.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
+            
+            let dateFormatterPrint = DateFormatter()
+            dateFormatterPrint.dateFormat = "dd.MM.yyyy"
+            
+            if let date = dateFormatterGet.date(from: "\(Date())") {
+                textField.text = dateFormatterPrint.string(from: date)
+            } else {
+                print("There was an error decoding the string")
+            }
             
             textField.inputView = datePickerView
         }
@@ -78,6 +88,12 @@ class AddApplicationCell: UICollectionViewCell {
     
     var logoPath: String?
     var state: Application.StateType?
+    var isFilled: Bool {
+        if textField.text == "" {
+            return false
+        }
+        return true
+    }
     
     let textField = UITextField()
     
@@ -236,6 +252,8 @@ class AddApplicationCell: UICollectionViewCell {
         stateContainerView.layer.cornerRadius = Constants.smallCornerRadius
         stateContainerView.backgroundColor = Application.StateType.Applied.color
         stateTitleLabel.text = Application.StateType.Applied.title
+        textField.text = Application.StateType.Applied.title
+        textField.textColor = .clear
         
         containerView.add(subview: stateContainerView) { (v, p) in [
             v.centerYAnchor.constraint(equalTo: p.centerYAnchor),
@@ -285,6 +303,7 @@ extension AddApplicationCell: UIPickerViewDelegate, UIPickerViewDataSource {
             }
             if model == .State {
                 stateTitleLabel.text = pickerDataSource[component][row]
+                textField.text = pickerDataSource[component][row]
                 state = Application.StateType.all[row]
                 UIView.animate(withDuration: 0.25) {
                     self.stateContainerView.backgroundColor = Application.StateType.all[row].color

@@ -37,9 +37,6 @@ class AppController {
         // Keyboard handling
         IQKeyboardManager.shared.enable = true
         
-        // UI Setup
-        setupUI()
-        
         // Windows Setup
         self.window = window
         window.backgroundColor = .white
@@ -53,14 +50,5 @@ class AppController {
         rootViewController = navController
         
         window.makeKeyAndVisible()
-    }
-    
-    private func setupUI() {
-//        UINavigationBar.appearance().barTintColor = .Accent
-//        UINavigationBar.appearance().tintColor = .white
-//        UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-//        UINavigationBar.appearance().isTranslucent = false
-//
-//        UITabBar.appearance().tintColor = .Accent
     }
 }

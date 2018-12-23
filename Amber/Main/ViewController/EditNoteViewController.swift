@@ -33,7 +33,7 @@ class EditNoteViewController: BaseViewController {
         
 //        textContainerView.backgroundColor = UIColor(rgb: 0xF3EFEF)
 //        textContainerView.layer.borderColor = UIColor(rgb: 0xE5E5E5).cgColor
-        textContainerView.backgroundColor = .SettingsCell
+        textContainerView.backgroundColor = .AddApplicationCell
         textContainerView.layer.borderWidth = 0.2
         textContainerView.layer.cornerRadius = Constants.bigCornerRadius
         

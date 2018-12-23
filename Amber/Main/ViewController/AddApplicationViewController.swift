@@ -90,7 +90,7 @@ class AddApplicationViewController: BaseViewController {
             v.topAnchor.constraint(equalTo: p.safeAreaLayoutGuide.topAnchor, constant: Constants.padding),
             v.leadingAnchor.constraint(equalTo: p.leadingAnchor),
             v.trailingAnchor.constraint(equalTo: p.trailingAnchor),
-            v.heightAnchor.constraint(equalTo: p.heightAnchor, multiplier: 0.55)
+            v.heightAnchor.constraint(equalTo: p.heightAnchor, multiplier: 0.45)
             ]}
         
         view.add(subview: noteContainerView) { (v, p) in [
@@ -140,7 +140,7 @@ class AddApplicationViewController: BaseViewController {
         super.setupUI()
         
         // Notes
-        textContainerView.backgroundColor = .SettingsCell
+        textContainerView.backgroundColor = .AddApplicationCell
         textContainerView.layer.cornerRadius = Constants.bigCornerRadius
 //        textContainerView.addShadows()
         
@@ -215,44 +215,44 @@ class AddApplicationViewController: BaseViewController {
     /***************************************************************/
     
     private func setCRUD() {
+        print("get in here at crud")
         let application = Application()
         var boolsArray = [Bool]()
         for index in allInformation.enumerated() {
             if let cvCell = collectionView.cellForItem(at: IndexPath(item: index.offset, section: 0)) as? AddApplicationCell {
-//                boolsArray.append(cvCell.isFilled)
-                guard let text = cvCell.textField.text else { return }
+                boolsArray.append(cvCell.isFilled)
                 
-                switch index.element {
-                case .ApplicationTo:
-                    if let logoPath = cvCell.logoPath {
-                        application.applicationToTitle = text
-                        
-                        if self.application?.imageLink ?? "" != logoPath {
-                            application.imageLink = logoPath
+                if let text = cvCell.textField.text {
+                    switch index.element {
+                    case .ApplicationTo:
+                        if let logoPath = cvCell.logoPath {
+                            application.applicationToTitle = text
+                            
+                            if self.application?.imageLink ?? "" != logoPath {
+                                application.imageLink = logoPath
+                            } else {
+                                application.imageLink = self.application?.imageLink
+                            }
                         } else {
+                            application.applicationToTitle = text
                             application.imageLink = self.application?.imageLink
                         }
-                    } else {
-                        application.applicationToTitle = text
-                        application.imageLink = self.application?.imageLink
+                    case .Date:
+                        application.sentDate = text
+                    case .Salary:
+                        application.salary = Double(text) ?? 0
+                    case .Job:
+                        application.jobTitle = text
+                    case .State:
+                        application.state = cvCell.state?.rawValue ?? 0
+                    default:
+                        break
                     }
-                case .Date:
-                    application.sentDate = text
-                case .Salary:
-                    application.salary = Double(text) ?? 0
-                case .Job:
-                    application.jobTitle = text
-                case .State:
-                    guard let state = cvCell.state else { return }
-                    application.state = state.rawValue
-                case .ZipCode:
-                    application.zipCode = text
-                default:
-                    break
                 }
             }
         }
         
+        print("second here")
         if !noteTextView.text.isEmpty {
             application.note = noteTextView.text
         }
@@ -268,19 +268,36 @@ class AddApplicationViewController: BaseViewController {
                     savedApplication.salary = application.salary
                     savedApplication.state = application.state
                     savedApplication.sentDate = application.sentDate
-                    savedApplication.zipCode = application.zipCode
                     savedApplication.note = application.note
                     savedApplication.imageLink = imageLink
                 }
                 
                 navigationController?.popViewController(animated: true)
             } catch let error as NSError {
-                
-                // handle error
+                print(error.localizedDescription)
             }
         } else {
-            // If this is a new application
-            
+            print("new application")
+
+            // It's a new application
+            if !boolsArray.contains(false) {
+                do {
+                    let realm = try Realm()
+                    try realm.write {
+                        realm.add(application)
+                    }
+                    
+                    navigationController?.popViewController(animated: true)
+                } catch let error as NSError {
+                    
+                    // handle error
+                }
+                print(true)
+            } else {
+                // alert that everything should be filled out
+                
+                print(false)
+            }
         }
     }
     
