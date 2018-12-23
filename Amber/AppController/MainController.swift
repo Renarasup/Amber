@@ -42,7 +42,7 @@ class AppController {
         window.backgroundColor = .white
         
         // Coordinator Setup
-        let navController = UINavigationController()
+        let navController = CustomNavigationController()
         
         coordinator = AppCoordinator(navigationController: navController)
         coordinator?.start()

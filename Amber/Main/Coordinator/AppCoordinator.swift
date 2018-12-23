@@ -11,9 +11,9 @@ import UIKit
 class AppCoordinator: Coordinator {
     var childCoordinators: [String : Coordinator] = [:]
     
-    var navigationController: UINavigationController
+    var navigationController: CustomNavigationController
     
-    init(navigationController: UINavigationController) {
+    init(navigationController: CustomNavigationController) {
         self.navigationController = navigationController
     }
     

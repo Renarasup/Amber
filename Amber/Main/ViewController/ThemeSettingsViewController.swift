@@ -56,6 +56,8 @@ class ThemeSettingsViewController: BaseViewController {
             self.titleLabel.textColor = .Tint
             self.navigationController?.navigationBar.tintColor = .Tint
         }
+        
+        setNeedsStatusBarAppearanceUpdate()
     }
 }
 

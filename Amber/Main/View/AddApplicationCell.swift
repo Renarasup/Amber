@@ -86,6 +86,7 @@ class AddApplicationCell: UICollectionViewCell {
     
     var pickerDataSource = [[String]]()
     
+    var selectedIndex = 0
     var logoPath: String?
     var state: Application.StateType?
     var isFilled: Bool {
@@ -193,27 +194,35 @@ class AddApplicationCell: UICollectionViewCell {
                 let symbol = currency.value.symbol
                 let code = currency.value.code
                 
-                allCurrencies.append("\(symbol) (\(code))")
+                allCurrencies.append("\(code) (\(symbol))")
             }
+            self.selectedIndex = allCurrencies.firstIndex(where: { (currency) -> Bool in
+                if currency == KeyManager.shared.defaultCurrency {
+                    return true
+                }
+                return false
+            }) ?? 0
+            
+            
+            pickerDataSource.append(SalaryPicker.dataSource.sorted())
             pickerDataSource.append(allCurrencies)
+            
+            let pickerView = UIPickerView()
+            
+            pickerView.delegate = self
+            pickerView.dataSource = self
+
+            pickerView.selectRow(1, inComponent: 0, animated: true)
+            pickerView.selectRow(selectedIndex, inComponent: 1, animated: true)
+            
+            salaryTextField.inputView = pickerView
         }
 
     }
     private func addSalaryTextField() {
-        salaryTextField.text = "Yearly in € (EUR)"
+        salaryTextField.text = "Yearly in \(KeyManager.shared.defaultCurrency)"
         salaryTextField.textAlignment = .right
         salaryTextField.textColor = .lightGray
-        
-        let pickerView = UIPickerView()
-        
-        pickerView.delegate = self
-        pickerView.dataSource = self
-
-        if !pickerDataSource.contains(SalaryPicker.dataSource) {
-            pickerDataSource.append(SalaryPicker.dataSource)
-        }
-        
-        salaryTextField.inputView = pickerView
         
         textField.removeFromSuperview()
         

@@ -8,12 +8,22 @@
 
 import UIKit
 
+class CustomNavigationController: UINavigationController {
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        if KeyManager.shared.theme == ColorScheme.Light.rawValue {
+            return .default
+        }
+        return .lightContent
+    }
+}
+
 class ApplicationsCoordinator: Coordinator {
     var childCoordinators: [String : Coordinator] = [:]
     
-    var navigationController: UINavigationController
+    var navigationController: CustomNavigationController
     
-    init(navigationController: UINavigationController) {
+    init(navigationController: CustomNavigationController) {
         self.navigationController = navigationController
     }
     
@@ -38,7 +48,7 @@ class ApplicationsCoordinator: Coordinator {
     func showSearchApplicationsToScreen(addApplicationsVC: AddApplicationViewController) {
         let searchApplicationsVC = SearchApplicationToViewController()
         searchApplicationsVC.delegate = addApplicationsVC
-        navigationController.present(UINavigationController(rootViewController: searchApplicationsVC), animated: true)
+        navigationController.present(CustomNavigationController(rootViewController: searchApplicationsVC), animated: true)
     }
     
     func showChooseStateScreen(addApplicationsVC: AddApplicationViewController) {
@@ -52,13 +62,13 @@ class ApplicationsCoordinator: Coordinator {
         let chooseStateVC = ChooseStateViewController()
         chooseStateVC.delegate = applicationVC
         chooseStateVC.addAllFilterState()
-        navigationController.present(UINavigationController(rootViewController: chooseStateVC), animated: true)
+        navigationController.present(CustomNavigationController(rootViewController: chooseStateVC), animated: true)
     }
 
     func showEditNoteScreen(text: String, addApplicationsVC: AddApplicationViewController) {
         let editNoteVC = EditNoteViewController(text: text)
         editNoteVC.delegate = addApplicationsVC
-        navigationController.present(UINavigationController(rootViewController: editNoteVC), animated: true)
+        navigationController.present(CustomNavigationController(rootViewController: editNoteVC), animated: true)
     }
     
     
@@ -68,7 +78,7 @@ class ApplicationsCoordinator: Coordinator {
     func showSettingsScreen() {
         let settingsVC = SettingsViewController()
         settingsVC.coordinator = self
-        navigationController.present(UINavigationController(rootViewController: settingsVC), animated: true)
+        navigationController.present(CustomNavigationController(rootViewController: settingsVC), animated: true)
     }
     
     func showSortByScreen(settingsVC: SettingsViewController) {

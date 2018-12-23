@@ -274,11 +274,9 @@ class AddApplicationViewController: BaseViewController {
                 
                 navigationController?.popViewController(animated: true)
             } catch let error as NSError {
-                print(error.localizedDescription)
+                alert(error: error)
             }
         } else {
-            print("new application")
-
             // It's a new application
             if !boolsArray.contains(false) {
                 do {
@@ -289,13 +287,12 @@ class AddApplicationViewController: BaseViewController {
                     
                     navigationController?.popViewController(animated: true)
                 } catch let error as NSError {
-                    
-                    // handle error
+                    alert(error: error)
                 }
                 print(true)
             } else {
                 // alert that everything should be filled out
-                
+                alert(title: "Error", message: "Couldn't save application. Not all fields are filled.", cancelable: false, handler: nil)
                 print(false)
             }
         }
