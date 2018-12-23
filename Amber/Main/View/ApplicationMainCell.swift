@@ -159,3 +159,21 @@ class ApplicationMainCell: UITableViewCell {
     
     
 }
+
+// For Preview
+extension ApplicationMainCell {
+    
+    func injectPreviewData(state: Application.StateType) {
+        containerView.backgroundColor = state.color
+        applicationToLabel.text = "Facebook"
+        jobTitleLabel.text = "Software Engineer Intern"
+        salaryLabel.text = "\(7500)$ Monthly"
+        dateLabel.text = "23.12.2018"
+        
+        guard let imageURL = URL(string: "https://logo.clearbit.com/facebook.com") else {
+            return
+        }
+        
+        companyImageView.kf.setImage(with: imageURL)
+    }
+}

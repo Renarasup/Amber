@@ -272,13 +272,6 @@ extension ApplicationsViewController: ApplicationCellDelegate {
     }
 }
 
-extension ApplicationsViewController: ChooseStateViewControllerDelegate {
-    func didChooseState(_ chooseStateViewController: ChooseStateViewController, state: Application.StateType) {
-//        tableHeader.setState(state, filteredNumOfApplications: filterApplications.count, totalNumOfApplications: applications.count)
-        filterState = state
-    }
-}
-
 extension ApplicationsViewController: SortViewDelegate {
     
     func didChooseState(_ sortView: SortView, state: Application.StateType) {

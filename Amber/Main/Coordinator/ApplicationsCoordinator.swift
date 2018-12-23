@@ -56,14 +56,6 @@ class ApplicationsCoordinator: Coordinator {
 //        chooseStateVC.delegate = addApplicationsVC
 //        navigationController.present(UINavigationController(rootViewController: chooseStateVC), animated: true)
     }
-    
-    // For Filter purpose
-    func showChooseStateScreen(applicationVC: ApplicationsViewController) {
-        let chooseStateVC = ChooseStateViewController()
-        chooseStateVC.delegate = applicationVC
-        chooseStateVC.addAllFilterState()
-        navigationController.present(CustomNavigationController(rootViewController: chooseStateVC), animated: true)
-    }
 
     func showEditNoteScreen(text: String, addApplicationsVC: AddApplicationViewController) {
         let editNoteVC = EditNoteViewController(text: text)
@@ -94,5 +86,16 @@ class ApplicationsCoordinator: Coordinator {
     func showThemeScreen(settingsVC: SettingsViewController) {
         let themeVC = ThemeSettingsViewController()
         settingsVC.navigationController?.pushViewController(themeVC, animated: true)
+    }
+    
+    func showStateColorsScreen(settingsVC: SettingsViewController) {
+        let stateColorsVC = StateColorSettingsViewController(settingsVC: settingsVC)
+        stateColorsVC.coordinator = self
+        settingsVC.navigationController?.pushViewController(stateColorsVC, animated: true)
+    }
+    
+    func showChooseStateColorsScreen(settingsVC: SettingsViewController, state: Application.StateType) {
+        let stateColorsVC = ChooseStateColorViewController(state: state)
+        settingsVC.navigationController?.pushViewController(stateColorsVC, animated: true)
     }
 }

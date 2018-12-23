@@ -1,24 +1,42 @@
 //
-//  ChooseStateViewController.swift
+//  StateColorSettingsViewController.swift
 //  Amber
 //
-//  Created by Giancarlo Buenaflor on 04.11.18.
+//  Created by Giancarlo Buenaflor on 23.12.18.
 //  Copyright © 2018 Giancarlo Buenaflor. All rights reserved.
 //
 
 import UIKit
 
-protocol ChooseStateViewControllerDelegate: class {
-    func didChooseState(_ chooseStateViewController: ChooseStateViewController, state: Application.StateType)
-}
-
-class ChooseStateViewController: BaseViewController {
+class StateColorSettingsViewController: BaseViewController {
     
-    weak var delegate: ChooseStateViewControllerDelegate?
+    var coordinator: ApplicationsCoordinator?
     
+    private let titleLabel = BaseLabel(text: "State Colors", font: .regular, textColor: .Tint, numberOfLines: 1)
+    private let tableView = UITableView(frame: .zero, style: .grouped)
     private var all = Application.StateType.all
+
     
-    private let tableView = UITableView()
+//    func getSelectedIndex() -> Int {
+//        return all.firstIndex(where: { (theme) -> Bool in
+//            if theme == KeyManager.shared.theme {
+//                return true
+//            }
+//            return false
+//        }) ?? 0
+//    }
+    
+    // Needed to stay at root navController which is settingsVC in this case
+    private var settingsVC: SettingsViewController!
+    
+    init(settingsVC: SettingsViewController) {
+        super.init(nibName: nil, bundle: nil)
+        self.settingsVC = settingsVC
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,38 +46,26 @@ class ChooseStateViewController: BaseViewController {
         tableView.register(ChooseStateCell.self)
         tableView.tableFooterView = UIView()
         tableView.separatorStyle = .none
+        tableView.backgroundColor = .Main
         
         view.fillToSuperview(tableView)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        tableView.reloadData()
+    }
+    
     override func setupUI() {
         super.setupUI()
-        
-        view.backgroundColor = .white
-        
-        let dropDownBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "drop_down").withRenderingMode(.alwaysTemplate), style: .plain, target: self, action: #selector(onDropDownPressed))
-        dropDownBarItem.tintColor = .darkGray
-        navigationItem.leftBarButtonItem = dropDownBarItem
-        
-        // Set back title
-        navigationController?.navigationBar.topItem?.title = ""
-        
+
         // Add Title Label
-        let titleLabel = BaseLabel(text: "Choose State", font: .regular, textColor: .black, numberOfLines: 1)
         navigationItem.titleView = titleLabel
-    }
-    
-    @objc private func onDropDownPressed() {
-        dismiss(animated: true, completion: nil)
-    }
-    
-    // For Filter purpose
-    func addAllFilterState() {
-        all.append(Application.StateType.All)
     }
 }
 
-extension ChooseStateViewController: UITableViewDelegate, UITableViewDataSource {
+extension StateColorSettingsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return all.count
@@ -72,7 +78,7 @@ extension ChooseStateViewController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let cell = cell as! ChooseStateCell
         let state = all[indexPath.row]
-        
+        cell.backgroundColor = .Main
         cell.model = state
     }
     
@@ -82,8 +88,6 @@ extension ChooseStateViewController: UITableViewDelegate, UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let state = all[indexPath.row]
-
-        delegate?.didChooseState(self, state: state)
-        dismiss(animated: true, completion: nil)
+        coordinator?.showChooseStateColorsScreen(settingsVC: settingsVC, state: state)
     }
 }

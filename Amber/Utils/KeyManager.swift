@@ -42,11 +42,56 @@ class KeyManager {
             defaults.set(newValue, forKey: Key.theme.rawValue)
         }
     }
+    
+    var acceptedColor: String {
+        get {
+            let value = defaults.string(forKey: Key.acceptedColor.rawValue)
+            return value ?? ""
+        }
+        set {
+            defaults.set(newValue, forKey: Key.acceptedColor.rawValue)
+        }
+    }
+    
+    var appliedColor: String {
+        get {
+            let value = defaults.string(forKey: Key.appliedColor.rawValue)
+            return value ?? ""
+        }
+        set {
+            defaults.set(newValue, forKey: Key.appliedColor.rawValue)
+        }
+    }
+    
+    var interviewColor: String {
+        get {
+            let value = defaults.string(forKey: Key.interviewColor.rawValue)
+            return value ?? ""
+        }
+        set {
+            defaults.set(newValue, forKey: Key.interviewColor.rawValue)
+        }
+    }
+    
+    var rejectedColor: String {
+        get {
+            let value = defaults.string(forKey: Key.rejectedColor.rawValue)
+            return value ?? ""
+        }
+        set {
+            defaults.set(newValue, forKey: Key.rejectedColor.rawValue)
+        }
+    }
+    
 }
 extension KeyManager {
     private enum Key: String {
         case sortBy = "sortBy"
         case defaultCurrency = "defaultCurrency"
         case theme = "theme"
+        case acceptedColor = "acceptedColor"
+        case appliedColor = "appliedColor"
+        case interviewColor = "interviewColor"
+        case rejectedColor = "rejectedColor"
     }
 }

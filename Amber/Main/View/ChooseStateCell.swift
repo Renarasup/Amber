@@ -27,7 +27,7 @@ class ChooseStateCell: UITableViewCell {
         backgroundColor = .clear
         
         titleLabel.textColor = .white
-        containerView.layer.cornerRadius = 7
+        containerView.layer.cornerRadius = Constants.smallCornerRadius
         
         setupViewLayout()
     }

@@ -14,25 +14,12 @@ import UIKit
 
 class SettingsCell: UITableViewCell {
     
-//    var delegate: SettingsCellDelegate?
-    
-    let switchView = UISwitch()
-    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    func addSwitch() {
-        accessoryView = switchView
-        switchView.addTarget(self, action: #selector(switchTurned(_:)), for: .valueChanged)
-    }
-    
-    @objc private func switchTurned(_ sender: UISwitch) {
-//        delegate?.didTurnSwitch(sender)
     }
 }
 
@@ -98,7 +85,7 @@ struct ApplicationStateColorItem: SettingsItem {
     }
     
     func didSelect(settingsVC: SettingsViewController) {
-        
+        settingsVC.coordinator?.showStateColorsScreen(settingsVC: settingsVC)
     }
 }
 

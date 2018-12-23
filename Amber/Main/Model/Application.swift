@@ -60,18 +60,62 @@ extension Application.Information {
 }
 
 extension Application.StateType {
+    
     var color: UIColor {
         switch self {
         case .Applied:
-            return UIColor(rgb: 0x95A5A6)
+            if KeyManager.shared.appliedColor.isEmpty {
+                KeyManager.shared.appliedColor = "95A5A6"
+            }
+            return UIColor(hexString: KeyManager.shared.appliedColor)
         case .Accepted:
-            return UIColor(rgb: 0x2ecc71)
+            if KeyManager.shared.acceptedColor.isEmpty {
+                KeyManager.shared.acceptedColor = "2ecc71"
+            }
+            return UIColor(hexString: KeyManager.shared.acceptedColor)
         case .Interview:
-            return UIColor(rgb: 0xFF9F43) //f39c12
+            if KeyManager.shared.interviewColor.isEmpty {
+                KeyManager.shared.interviewColor = "FF9F43"
+            }
+            return UIColor(hexString: KeyManager.shared.interviewColor)
         case .Rejected:
-            return UIColor(rgb: 0xc0392b)
+            if KeyManager.shared.rejectedColor.isEmpty {
+                KeyManager.shared.rejectedColor = "c0392b"
+            }
+            return UIColor(hexString: KeyManager.shared.rejectedColor)
         case .All:
             return UIColor(rgb: 0xc3498db)
+        }
+    }
+    
+    var multiColors: [ChooseStateColor] {
+        switch self {
+        case .Applied:
+            let color1 = ChooseStateColor(state: self, color: UIColor(rgb: 0x95A5A6), title: "Default")
+            let color2 = ChooseStateColor(state: self, color: UIColor(rgb: 0x7f8c8d), title: "Asbestos")
+            let color3 = ChooseStateColor(state: self, color: UIColor(rgb: 0x636e72), title: "American River")
+            let color4 = ChooseStateColor(state: self, color: UIColor(rgb: 0x2d3436), title: "Dracula Orchid")
+            return [color1, color2, color3, color4]
+        case .Accepted:
+            let color1 = ChooseStateColor(state: self, color: UIColor(rgb: 0x2ecc71), title: "Default")
+            let color2 = ChooseStateColor(state: self, color: UIColor(rgb: 0x27ae60), title: "Nepthritis")
+            let color3 = ChooseStateColor(state: self, color: UIColor(rgb: 0x009432), title: "Pixelated Grass")
+            let color4 = ChooseStateColor(state: self, color: UIColor(rgb: 0x10ac84), title: "Dracula Orchid")
+            return [color1, color2, color3, color4]
+        case .Interview:
+            let color1 = ChooseStateColor(state: self, color: UIColor(rgb: 0xFF9F43), title: "Default")
+            let color2 = ChooseStateColor(state: self, color: UIColor(rgb: 0xe15f41), title: "Tigerlily")
+            let color3 = ChooseStateColor(state: self, color: UIColor(rgb: 0xe67e22), title: "Carrot")
+            let color4 = ChooseStateColor(state: self, color: UIColor(rgb: 0xd35400), title: "Pumpkin")
+            return [color1, color2, color3, color4]
+        case .Rejected:
+            let color1 = ChooseStateColor(state: self, color: UIColor(rgb: 0xc0392b), title: "Default")
+            let color2 = ChooseStateColor(state: self, color: UIColor(rgb: 0xe74c3c), title: "Alizarin")
+            let color3 = ChooseStateColor(state: self, color: UIColor(rgb: 0xe84118), title: "Nasturcian Flower")
+            let color4 = ChooseStateColor(state: self, color: UIColor(rgb: 0xb33939), title: "Eye of Newt")
+            return [color1, color2, color3, color4]
+        default:
+            return []
         }
     }
     
