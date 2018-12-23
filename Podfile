@@ -11,6 +11,8 @@ pod 'SwiftyJSON', '~> 4.0'
 pod 'Kingfisher', '~> 4.0'
 pod 'RealmSwift'
 pod 'IQKeyboardManagerSwift'
+pod 'SwiftyStoreKit'
+
 
   target 'AmberTests' do
     inherit! :search_paths

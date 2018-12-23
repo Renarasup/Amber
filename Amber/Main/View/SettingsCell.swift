@@ -118,7 +118,7 @@ struct RestorePurchasesItem: SettingsItem {
     }
     
     func didSelect(settingsVC: SettingsViewController) {
-        
+        settingsVC.restorePurchase()
     }
 }
 
@@ -137,7 +137,7 @@ struct FeedbackItem: SettingsItem {
     }
     
     func didSelect(settingsVC: SettingsViewController) {
-        
+        settingsVC.sendEmail()
     }
 }
 
@@ -165,6 +165,8 @@ struct RateUsItem: SettingsItem {
     }
     
     func didSelect(settingsVC: SettingsViewController) {
-        
+        settingsVC.rateApp(appId: "1439940310") { (success) in
+            print("rateApp: \(success)")
+        }
     }
 }

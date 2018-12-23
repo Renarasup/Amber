@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import SwiftyStoreKit
+import MessageUI
 
 class SettingsViewController: BaseViewController {
     
@@ -27,7 +29,7 @@ class SettingsViewController: BaseViewController {
         tableView.register(UITableViewCell.self)
 
         view.fillToSuperview(tableView)
-        
+                
         updateView()
     }
     
@@ -73,6 +75,45 @@ class SettingsViewController: BaseViewController {
     
     @objc private func onDropDownPressed() {
         dismiss(animated: true, completion: nil)
+    }
+    
+    func restorePurchase() {
+        SwiftyStoreKit.restorePurchases(atomically: true) { results in
+            if results.restoreFailedPurchases.count > 0 {
+                self.alert(title: "Restore Fail", message: "\(results.restoreFailedPurchases)", cancelable: false, handler: nil)
+            }
+            else if results.restoredPurchases.count > 0 {
+                self.alert(title: "Restore Success", message: "\(results.restoredPurchases)", cancelable: false, handler: nil)
+            }
+            else {
+                self.alert(title: "Error", message: "Nothing to restore", cancelable: false, handler: nil)
+            }
+        }
+    }
+    
+    func sendEmail() {
+        if MFMailComposeViewController.canSendMail() {
+            let mail = MFMailComposeViewController()
+            mail.mailComposeDelegate = self
+            mail.setToRecipients(["giancarlo_buenaflor@yahoo.com"])
+            mail.setMessageBody("<p>About Amber:</p>", isHTML: true)
+            
+            present(mail, animated: true)
+        } else {
+            self.alert(title: "Error", message: "Something went wrong!", cancelable: false, handler: nil)
+        }
+    }
+    
+    func rateApp(appId: String, completion: @escaping ((_ success: Bool)->())) {
+        guard let url = URL(string : "itms-apps://itunes.apple.com/app/" + appId) else {
+            completion(false)
+            return
+        }
+        guard #available(iOS 10, *) else {
+            completion(UIApplication.shared.openURL(url))
+            return
+        }
+        UIApplication.shared.open(url, options: [:], completionHandler: completion)
     }
 }
 
@@ -120,5 +161,11 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         model[indexPath.section].items[indexPath.row].didSelect(settingsVC: self)
         
         tableView.deselectRow()
+    }
+}
+
+extension SettingsViewController: MFMailComposeViewControllerDelegate {
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true)
     }
 }

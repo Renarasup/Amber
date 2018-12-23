@@ -8,6 +8,7 @@
 
 import UIKit
 import IQKeyboardManagerSwift
+import SwiftyStoreKit
 
 class AppController {
     
@@ -29,6 +30,22 @@ class AppController {
     func show(in window: UIWindow?) {
         guard let window = window else {
             fatalError("Cannot layout app with a nil window.")
+        }
+        
+        // Handle StoreKit
+        SwiftyStoreKit.completeTransactions(atomically: true) { purchases in
+            for purchase in purchases {
+                switch purchase.transaction.transactionState {
+                case .purchased, .restored:
+                    if purchase.needsFinishTransaction {
+                        // Deliver content from server, then:
+                        SwiftyStoreKit.finishTransaction(purchase.transaction)
+                    }
+                // Unlock content
+                case .failed, .purchasing, .deferred:
+                    break // do nothing
+                }
+            }
         }
         
         // Initialize color scheme

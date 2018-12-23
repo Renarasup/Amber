@@ -39,6 +39,7 @@ extension UIColor {
     @nonobjc static var SettingsCell: UIColor!
     @nonobjc static var AddApplicationCell: UIColor!
     @nonobjc static var Placeholder: UIColor!
+    @nonobjc static var Separator: UIColor!
     
     static func initWithColorScheme(cs: ColorScheme){
         switch cs {
@@ -54,6 +55,7 @@ extension UIColor {
             SettingsCell = .white
             AddApplicationCell = UIColor(rgb: 0xE9E9E9)
             Placeholder = .lightGray
+            Separator = .lightGray
         case .Dark:
             Main = UIColor(rgb: 0x161718)
             Highlight = Main
@@ -66,6 +68,7 @@ extension UIColor {
             AddApplicationCell = SettingsCell
             Placeholder = .darkGray
             ReverseTint = .black
+            Separator = .darkGray
         }
     }
     

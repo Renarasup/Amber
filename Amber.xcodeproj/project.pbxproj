@@ -49,7 +49,6 @@
 		2498D3AC21CE3BC20041F261 /* SortCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2498D3AB21CE3BC20041F261 /* SortCell.swift */; };
 		2498D3AD21CE4B0A0041F261 /* ApplicationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2408377E2189022A00497B08 /* ApplicationsViewController.swift */; };
 		2498D3AF21CE65570041F261 /* CustomSearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2498D3AE21CE65570041F261 /* CustomSearchBarView.swift */; };
-		2498D3B121CEB82E0041F261 /* CustomPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2498D3B021CEB82E0041F261 /* CustomPickerView.swift */; };
 		2498D3B321CEB9230041F261 /* AddApplicationPickers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2498D3B221CEB9230041F261 /* AddApplicationPickers.swift */; };
 		2498D3B521CECCBB0041F261 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2498D3B421CECCBB0041F261 /* Currency.swift */; };
 		2498D3B721CED7EA0041F261 /* Common-Currency.json in Resources */ = {isa = PBXBuildFile; fileRef = 2498D3B621CED7EA0041F261 /* Common-Currency.json */; };
@@ -64,6 +63,7 @@
 		2498D3CB21D016710041F261 /* StateColorSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2498D3CA21D016710041F261 /* StateColorSettingsViewController.swift */; };
 		2498D3CD21D01C070041F261 /* ChooseStateColorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2498D3CC21D01C070041F261 /* ChooseStateColorCell.swift */; };
 		2498D3CF21D01C340041F261 /* ChooseStateColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2498D3CE21D01C340041F261 /* ChooseStateColor.swift */; };
+		2498D3D121D041880041F261 /* AboutUsSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2498D3D021D041880041F261 /* AboutUsSettingsViewController.swift */; };
 		24FA054E21949DC2006F7DB8 /* RealmHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24FA054D21949DC2006F7DB8 /* RealmHelper.swift */; };
 		6E1FD9923C00B10962366D4B /* Pods_Amber.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 545B75DD84C148DF8D50C60C /* Pods_Amber.framework */; };
 		B8331DF18008D0C95A16356C /* Pods_AmberTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6173FC4F707114239D8F3589 /* Pods_AmberTests.framework */; };
@@ -134,7 +134,6 @@
 		2498D3A921CD87130041F261 /* SortView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortView.swift; sourceTree = "<group>"; };
 		2498D3AB21CE3BC20041F261 /* SortCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortCell.swift; sourceTree = "<group>"; };
 		2498D3AE21CE65570041F261 /* CustomSearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSearchBarView.swift; sourceTree = "<group>"; };
-		2498D3B021CEB82E0041F261 /* CustomPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPickerView.swift; sourceTree = "<group>"; };
 		2498D3B221CEB9230041F261 /* AddApplicationPickers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddApplicationPickers.swift; sourceTree = "<group>"; };
 		2498D3B421CECCBB0041F261 /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
 		2498D3B621CED7EA0041F261 /* Common-Currency.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "Common-Currency.json"; sourceTree = "<group>"; };
@@ -149,6 +148,7 @@
 		2498D3CA21D016710041F261 /* StateColorSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateColorSettingsViewController.swift; sourceTree = "<group>"; };
 		2498D3CC21D01C070041F261 /* ChooseStateColorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseStateColorCell.swift; sourceTree = "<group>"; };
 		2498D3CE21D01C340041F261 /* ChooseStateColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseStateColor.swift; sourceTree = "<group>"; };
+		2498D3D021D041880041F261 /* AboutUsSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUsSettingsViewController.swift; sourceTree = "<group>"; };
 		24FA054D21949DC2006F7DB8 /* RealmHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmHelper.swift; sourceTree = "<group>"; };
 		4B01AD565677843C48FC1484 /* Pods-Amber.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Amber.release.xcconfig"; path = "Pods/Target Support Files/Pods-Amber/Pods-Amber.release.xcconfig"; sourceTree = "<group>"; };
 		545B75DD84C148DF8D50C60C /* Pods_Amber.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Amber.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -307,7 +307,6 @@
 				2498D3A921CD87130041F261 /* SortView.swift */,
 				2498D3AB21CE3BC20041F261 /* SortCell.swift */,
 				2498D3AE21CE65570041F261 /* CustomSearchBarView.swift */,
-				2498D3B021CEB82E0041F261 /* CustomPickerView.swift */,
 				2498D3BA21CEE1EC0041F261 /* SettingsCell.swift */,
 				2498D3CC21D01C070041F261 /* ChooseStateColorCell.swift */,
 			);
@@ -327,6 +326,7 @@
 				2498D3C621CF879B0041F261 /* ThemeSettingsViewController.swift */,
 				2498D3CA21D016710041F261 /* StateColorSettingsViewController.swift */,
 				240837F4218F094200497B08 /* ChooseStateColorViewController.swift */,
+				2498D3D021D041880041F261 /* AboutUsSettingsViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -607,6 +607,7 @@
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyStoreKit/SwiftyStoreKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
@@ -616,6 +617,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyStoreKit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -724,10 +726,10 @@
 				2498D3B321CEB9230041F261 /* AddApplicationPickers.swift in Sources */,
 				2498D3BF21CF743F0041F261 /* SortBySettingsViewController.swift in Sources */,
 				240837EB218D97A700497B08 /* UICollectionView+ReuseableView.swift in Sources */,
+				2498D3D121D041880041F261 /* AboutUsSettingsViewController.swift in Sources */,
 				240837E1218CE5AD00497B08 /* UIColor+HexValues.swift in Sources */,
 				240837D0218CDE6E00497B08 /* BaseLabel.swift in Sources */,
 				24FA054E21949DC2006F7DB8 /* RealmHelper.swift in Sources */,
-				2498D3B121CEB82E0041F261 /* CustomPickerView.swift in Sources */,
 				240837D7218CDF8C00497B08 /* SettingsViewController.swift in Sources */,
 				2498D3C921D00FD80041F261 /* UIViewController+Alerts.swift in Sources */,
 				2408377D2189022A00497B08 /* AppDelegate.swift in Sources */,
