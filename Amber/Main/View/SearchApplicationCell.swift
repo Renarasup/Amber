@@ -21,8 +21,8 @@ class SearchApplicationCell: UITableViewCell {
     
     private let containerView = UIView()
     private let logoImageView = UIImageView()
-    private let nameLabel = BaseLabel(font: .regular, textColor: .black, numberOfLines: 1)
-    private let domainLabel = BaseLabel(font: .medium, textColor: .lightGray, numberOfLines: 1)
+    private let nameLabel = BaseLabel(font: .regular, textColor: .Tint, numberOfLines: 1)
+    private let domainLabel = BaseLabel(font: .medium, textColor: .Placeholder, numberOfLines: 1)
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -30,7 +30,7 @@ class SearchApplicationCell: UITableViewCell {
         selectionStyle = .none
         
         logoImageView.contentMode = .scaleAspectFit
-        containerView.layer.borderColor = UIColor.darkGray.cgColor
+        containerView.layer.borderColor = UIColor.Tint.cgColor
         containerView.layer.borderWidth = 0.5
         containerView.layer.cornerRadius = 5
         

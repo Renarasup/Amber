@@ -38,6 +38,12 @@ class ApplicationsViewController: BaseViewController {
     
     private let sortView = SortView()
     
+    private let titleLabel = BaseLabel(text: "My Applications", font: .regular, textColor: .black, numberOfLines: 1)
+    
+    private lazy var settingsBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "settings").withRenderingMode(.alwaysTemplate), style: .plain, target: self, action: #selector(onSettingsPressed))
+    private lazy var  addApplicationBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "add-plus").withRenderingMode(.alwaysTemplate), style: .plain, target: self, action: #selector(onAddApplicationsPressed))
+    private lazy var  sortBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "filter").withRenderingMode(.alwaysTemplate), style: .plain, target: self, action: #selector(onSortPressed))
+    
     // MARK: - Setup Core Components & Delegations
     /***************************************************************/
 
@@ -59,6 +65,17 @@ class ApplicationsViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        view.backgroundColor = .Main
+        tableView.backgroundColor = .Secondary
+        tableView.separatorColor = .SettingsCell
+        titleLabel.textColor = .Tint
+        
+        settingsBarItem.tintColor = .Tint
+        addApplicationBarItem.tintColor = .Tint
+        sortBarItem.tintColor = .Tint
+        
+        sortView.setColors()
+    
         getData()
     }
     
@@ -126,18 +143,9 @@ class ApplicationsViewController: BaseViewController {
         sortView.alpha = 0
         
         // Add Title Label
-        let titleLabel = BaseLabel(text: "My Applications", font: .regular, textColor: .black, numberOfLines: 1)
         navigationItem.titleView = titleLabel
         
         // Setup Navigation Items
-        let settingsBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "settings").withRenderingMode(.alwaysTemplate), style: .plain, target: self, action: #selector(onSettingsPressed))
-        let addApplicationBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "add-plus").withRenderingMode(.alwaysTemplate), style: .plain, target: self, action: #selector(onAddApplicationsPressed))
-        let sortBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "filter").withRenderingMode(.alwaysTemplate), style: .plain, target: self, action: #selector(onSortPressed))
-        
-        settingsBarItem.tintColor = .darkGray
-        addApplicationBarItem.tintColor = .darkGray
-        sortBarItem.tintColor = .darkGray
-        
         navigationItem.leftBarButtonItem = settingsBarItem
         navigationItem.rightBarButtonItems = [addApplicationBarItem, sortBarItem]
     }
@@ -212,6 +220,7 @@ extension ApplicationsViewController: UITableViewDelegate, UITableViewDataSource
         let application = filterApplications[indexPath.row]
         cell.model = application
         cell.delegate = self
+        cell.backgroundColor = .Main
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

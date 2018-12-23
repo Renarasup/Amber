@@ -25,21 +25,16 @@ class SortView: UIView {
     
     private var all = Application.StateType.all
     
-    private let titleLabel = BaseLabel(text: "Applications", font: .bold, textColor: .black, numberOfLines: 1)
+    private let titleLabel = BaseLabel(text: "Applications", font: .bold, textColor: .Tint, numberOfLines: 1)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        backgroundColor = .white
         layer.cornerRadius = Constants.bigCornerRadius
-
-        rectangleView.backgroundColor = .lightGray
         
+        topContainerView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         topContainerView.layer.cornerRadius = Constants.bigCornerRadius
-        topContainerView.backgroundColor = UIColor.init(rgb: 0xF6F6F6)
-        
-        confirmButton.backgroundColor = UIColor.Highlight
-        confirmButton.setAttributedTitle(NSAttributedString(string: "Confirm", attributes: [NSAttributedString.Key.foregroundColor : UIColor.white, NSAttributedString.Key.font : UIFont.bold]), for: .normal)
+
         confirmButton.layer.cornerRadius = Constants.bigCornerRadius
         confirmButton.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
         confirmButton.addTarget(self, action: #selector(onConfirmTapped), for: .touchUpInside)
@@ -51,12 +46,13 @@ class SortView: UIView {
         tableView.separatorStyle = .none
         
         layer.borderWidth = 0.5
-        layer.borderColor = UIColor.lightGray.cgColor
         
         // Append it manually
         all.append(.All)
         
         setupViewsLayout()
+        
+        setColors()
     }
     
     override func layoutSubviews() {
@@ -108,6 +104,20 @@ class SortView: UIView {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    func setColors() {
+        topContainerView.backgroundColor = .SortTopContainer
+        
+        titleLabel.textColor = .Tint
+        
+        confirmButton.backgroundColor = .Highlight
+        confirmButton.setAttributedTitle(NSAttributedString(string: "Confirm", attributes: [NSAttributedString.Key.foregroundColor : UIColor.white, NSAttributedString.Key.font : UIFont.bold]), for: .normal)
+        
+        rectangleView.backgroundColor = .Secondary
+        layer.borderColor = UIColor.lightGray.cgColor
+
+        tableView.reloadData()
+    }
 }
 
 extension SortView: UITableViewDelegate, UITableViewDataSource {
@@ -124,7 +134,9 @@ extension SortView: UITableViewDelegate, UITableViewDataSource {
         let cell = cell as! SortCell
         
         cell.model = all[indexPath.row]
-        
+        cell.backgroundColor = .SettingsCell
+        cell.titleLabel.textColor = .Tint
+
         if indexPath.row != all.count - 1 {
             cell.addSeparatorLine()
         }

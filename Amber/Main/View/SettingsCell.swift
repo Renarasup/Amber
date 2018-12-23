@@ -20,9 +20,6 @@ class SettingsCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-        textLabel?.font = .medium
-        detailTextLabel?.font = .medium
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -112,10 +109,11 @@ struct ThemeItem: SettingsItem {
     
     func configure(cell: SettingsCell) {
         cell.textLabel?.text = "Theme"
+        cell.detailTextLabel?.text = KeyManager.shared.theme
     }
     
     func didSelect(settingsVC: SettingsViewController) {
-        
+        settingsVC.coordinator?.showThemeScreen(settingsVC: settingsVC)
     }
 }
 

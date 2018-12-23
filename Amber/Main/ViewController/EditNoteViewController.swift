@@ -31,14 +31,15 @@ class EditNoteViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        textContainerView.backgroundColor = UIColor(rgb: 0xF3EFEF)
-        textContainerView.layer.borderColor = UIColor(rgb: 0xE5E5E5).cgColor
+//        textContainerView.backgroundColor = UIColor(rgb: 0xF3EFEF)
+//        textContainerView.layer.borderColor = UIColor(rgb: 0xE5E5E5).cgColor
+        textContainerView.backgroundColor = .SettingsCell
         textContainerView.layer.borderWidth = 0.2
         textContainerView.layer.cornerRadius = Constants.bigCornerRadius
         
         noteTextView.backgroundColor = .clear
         noteTextView.font = .medium
-
+        noteTextView.textColor = .Tint
         
         setupViewLayout()
     }
@@ -63,8 +64,6 @@ class EditNoteViewController: BaseViewController {
     override func setupUI() {
         super.setupUI()
         
-        view.backgroundColor = .white
-        
         // Set Done Bar Item
         let doneBarItem = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(onDonePressed))
         navigationItem.rightBarButtonItem = doneBarItem
@@ -73,7 +72,7 @@ class EditNoteViewController: BaseViewController {
         navigationController?.navigationBar.topItem?.title = ""
         
         // Add Title Label
-        let titleLabel = BaseLabel(text: "Edit Notes", font: .regular, textColor: .black, numberOfLines: 1)
+        let titleLabel = BaseLabel(text: "Edit Notes", font: .regular, textColor: .Tint, numberOfLines: 1)
         navigationItem.titleView = titleLabel
     }
     

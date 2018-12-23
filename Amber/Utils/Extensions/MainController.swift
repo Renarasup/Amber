@@ -31,6 +31,9 @@ class AppController {
             fatalError("Cannot layout app with a nil window.")
         }
         
+        // Initialize color scheme
+        UIColor.initWithColorScheme(cs: ColorScheme(rawValue: KeyManager.shared.theme) ?? .Light)
+        
         // Keyboard handling
         IQKeyboardManager.shared.enable = true
         

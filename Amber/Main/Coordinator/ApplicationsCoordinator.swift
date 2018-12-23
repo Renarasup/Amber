@@ -35,12 +35,6 @@ class ApplicationsCoordinator: Coordinator {
         navigationController.pushViewController(addApplicationsVC, animated: true)
     }
     
-    func showSettingsScreen() {
-        let settingsVC = SettingsViewController()
-        settingsVC.coordinator = self
-        navigationController.present(UINavigationController(rootViewController: settingsVC), animated: true)
-    }
-    
     func showSearchApplicationsToScreen(addApplicationsVC: AddApplicationViewController) {
         let searchApplicationsVC = SearchApplicationToViewController()
         searchApplicationsVC.delegate = addApplicationsVC
@@ -67,6 +61,16 @@ class ApplicationsCoordinator: Coordinator {
         navigationController.present(UINavigationController(rootViewController: editNoteVC), animated: true)
     }
     
+    
+    // MARK: - Settings
+    /***************************************************************/
+    
+    func showSettingsScreen() {
+        let settingsVC = SettingsViewController()
+        settingsVC.coordinator = self
+        navigationController.present(UINavigationController(rootViewController: settingsVC), animated: true)
+    }
+    
     func showSortByScreen(settingsVC: SettingsViewController) {
         let sortByVC = SortBySettingsViewController()
         settingsVC.navigationController?.pushViewController(sortByVC, animated: true)
@@ -75,5 +79,10 @@ class ApplicationsCoordinator: Coordinator {
     func showDefaultCurrencyScreen(settingsVC: SettingsViewController) {
         let defaultCurrencyVC = DefaultCurrencySettingsViewController()
         settingsVC.navigationController?.pushViewController(defaultCurrencyVC, animated: true)
+    }
+    
+    func showThemeScreen(settingsVC: SettingsViewController) {
+        let themeVC = ThemeSettingsViewController()
+        settingsVC.navigationController?.pushViewController(themeVC, animated: true)
     }
 }

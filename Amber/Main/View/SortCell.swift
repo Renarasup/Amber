@@ -18,7 +18,8 @@ class SortCell: UITableViewCell {
     
     private let circleContainerView = UIView()
     private let checkImageView = UIImageView()
-    private let titleLabel = BaseLabel(font: .regular, textColor: .black, numberOfLines: 1)
+    
+    let titleLabel = BaseLabel(font: .regular, textColor: .Tint, numberOfLines: 1)
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -74,15 +75,15 @@ class SortCell: UITableViewCell {
     }
     
     func addSeparatorLine() {
-        let separatorLine = UIView()
-        separatorLine.backgroundColor = .lightGray
-        
-        add(subview: separatorLine) { (v, p) in [
-            v.bottomAnchor.constraint(equalTo: p.bottomAnchor),
-            v.leadingAnchor.constraint(equalTo: p.leadingAnchor),
-            v.trailingAnchor.constraint(equalTo: p.trailingAnchor),
-            v.heightAnchor.constraint(equalToConstant: 0.5)
-            ]}
+//        let separatorLine = UIView()
+//        separatorLine.backgroundColor = .Tint
+//        
+//        add(subview: separatorLine) { (v, p) in [
+//            v.bottomAnchor.constraint(equalTo: p.bottomAnchor),
+//            v.leadingAnchor.constraint(equalTo: p.leadingAnchor),
+//            v.trailingAnchor.constraint(equalTo: p.trailingAnchor),
+//            v.heightAnchor.constraint(equalToConstant: 0.5)
+//            ]}
     }
     
     required init?(coder aDecoder: NSCoder) {

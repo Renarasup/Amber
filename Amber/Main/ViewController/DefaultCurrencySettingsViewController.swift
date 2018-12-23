@@ -65,8 +65,13 @@ class DefaultCurrencySettingsViewController: BaseViewController {
         view.backgroundColor = .white
         
         // Add Title Label
-        let titleLabel = BaseLabel(text: "Default Currency", font: .regular, textColor: .black, numberOfLines: 1)
+        let titleLabel = BaseLabel(text: "Default Currency", font: .regular, textColor: .Tint, numberOfLines: 1)
         navigationItem.titleView = titleLabel
+        
+        view.backgroundColor = .Main
+        tableView.backgroundColor = .Secondary
+        tableView.separatorColor = .SettingsCell
+        navigationController?.navigationBar.tintColor = .Tint
     }
 }
 
@@ -89,10 +94,12 @@ extension DefaultCurrencySettingsViewController: UITableViewDelegate, UITableVie
         }
         cell.textLabel?.font = .medium
         cell.textLabel?.text = allCurrencies[indexPath.row]
-        
+        cell.textLabel?.textColor = .Tint
+        cell.backgroundColor = .SettingsCell
+
         if indexPath.row == getSelectedIndex() {
             cell.accessoryType = .checkmark
-            cell.tintColor = .Highlight
+            cell.tintColor = .HighlightTint
         }  else {
             cell.accessoryType = .none
         }

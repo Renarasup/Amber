@@ -59,6 +59,7 @@
 		2498D3C121CF752B0041F261 /* SortBy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2498D3C021CF752B0041F261 /* SortBy.swift */; };
 		2498D3C321CF76540041F261 /* KeyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2498D3C221CF76540041F261 /* KeyManager.swift */; };
 		2498D3C521CF7CEB0041F261 /* DefaultCurrencySettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2498D3C421CF7CEB0041F261 /* DefaultCurrencySettingsViewController.swift */; };
+		2498D3C721CF879B0041F261 /* ThemeSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2498D3C621CF879B0041F261 /* ThemeSettingsViewController.swift */; };
 		24FA054E21949DC2006F7DB8 /* RealmHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24FA054D21949DC2006F7DB8 /* RealmHelper.swift */; };
 		6E1FD9923C00B10962366D4B /* Pods_Amber.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 545B75DD84C148DF8D50C60C /* Pods_Amber.framework */; };
 		B8331DF18008D0C95A16356C /* Pods_AmberTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6173FC4F707114239D8F3589 /* Pods_AmberTests.framework */; };
@@ -139,6 +140,7 @@
 		2498D3C021CF752B0041F261 /* SortBy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortBy.swift; sourceTree = "<group>"; };
 		2498D3C221CF76540041F261 /* KeyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyManager.swift; sourceTree = "<group>"; };
 		2498D3C421CF7CEB0041F261 /* DefaultCurrencySettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultCurrencySettingsViewController.swift; sourceTree = "<group>"; };
+		2498D3C621CF879B0041F261 /* ThemeSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeSettingsViewController.swift; sourceTree = "<group>"; };
 		24FA054D21949DC2006F7DB8 /* RealmHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmHelper.swift; sourceTree = "<group>"; };
 		4B01AD565677843C48FC1484 /* Pods-Amber.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Amber.release.xcconfig"; path = "Pods/Target Support Files/Pods-Amber/Pods-Amber.release.xcconfig"; sourceTree = "<group>"; };
 		545B75DD84C148DF8D50C60C /* Pods_Amber.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Amber.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -237,7 +239,6 @@
 			isa = PBXGroup;
 			children = (
 				2408377C2189022A00497B08 /* AppDelegate.swift */,
-				240837B5218902AB00497B08 /* MainController.swift */,
 			);
 			path = AppController;
 			sourceTree = "<group>";
@@ -313,6 +314,7 @@
 				240837D6218CDF8C00497B08 /* SettingsViewController.swift */,
 				2498D3C421CF7CEB0041F261 /* DefaultCurrencySettingsViewController.swift */,
 				2498D3BE21CF743F0041F261 /* SortBySettingsViewController.swift */,
+				2498D3C621CF879B0041F261 /* ThemeSettingsViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -355,6 +357,7 @@
 			children = (
 				240837DE218CE22000497B08 /* UIView+AutoLayout.swift */,
 				240837DA218CE19E00497B08 /* UITableView+ReuseableView.swift */,
+				240837B5218902AB00497B08 /* MainController.swift */,
 				240837E0218CE5AD00497B08 /* UIColor+HexValues.swift */,
 				240837EA218D97A700497B08 /* UICollectionView+ReuseableView.swift */,
 				2498D3A721CCDF7D0041F261 /* UIView+Shadows.swift */,
@@ -669,6 +672,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2498D3AD21CE4B0A0041F261 /* ApplicationsViewController.swift in Sources */,
+				2498D3C721CF879B0041F261 /* ThemeSettingsViewController.swift in Sources */,
 				240837DB218CE19E00497B08 /* UITableView+ReuseableView.swift in Sources */,
 				240837DF218CE22000497B08 /* UIView+AutoLayout.swift in Sources */,
 				2498D3AC21CE3BC20041F261 /* SortCell.swift in Sources */,

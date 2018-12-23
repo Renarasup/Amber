@@ -23,16 +23,6 @@ class KeyManager {
         }
     }
     
-    var defaultCurrencyIdx: Int {
-        get {
-            let value = defaults.integer(forKey: Key.defaultCurrencyIdx.rawValue)
-            return value
-        }
-        set {
-            defaults.set(newValue, forKey: Key.defaultCurrencyIdx.rawValue)
-        }
-    }
-    
     var defaultCurrency: String {
         get {
             let value = defaults.string(forKey: Key.defaultCurrency.rawValue)
@@ -42,11 +32,21 @@ class KeyManager {
             defaults.set(newValue, forKey: Key.defaultCurrency.rawValue)
         }
     }
+    
+    var theme: String {
+        get {
+            let value = defaults.string(forKey: Key.theme.rawValue)
+            return value ?? "Light"
+        }
+        set {
+            defaults.set(newValue, forKey: Key.theme.rawValue)
+        }
+    }
 }
 extension KeyManager {
     private enum Key: String {
         case sortBy = "sortBy"
-        case defaultCurrencyIdx = "defaultCurrencyIdx"
         case defaultCurrency = "defaultCurrency"
+        case theme = "theme"
     }
 }

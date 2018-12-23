@@ -89,16 +89,17 @@ class AddApplicationCell: UICollectionViewCell {
     private let stateTitleLabel = BaseLabel(font: .regular, textColor: .white, numberOfLines: 1)
 
     private let textFieldPlaceholderAttributes = [
-        NSAttributedString.Key.foregroundColor: UIColor.lightGray,
+        NSAttributedString.Key.foregroundColor: UIColor.Placeholder,
         NSAttributedString.Key.font : UIFont.bold
     ]
     
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        containerView.backgroundColor = UIColor.init(rgb: 0xE9E9E9)
+        containerView.backgroundColor = .AddApplicationCell
         containerView.layer.cornerRadius = Constants.bigCornerRadius
         
+        textField.textColor = .Tint
         textField.autocorrectionType = .no
         
 //        addShadows()

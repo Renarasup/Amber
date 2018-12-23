@@ -37,12 +37,16 @@ class SearchApplicationToViewController: BaseViewController {
         searchController.searchBar.delegate = self
         searchController.dimsBackgroundDuringPresentation = false
         searchController.hidesNavigationBarDuringPresentation = false
-
+        searchController.searchBar.tintColor = .Tint
+        
+        UITextField.appearance(whenContainedInInstancesOf: [UISearchBar.self]).defaultTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.Tint]
+        
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(SearchApplicationCell.self)
         tableView.separatorStyle = .none
         tableView.tableFooterView = UIView()
+        tableView.backgroundColor = .Main
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: activityIndicator)
         
@@ -52,10 +56,8 @@ class SearchApplicationToViewController: BaseViewController {
     override func setupUI() {
         super.setupUI()
         
-        view.backgroundColor = .white
-        
         let dropDownBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "drop_down").withRenderingMode(.alwaysTemplate), style: .plain, target: self, action: #selector(onDropDownPressed))
-        dropDownBarItem.tintColor = .darkGray
+        dropDownBarItem.tintColor = .Tint
         navigationItem.leftBarButtonItem = dropDownBarItem
     }
     
@@ -117,6 +119,7 @@ extension SearchApplicationToViewController: UITableViewDelegate, UITableViewDat
         let searchApplication = searchApplications[indexPath.row]
         let cell = cell as! SearchApplicationCell
         cell.model = searchApplication
+        cell.backgroundColor = .Main
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

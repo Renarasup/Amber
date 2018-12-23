@@ -16,29 +16,25 @@ class SettingsViewController: BaseViewController {
 
     private let tableView = UITableView(frame: .zero, style: .grouped)
     
+    lazy var dropDownBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "drop_down").withRenderingMode(.alwaysTemplate), style: .plain, target: self, action: #selector(onDropDownPressed))
+    let titleLabel = BaseLabel(text: "Settings", font: .regular, textColor: .Tint, numberOfLines: 1)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UITableViewCell.self)
-        tableView.backgroundColor = UIColor(rgb: 0xF7F7F7)
-        
+
         view.fillToSuperview(tableView)
         
         updateView()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        tableView.reloadData()
-    }
-    
     func updateView() {
         let myApplicationsSection = SettingsSection(title: "My Applications", items: [ SortApplicationsByItem(), DefaultCurrencyItem() ], footer: nil)
         let designSection = SettingsSection(title: "Design", items: [ ApplicationStateColorItem(), ThemeItem() ], footer: nil)
-        let purchasesSection = SettingsSection(title: "Purchases", items: [ RestorePurchasesItem(), ThemeItem() ], footer: nil)
+        let purchasesSection = SettingsSection(title: "Purchases", items: [ RestorePurchasesItem() ], footer: nil)
         let infoSection = SettingsSection(title: "Info", items: [ FeedbackItem(), AboutUsItem(), RateUsItem() ], footer: nil)
         
         model = [ myApplicationsSection, designSection, purchasesSection, infoSection ]
@@ -52,19 +48,26 @@ class SettingsViewController: BaseViewController {
         tableView.reloadData()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        view.backgroundColor = .Main
+        tableView.backgroundColor = .Secondary
+        tableView.separatorColor = .SettingsCell
+        dropDownBarItem.tintColor = .Tint
+        titleLabel.textColor = .Tint
+        
+        tableView.reloadData()
+    }
+
     override func setupUI() {
         super.setupUI()
         
-        view.backgroundColor = .white
-        
         // Add Dropdown
-        let dropDownBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "drop_down").withRenderingMode(.alwaysTemplate), style: .plain, target: self, action: #selector(onDropDownPressed))
-        dropDownBarItem.tintColor = .darkGray
         navigationItem.leftBarButtonItem = dropDownBarItem
         
         
         // Add Title Label
-        let titleLabel = BaseLabel(text: "Settings", font: .regular, textColor: .black, numberOfLines: 1)
         navigationItem.titleView = titleLabel
     }
     
@@ -86,6 +89,7 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         let header = view as! UITableViewHeaderFooterView
         header.textLabel?.font = UIFont.regular.withSize(13)
+        header.textLabel?.textColor = .TableViewHeader
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -102,6 +106,11 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
             return UITableViewCell()
         }
         
+        cell.textLabel?.textColor = .Tint
+        cell.textLabel?.font = .medium
+        cell.detailTextLabel?.font = .medium
+        cell.backgroundColor = .SettingsCell
+
         item.configure(cell: cell)
         
         return cell

@@ -34,11 +34,16 @@ class SortBySettingsViewController: BaseViewController {
     override func setupUI() {
         super.setupUI()
         
-        view.backgroundColor = .white
+        view.backgroundColor = .Main
         
         // Add Title Label
-        let titleLabel = BaseLabel(text: "Sort By", font: .regular, textColor: .black, numberOfLines: 1)
+        let titleLabel = BaseLabel(text: "Sort By", font: .regular, textColor: .Tint, numberOfLines: 1)
         navigationItem.titleView = titleLabel
+        
+        view.backgroundColor = .Main
+        tableView.backgroundColor = .Secondary
+        tableView.separatorColor = .SettingsCell
+        navigationController?.navigationBar.tintColor = .Tint
     }
 }
 
@@ -55,10 +60,12 @@ extension SortBySettingsViewController: UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.textLabel?.font = .medium
         cell.textLabel?.text = all[indexPath.row].title
-        
+        cell.textLabel?.textColor = .Tint
+        cell.backgroundColor = .SettingsCell
+
         if indexPath.row == selectedIndex {
             cell.accessoryType = .checkmark
-            cell.tintColor = .Highlight
+            cell.tintColor = .HighlightTint
         }  else {
             cell.accessoryType = .none
         }

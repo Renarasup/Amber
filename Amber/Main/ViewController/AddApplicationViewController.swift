@@ -27,7 +27,7 @@ class AddApplicationViewController: BaseViewController {
     
     private let noteContainerView = UIView()
     private let noteAddImageView = UIImageView()
-    private let noteLabel = BaseLabel(text: "Add Note", font: .regular, textColor: .black, numberOfLines: 1)
+    private let noteLabel = BaseLabel(text: "Add Note", font: .regular, textColor: .Tint, numberOfLines: 1)
     
     private let noteTextView = UITextView()
     private let textContainerView = UIView()
@@ -44,7 +44,7 @@ class AddApplicationViewController: BaseViewController {
         collectionView.dataSource = self
         collectionView.register(AddApplicationCell.self)
         collectionView.bounces = false
-        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = .Main
         
         noteContainerView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(onAddNotesPressed)))
         
@@ -139,15 +139,14 @@ class AddApplicationViewController: BaseViewController {
     override func setupUI() {
         super.setupUI()
         
-        view.backgroundColor = .white
-        
         // Notes
-        textContainerView.backgroundColor = UIColor(rgb: 0xF3EFEF)
+        textContainerView.backgroundColor = .SettingsCell
         textContainerView.layer.cornerRadius = Constants.bigCornerRadius
 //        textContainerView.addShadows()
         
         noteTextView.backgroundColor = .clear
         noteTextView.font = .medium
+        noteTextView.textColor = .Tint
         
         removeEditNoteButton.setTitle("Remove Notes", for: .normal)
         removeEditNoteButton.setTitleColor(.white, for: .normal)
@@ -160,13 +159,10 @@ class AddApplicationViewController: BaseViewController {
         let saveBarItem = UIBarButtonItem(title: "Save", style: .plain, target: self, action: #selector(onSavePressed))
         navigationItem.rightBarButtonItem = saveBarItem
         
-        // Set back title
-        navigationController?.navigationBar.topItem?.title = ""
-        
-        // Uses the same color as applicationHeader
-        noteContainerView.backgroundColor = .Highlight
+        // Set note
+        noteContainerView.backgroundColor = .HighlightTint
         noteAddImageView.image = #imageLiteral(resourceName: "add-plus").withRenderingMode(.alwaysTemplate)
-        noteAddImageView.tintColor = .white
+        noteAddImageView.tintColor = .ReverseTint
     }
     
     // **** Initializers ****
@@ -177,7 +173,7 @@ class AddApplicationViewController: BaseViewController {
         self.application = application
         
         // Add Title Label
-        let titleLabel = BaseLabel(text: "Manage Application", font: .regular, textColor: .black, numberOfLines: 1)
+        let titleLabel = BaseLabel(text: "Manage Application", font: .regular, textColor: .Tint, numberOfLines: 1)
         navigationItem.titleView = titleLabel
     }
     
@@ -185,7 +181,7 @@ class AddApplicationViewController: BaseViewController {
         super.init(nibName: nil, bundle: nil)
         
         // Add Title Label
-        let titleLabel = BaseLabel(text: "Add Application", font: .regular, textColor: .black, numberOfLines: 1)
+        let titleLabel = BaseLabel(text: "Add Application", font: .regular, textColor: .Tint, numberOfLines: 1)
         navigationItem.titleView = titleLabel
     }
     
