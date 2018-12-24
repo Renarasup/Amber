@@ -36,7 +36,7 @@ class SettingsViewController: BaseViewController {
     func updateView() {
         let myApplicationsSection = SettingsSection(title: "My Applications", items: [ SortApplicationsByItem(), DefaultCurrencyItem() ], footer: nil)
         let designSection = SettingsSection(title: "Design", items: [ ApplicationStateColorItem(), ThemeItem() ], footer: nil)
-        let purchasesSection = SettingsSection(title: "Purchases", items: [ RestorePurchasesItem() ], footer: nil)
+        let purchasesSection = SettingsSection(title: "Purchases", items: [ RestorePurchasesItem(), ViewPackagesItem() ], footer: nil)
         let infoSection = SettingsSection(title: "Info", items: [ FeedbackItem(), AboutUsItem(), RateUsItem() ], footer: nil)
         
         model = [ myApplicationsSection, designSection, purchasesSection, infoSection ]

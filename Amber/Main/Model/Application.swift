@@ -135,5 +135,5 @@ extension Application.StateType {
     
     static let all: [Application.StateType] = [ .Applied, .Rejected, .Interview, .Accepted ]
     
-    static let dataSource: [String] = [Application.StateType.Applied.title, Application.StateType.Accepted.title, Application.StateType.Interview.title, Application.StateType.Rejected.title]
+    static let dataSource: [String] = [Application.StateType.Applied.title, Application.StateType.Rejected.title, Application.StateType.Interview.title, Application.StateType.Accepted.title]
 }

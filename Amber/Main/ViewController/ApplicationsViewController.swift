@@ -252,18 +252,18 @@ extension ApplicationsViewController: ApplicationCellDelegate {
         do {
             let realm = try Realm()
             try realm.write {
-                realm.delete(applications[indexPath.row])
+                realm.delete(filterApplications[indexPath.row])
             }
             
             self.tableView.beginUpdates()
             
-            self.applications.remove(at: indexPath.row)
+            self.filterApplications.remove(at: indexPath.row)
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
             
             self.tableView.endUpdates()
             
         } catch let error as NSError {
-            
+            self.alert(error: error)
             // handle error
         }
     }

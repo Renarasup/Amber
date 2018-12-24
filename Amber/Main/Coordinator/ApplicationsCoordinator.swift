@@ -103,4 +103,15 @@ class ApplicationsCoordinator: Coordinator {
         let aboutUsVC = AboutUsSettingsViewController()
         settingsVC.navigationController?.pushViewController(aboutUsVC, animated: true)
     }
+    
+    func showViewPackagesScreen(settingsVC: SettingsViewController) {
+        let viewPackagesVC = PackagesViewController(settingsVC: settingsVC)
+        viewPackagesVC.coordinator = self
+        settingsVC.navigationController?.pushViewController(viewPackagesVC, animated: true)
+    }
+    
+    func showPackageInformationScreen(settingsVC: SettingsViewController, package: Package) {
+        let packageInformationVC = PackageInformationViewController(package: package)
+        settingsVC.navigationController?.pushViewController(packageInformationVC, animated: true)
+    }
 }

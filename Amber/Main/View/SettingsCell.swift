@@ -122,6 +122,20 @@ struct RestorePurchasesItem: SettingsItem {
     }
 }
 
+struct ViewPackagesItem: SettingsItem {
+    var cellType: SettingsCell.Type {
+        return DisclosureCell.self
+    }
+    
+    func configure(cell: SettingsCell) {
+        cell.textLabel?.text = "View Packages"
+    }
+    
+    func didSelect(settingsVC: SettingsViewController) {
+        settingsVC.coordinator?.showViewPackagesScreen(settingsVC: settingsVC)
+    }
+}
+
 
 // MARK: - Info
 /***************************************************************/
