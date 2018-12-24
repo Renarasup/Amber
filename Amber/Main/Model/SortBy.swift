@@ -27,4 +27,19 @@ extension SortBy {
             return "Date"
         }
     }
+    
+    func put(applications: [Application]) -> [Application] {
+        switch self {
+        case .companyName:
+            return applications.sorted(by: { $0.applicationToTitle < $1.applicationToTitle })
+        case .latest:
+            return applications.reversed()
+        case .date:
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "dd.MM.yyyy"
+            return applications.sorted { dateFormatter.date(from: $0.sentDate)! > dateFormatter.date(from: $1.sentDate)! }
+        case .status:
+            return applications.sorted(by: { $0.state > $1.state })
+        }
+    }
 }

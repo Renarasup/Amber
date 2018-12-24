@@ -94,17 +94,12 @@ class ApplicationsViewController: BaseViewController {
                     }
                     return false
                 }
-                
-                filterApplications = tempApplications
+                filterApplications = SortBy(rawValue: KeyManager.shared.sortBy)?.put(applications: tempApplications) ?? []
             } else {
-                filterApplications = self.applications
-            }
-            
-//            tableHeader.setState(filterState, filteredNumOfApplications: filterApplications.count, totalNumOfApplications: applications.count)
-            
+                filterApplications = SortBy(rawValue: KeyManager.shared.sortBy)?.put(applications: self.applications) ?? []
+            }            
         } catch let error as NSError {
-            // handle error
-            
+            self.alert(error: error)
         }
     }
     
