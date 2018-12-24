@@ -19,13 +19,13 @@ struct CurrencyValue: Codable {
 
 class CurrencyManager {
     
-    var currencyListResponse: CurrencyListResponse?
+    var list: CurrencyListResponse?
     
     static let shared = CurrencyManager()
     
     func initialize() {
         loadCurrencyList { (response) in
-            self.currencyListResponse = response
+            self.list = response
         }
     }
     

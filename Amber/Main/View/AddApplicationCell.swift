@@ -29,8 +29,24 @@ class AddApplicationCell: UICollectionViewCell {
         case .Job:
             textField.text = application.jobTitle
         case .Salary:
-            textField.text = application.formattedSalary
+            salaryPayCycle = application.salaryPayCycle
+            salaryCurrencyCode = application.salaryCurrencyCode
+            salaryCurrencySymbol = application.salaryCurrencySymbol
+            
+            salaryTextField.text = "\(application.salaryPayCycle) in \(application.salaryCurrencyCode) \((application.salaryCurrencySymbol))"
+            textField.text = application.salaryWithoutDecimal
             textField.keyboardType = .numberPad
+
+            self.selectedIndex = self.allCurrencies.firstIndex(where: { (currency) -> Bool in
+                if currency == "\(application.salaryCurrencyCode) (\(application.salaryCurrencySymbol))" {
+                    return true
+                }
+                return false
+            }) ?? 0
+            
+            pickerView.selectRow(salaryPayCycle == "Monthly" ? 0 : 1, inComponent: 0, animated: true)
+            pickerView.selectRow(selectedIndex, inComponent: 1, animated: true)
+
         case .State:
             state = application.stateEnum
             textField.text = application.stateEnum.title
@@ -85,6 +101,9 @@ class AddApplicationCell: UICollectionViewCell {
         }
     }
     
+    var allCurrencies = [String]()
+    var allCodes = [String]()
+    var allSymbols = [String]()
     var pickerDataSource = [[String]]()
     
     var selectedIndex = 0
@@ -99,8 +118,11 @@ class AddApplicationCell: UICollectionViewCell {
     
     let textField = UITextField()
     let salaryTextField = UITextField()
+    let pickerView = UIPickerView()
     
     var salaryCurrencySymbol = ""
+    var salaryPayCycle = ""
+    var salaryCurrencyCode = ""
 
     private var model: Application.Information!
     private let containerView = UIView()
@@ -189,28 +211,33 @@ class AddApplicationCell: UICollectionViewCell {
     }
     
     private func setCurrencies() {
-        
-        //        CurrencyManager.loadCurrencyList { (response) in
         var allCurrencies = [String]()
-        if let response = CurrencyManager.shared.currencyListResponse {
-            for currency in response {
+        var allSymbols = [String]()
+        var allCodes = [String]()
+        
+        if let response = CurrencyManager.shared.list {
+            for currency in response.sorted(by: { $0.0 < $1.0 }) {
                 let symbol = currency.value.symbol
                 let code = currency.value.code
                 
                 allCurrencies.append("\(code) (\(symbol))")
+                allSymbols.append(symbol)
+                allCodes.append(code)
             }
-            self.selectedIndex = allCurrencies.firstIndex(where: { (currency) -> Bool in
+            
+            self.allCodes = allCodes
+            self.allSymbols = allSymbols
+            self.allCurrencies = allCurrencies
+            
+            self.selectedIndex = self.allCurrencies.firstIndex(where: { (currency) -> Bool in
                 if currency == KeyManager.shared.defaultCurrency {
                     return true
                 }
                 return false
             }) ?? 0
             
-            
             pickerDataSource.append(SalaryPicker.dataSource.sorted())
             pickerDataSource.append(allCurrencies)
-            
-            let pickerView = UIPickerView()
             
             pickerView.delegate = self
             pickerView.dataSource = self
@@ -218,11 +245,13 @@ class AddApplicationCell: UICollectionViewCell {
             pickerView.selectRow(1, inComponent: 0, animated: true)
             pickerView.selectRow(selectedIndex, inComponent: 1, animated: true)
             
+            let splitCurrency = KeyManager.shared.defaultCurrency.components(separatedBy: " ")
+            salaryCurrencySymbol = splitCurrency[1].replacingOccurrences(of: "(", with: "").replacingOccurrences(of: ")", with: "")
+            salaryPayCycle = "Yearly"
+            salaryCurrencyCode = splitCurrency[0]
+            
             salaryTextField.inputView = pickerView
         }
-
-        //        }
-        
     }
     private func addSalaryTextField() {
         salaryTextField.text = "Yearly in \(KeyManager.shared.defaultCurrency)"
@@ -312,6 +341,9 @@ extension AddApplicationCell: UIPickerViewDelegate, UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if let model = model {
             if model == .Salary {
+                salaryCurrencySymbol = allSymbols[pickerView.selectedRow(inComponent: 1)]
+                salaryCurrencyCode = allCodes[pickerView.selectedRow(inComponent: 1)]
+                salaryPayCycle = pickerDataSource[0][pickerView.selectedRow(inComponent: 0)]
                 
                 salaryTextField.text = "\(pickerDataSource[0][pickerView.selectedRow(inComponent: 0)]) in \(pickerDataSource[1][pickerView.selectedRow(inComponent: 1)])"
             }

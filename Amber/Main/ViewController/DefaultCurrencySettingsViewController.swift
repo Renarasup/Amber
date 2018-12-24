@@ -47,7 +47,7 @@ class DefaultCurrencySettingsViewController: BaseViewController {
     }
     
     func loadCurrency() {
-        if let response = CurrencyManager.shared.currencyListResponse {
+        if let response = CurrencyManager.shared.list {
             var allCurrencies = [String]()
             for currency in response {
                 let symbol = currency.value.symbol

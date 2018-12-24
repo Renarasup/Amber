@@ -215,7 +215,6 @@ class AddApplicationViewController: BaseViewController {
     /***************************************************************/
     
     private func setCRUD() {
-        print("get in here at crud")
         let application = Application()
         var boolsArray = [Bool]()
         for index in allInformation.enumerated() {
@@ -241,7 +240,9 @@ class AddApplicationViewController: BaseViewController {
                         application.sentDate = text
                     case .Salary:
                         application.salary = Double(text) ?? 0
-//                        application.salaryDescription = cvCell.salaryTextField.text
+                        application.salaryPayCycle = cvCell.salaryPayCycle
+                        application.salaryCurrencySymbol = cvCell.salaryCurrencySymbol
+                        application.salaryCurrencyCode = cvCell.salaryCurrencyCode
                     case .Job:
                         application.jobTitle = text
                     case .State:
@@ -253,7 +254,10 @@ class AddApplicationViewController: BaseViewController {
             }
         }
         
-        print("second here")
+        print("payCycle:", application.salaryPayCycle)
+        print("symbol:", application.salaryCurrencySymbol)
+        print("code:", application.salaryCurrencyCode)
+
         if !noteTextView.text.isEmpty {
             application.note = noteTextView.text
         }
@@ -267,7 +271,9 @@ class AddApplicationViewController: BaseViewController {
                     savedApplication.applicationToTitle = application.applicationToTitle
                     savedApplication.jobTitle = application.jobTitle
                     savedApplication.salary = application.salary
-                    savedApplication.salaryDescription = application.salaryDescription
+                    savedApplication.salaryPayCycle = application.salaryPayCycle
+                    savedApplication.salaryCurrencySymbol = application.salaryCurrencySymbol
+                    savedApplication.salaryCurrencyCode = application.salaryCurrencyCode
                     savedApplication.state = application.state
                     savedApplication.sentDate = application.sentDate
                     savedApplication.note = application.note

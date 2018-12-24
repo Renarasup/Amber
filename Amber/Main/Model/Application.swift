@@ -29,7 +29,9 @@ class Application: Object {
     @objc dynamic var sentDate: String = ""
     @objc dynamic var jobTitle: String = ""
     @objc dynamic var salary: Double = 0
-    @objc dynamic var salaryDescription: String = ""
+    @objc dynamic var salaryCurrencySymbol: String = ""
+    @objc dynamic var salaryCurrencyCode: String = ""
+    @objc dynamic var salaryPayCycle: String = ""
     @objc dynamic var note: String? = nil
     @objc dynamic var imageLink: String? = nil
     @objc dynamic var rejectedDate: String? = nil
@@ -37,6 +39,9 @@ class Application: Object {
 
 extension Application {
     var formattedSalary: String {
+        return "\(salaryWithoutDecimal)\(salaryCurrencySymbol) \(salaryPayCycle)"
+    }
+    var salaryWithoutDecimal: String {
         return String(format: "%.0f", salary)
     }
 }
