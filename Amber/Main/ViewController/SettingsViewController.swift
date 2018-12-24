@@ -27,7 +27,10 @@ class SettingsViewController: BaseViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(UITableViewCell.self)
-
+        
+        let footerView = FooterView(frame: CGRect(x: 0, y: 0, width: 0, height: 80))
+        tableView.tableFooterView = footerView
+        
         view.fillToSuperview(tableView)
                 
         updateView()

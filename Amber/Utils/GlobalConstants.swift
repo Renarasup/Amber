@@ -13,4 +13,6 @@ struct Constants {
     
     static let bigCornerRadius: CGFloat = 5
     static let smallCornerRadius: CGFloat = 2.5
+    
+    static let appVersion = "v1.0.0"
 }

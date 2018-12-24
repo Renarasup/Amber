@@ -264,7 +264,6 @@ extension ApplicationsViewController: ApplicationCellDelegate {
             
         } catch let error as NSError {
             self.alert(error: error)
-            // handle error
         }
     }
 }
