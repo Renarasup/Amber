@@ -23,7 +23,7 @@ class ApplicationMainCell: UITableViewCell {
             containerView.backgroundColor = model.stateEnum.color
             applicationToLabel.text = model.applicationToTitle
             jobTitleLabel.text = model.jobTitle
-            salaryLabel.text = "\(model.salary)$ Yearly"
+            salaryLabel.text = "\(model.formattedSalary)$ Yearly"
             dateLabel.text = model.sentDate
             
             guard let imageLink = model.imageLink,

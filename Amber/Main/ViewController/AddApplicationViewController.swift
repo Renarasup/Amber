@@ -241,6 +241,7 @@ class AddApplicationViewController: BaseViewController {
                         application.sentDate = text
                     case .Salary:
                         application.salary = Double(text) ?? 0
+//                        application.salaryDescription = cvCell.salaryTextField.text
                     case .Job:
                         application.jobTitle = text
                     case .State:
@@ -266,6 +267,7 @@ class AddApplicationViewController: BaseViewController {
                     savedApplication.applicationToTitle = application.applicationToTitle
                     savedApplication.jobTitle = application.jobTitle
                     savedApplication.salary = application.salary
+                    savedApplication.salaryDescription = application.salaryDescription
                     savedApplication.state = application.state
                     savedApplication.sentDate = application.sentDate
                     savedApplication.note = application.note

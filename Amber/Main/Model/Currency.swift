@@ -19,7 +19,17 @@ struct CurrencyValue: Codable {
 
 class CurrencyManager {
     
-    static func loadCurrencyList(completion: (CurrencyListResponse) -> Void) {
+    var currencyListResponse: CurrencyListResponse?
+    
+    static let shared = CurrencyManager()
+    
+    func initialize() {
+        loadCurrencyList { (response) in
+            self.currencyListResponse = response
+        }
+    }
+    
+    private func loadCurrencyList(completion: (CurrencyListResponse) -> Void) {
         if let path = Bundle.main.path(forResource: "Common-Currency", ofType: "json") {
             do {
                 let data = try Data(contentsOf: URL(fileURLWithPath: path))

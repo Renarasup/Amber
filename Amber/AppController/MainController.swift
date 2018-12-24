@@ -48,6 +48,8 @@ class AppController {
             }
         }
         
+        CurrencyManager.shared.initialize()
+        
         // Initialize color scheme
         UIColor.initWithColorScheme(cs: ColorScheme(rawValue: KeyManager.shared.theme) ?? .Light)
         

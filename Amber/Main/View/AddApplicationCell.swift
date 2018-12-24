@@ -29,7 +29,7 @@ class AddApplicationCell: UICollectionViewCell {
         case .Job:
             textField.text = application.jobTitle
         case .Salary:
-            textField.text = "\(application.salary)"
+            textField.text = application.formattedSalary
             textField.keyboardType = .numberPad
         case .State:
             state = application.stateEnum
@@ -51,6 +51,7 @@ class AddApplicationCell: UICollectionViewCell {
         if model == .Salary {
             addSalaryTextField()
             setCurrencies()
+            
             textField.keyboardType = .numberPad
         }
         if model == .Date {
@@ -97,11 +98,13 @@ class AddApplicationCell: UICollectionViewCell {
     }
     
     let textField = UITextField()
+    let salaryTextField = UITextField()
     
+    var salaryCurrencySymbol = ""
+
     private var model: Application.Information!
     private let containerView = UIView()
     private let imageView = UIImageView()
-    private let salaryTextField = UITextField()
     private let stateContainerView = UIView()
     private let stateTitleLabel = BaseLabel(font: .regular, textColor: .white, numberOfLines: 1)
 
@@ -118,8 +121,6 @@ class AddApplicationCell: UICollectionViewCell {
         
         textField.textColor = .Tint
         textField.autocorrectionType = .no
-        
-//        addShadows()
         
         setupViewsLayout()
     }
@@ -188,8 +189,10 @@ class AddApplicationCell: UICollectionViewCell {
     }
     
     private func setCurrencies() {
-        CurrencyManager.loadCurrencyList { (response) in
-            var allCurrencies = [String]()
+        
+        //        CurrencyManager.loadCurrencyList { (response) in
+        var allCurrencies = [String]()
+        if let response = CurrencyManager.shared.currencyListResponse {
             for currency in response {
                 let symbol = currency.value.symbol
                 let code = currency.value.code
@@ -211,13 +214,15 @@ class AddApplicationCell: UICollectionViewCell {
             
             pickerView.delegate = self
             pickerView.dataSource = self
-
+            
             pickerView.selectRow(1, inComponent: 0, animated: true)
             pickerView.selectRow(selectedIndex, inComponent: 1, animated: true)
             
             salaryTextField.inputView = pickerView
         }
 
+        //        }
+        
     }
     private func addSalaryTextField() {
         salaryTextField.text = "Yearly in \(KeyManager.shared.defaultCurrency)"

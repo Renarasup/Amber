@@ -31,10 +31,7 @@ class EditNoteViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        textContainerView.backgroundColor = UIColor(rgb: 0xF3EFEF)
-//        textContainerView.layer.borderColor = UIColor(rgb: 0xE5E5E5).cgColor
         textContainerView.backgroundColor = .AddApplicationCell
-        textContainerView.layer.borderWidth = 0.2
         textContainerView.layer.cornerRadius = Constants.bigCornerRadius
         
         noteTextView.backgroundColor = .clear
