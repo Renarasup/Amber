@@ -206,7 +206,7 @@
 		240837702189022A00497B08 = {
 			isa = PBXGroup;
 			children = (
-				2408377B2189022A00497B08 /* Amber */,
+				2408377B2189022A00497B08 /* Beryl */,
 				240837932189022D00497B08 /* AmberTests */,
 				2408379E2189022D00497B08 /* AmberUITests */,
 				2408377A2189022A00497B08 /* Products */,
@@ -225,7 +225,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		2408377B2189022A00497B08 /* Amber */ = {
+		2408377B2189022A00497B08 /* Beryl */ = {
 			isa = PBXGroup;
 			children = (
 				240837D2218CDEA800497B08 /* Target */,
@@ -236,7 +236,7 @@
 				240837AD2189024500497B08 /* AppController */,
 				2408378B2189022D00497B08 /* Info.plist */,
 			);
-			path = Amber;
+			path = Beryl;
 			sourceTree = "<group>";
 		};
 		240837932189022D00497B08 /* AmberTests */ = {
