@@ -16,7 +16,7 @@ class SortView: UIView {
     
     weak var delegate: SortViewDelegate?
     
-    private var selectedIndex = Application.StateType.All.rawValue;
+    var selectedIndex = Application.StateType.All.rawValue;
     
     private let topContainerView = UIView()
     private let rectangleView = UIView()
@@ -105,6 +105,10 @@ class SortView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func reloadPage() {
+        tableView.reloadData()
+    }
+    
     func setColors() {
         topContainerView.backgroundColor = .SortTopContainer
         
@@ -113,7 +117,7 @@ class SortView: UIView {
         confirmButton.backgroundColor = .Highlight
         confirmButton.setAttributedTitle(NSAttributedString(string: "Confirm", attributes: [NSAttributedString.Key.foregroundColor : UIColor.white, NSAttributedString.Key.font : UIFont.bold]), for: .normal)
         
-        rectangleView.backgroundColor = .Secondary
+        rectangleView.backgroundColor = .lightGray
         layer.borderColor = UIColor.lightGray.cgColor
 
         tableView.reloadData()

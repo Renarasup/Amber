@@ -151,7 +151,7 @@ struct AboutUsItem: SettingsItem {
     }
     
     func didSelect(settingsVC: SettingsViewController) {
-        
+        settingsVC.coordinator?.showAboutUsScreen(settingsVC: settingsVC)
     }
 }
 

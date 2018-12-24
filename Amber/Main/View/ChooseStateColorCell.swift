@@ -46,6 +46,7 @@ class ChooseStateColorCell: UICollectionViewCell {
     func setAsUnselected() {
         containerView.layer.borderColor = UIColor.clear.cgColor
         containerView.layer.borderWidth = 0
+        
     }
     
     required init?(coder aDecoder: NSCoder) {

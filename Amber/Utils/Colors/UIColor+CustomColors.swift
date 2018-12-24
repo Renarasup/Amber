@@ -48,7 +48,7 @@ extension UIColor {
             HighlightTint = Highlight
             Main = .white
             Secondary = UIColor(rgb: 0xF7F7F7)
-            SortTopContainer = UIColor(rgb: 0xD0D1D2)
+            SortTopContainer = UIColor(rgb: 0xecf0f1)
             Tint = .black
             ReverseTint = .white
             TableViewHeader = UIColor(rgb: 0x969696)

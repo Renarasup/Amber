@@ -164,7 +164,11 @@ class ApplicationMainCell: UITableViewCell {
 extension ApplicationMainCell {
     
     func injectPreviewData(state: Application.StateType) {
-        containerView.backgroundColor = state.color
+        
+        UIView.animate(withDuration: 0.25) {
+            self.containerView.backgroundColor = state.color
+
+        }
         applicationToLabel.text = "Facebook"
         jobTitleLabel.text = "Software Engineer Intern"
         salaryLabel.text = "\(7500)$ Monthly"

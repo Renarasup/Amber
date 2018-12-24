@@ -128,7 +128,7 @@ extension ChooseStateColorViewController: UICollectionViewDelegateFlowLayout, UI
             break;
         }
         
-               previewCell.injectPreviewData(state: state)
+        previewCell.injectPreviewData(state: state)
         collectionView.reloadData()
     }
     

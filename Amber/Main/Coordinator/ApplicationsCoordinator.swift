@@ -98,4 +98,9 @@ class ApplicationsCoordinator: Coordinator {
         let stateColorsVC = ChooseStateColorViewController(state: state)
         settingsVC.navigationController?.pushViewController(stateColorsVC, animated: true)
     }
+    
+    func showAboutUsScreen(settingsVC: SettingsViewController) {
+        let aboutUsVC = AboutUsSettingsViewController()
+        settingsVC.navigationController?.pushViewController(aboutUsVC, animated: true)
+    }
 }

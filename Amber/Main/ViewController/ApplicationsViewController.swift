@@ -171,6 +171,8 @@ class ApplicationsViewController: BaseViewController {
     @objc private func onSortPanned(_ sender: UIPanGestureRecognizer) {
         if sender.state == .ended {
             if sender.translation(in: sortView).y > 0 {
+                sortView.selectedIndex = filterState.rawValue
+                sortView.reloadPage()
                 deAnimateSortView()
             }
         }
@@ -180,7 +182,7 @@ class ApplicationsViewController: BaseViewController {
     /***************************************************************/
     
     private func animateSortView() {
-
+        
         UIView.animate(withDuration: 0.25) {
             self.blurEffectView.alpha = 1
             self.sortView.alpha = 1
