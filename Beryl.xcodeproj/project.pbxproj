@@ -45,7 +45,7 @@
 		24685EEE21D1271D00039CC8 /* NSAttributedString+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24685EED21D1271D00039CC8 /* NSAttributedString+String.swift */; };
 		24685EF021D12E0E00039CC8 /* PackageInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24685EEF21D12E0E00039CC8 /* PackageInformationViewController.swift */; };
 		24685EF221D134F500039CC8 /* PackageInformationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24685EF121D134F500039CC8 /* PackageInformationCell.swift */; };
-		24685EF421D1767E00039CC8 /* FooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24685EF321D1767E00039CC8 /* FooterView.swift */; };
+		24685EF421D1767E00039CC8 /* SettingsFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24685EF321D1767E00039CC8 /* SettingsFooterView.swift */; };
 		24685EF621D24BE000039CC8 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24685EF521D24BE000039CC8 /* StoreKit.framework */; };
 		24685EFB21D24FE400039CC8 /* IAPHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24685EFA21D24FE400039CC8 /* IAPHelper.swift */; };
 		24685EFD21D2689400039CC8 /* UnlockPremiumFeaturesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24685EFC21D2689400039CC8 /* UnlockPremiumFeaturesView.swift */; };
@@ -76,6 +76,8 @@
 		2498D3CD21D01C070041F261 /* ChooseStateColorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2498D3CC21D01C070041F261 /* ChooseStateColorCell.swift */; };
 		2498D3CF21D01C340041F261 /* ChooseStateColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2498D3CE21D01C340041F261 /* ChooseStateColor.swift */; };
 		2498D3D121D041880041F261 /* AboutUsSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2498D3D021D041880041F261 /* AboutUsSettingsViewController.swift */; };
+		24BC180121D2AC5E00F81F6A /* NoApplicationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BC180021D2AC5E00F81F6A /* NoApplicationsView.swift */; };
+		24BC180321D2B25A00F81F6A /* ThemeFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BC180221D2B25A00F81F6A /* ThemeFooterView.swift */; };
 		24FA054E21949DC2006F7DB8 /* RealmHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24FA054D21949DC2006F7DB8 /* RealmHelper.swift */; };
 		6E1FD9923C00B10962366D4B /* Pods_Amber.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 545B75DD84C148DF8D50C60C /* Pods_Amber.framework */; };
 		7AABD6B4AA1F8B05C18BF234 /* Pods_Beryl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42F8253ABA2882CC42086509 /* Pods_Beryl.framework */; };
@@ -146,7 +148,7 @@
 		24685EED21D1271D00039CC8 /* NSAttributedString+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSAttributedString+String.swift"; sourceTree = "<group>"; };
 		24685EEF21D12E0E00039CC8 /* PackageInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageInformationViewController.swift; sourceTree = "<group>"; };
 		24685EF121D134F500039CC8 /* PackageInformationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageInformationCell.swift; sourceTree = "<group>"; };
-		24685EF321D1767E00039CC8 /* FooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterView.swift; sourceTree = "<group>"; };
+		24685EF321D1767E00039CC8 /* SettingsFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsFooterView.swift; sourceTree = "<group>"; };
 		24685EF521D24BE000039CC8 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		24685EFA21D24FE400039CC8 /* IAPHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPHelper.swift; sourceTree = "<group>"; };
 		24685EFC21D2689400039CC8 /* UnlockPremiumFeaturesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnlockPremiumFeaturesView.swift; sourceTree = "<group>"; };
@@ -176,6 +178,8 @@
 		2498D3CC21D01C070041F261 /* ChooseStateColorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseStateColorCell.swift; sourceTree = "<group>"; };
 		2498D3CE21D01C340041F261 /* ChooseStateColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseStateColor.swift; sourceTree = "<group>"; };
 		2498D3D021D041880041F261 /* AboutUsSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUsSettingsViewController.swift; sourceTree = "<group>"; };
+		24BC180021D2AC5E00F81F6A /* NoApplicationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoApplicationsView.swift; sourceTree = "<group>"; };
+		24BC180221D2B25A00F81F6A /* ThemeFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeFooterView.swift; sourceTree = "<group>"; };
 		24FA054D21949DC2006F7DB8 /* RealmHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmHelper.swift; sourceTree = "<group>"; };
 		2A9513D8508AE963A5C58583 /* Pods-Beryl.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Beryl.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Beryl/Pods-Beryl.debug.xcconfig"; sourceTree = "<group>"; };
 		36985802C75AA5EFB17CE965 /* Pods_BerylUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BerylUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -350,8 +354,10 @@
 				2498D3CC21D01C070041F261 /* ChooseStateColorCell.swift */,
 				24685EE921D113D800039CC8 /* PackageCell.swift */,
 				24685EF121D134F500039CC8 /* PackageInformationCell.swift */,
-				24685EF321D1767E00039CC8 /* FooterView.swift */,
+				24685EF321D1767E00039CC8 /* SettingsFooterView.swift */,
 				24685EFC21D2689400039CC8 /* UnlockPremiumFeaturesView.swift */,
+				24BC180021D2AC5E00F81F6A /* NoApplicationsView.swift */,
+				24BC180221D2B25A00F81F6A /* ThemeFooterView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -778,7 +784,7 @@
 				240837F9219447C400497B08 /* ChooseStateCell.swift in Sources */,
 				24685EF021D12E0E00039CC8 /* PackageInformationViewController.swift in Sources */,
 				2498D3B921CEE1CB0041F261 /* Settings.swift in Sources */,
-				24685EF421D1767E00039CC8 /* FooterView.swift in Sources */,
+				24685EF421D1767E00039CC8 /* SettingsFooterView.swift in Sources */,
 				2498D39921CC141C0041F261 /* UIColor+CustomColors.swift in Sources */,
 				240837CE218CDDD600497B08 /* UIFont+CustomFonts.swift in Sources */,
 				240837F3218DBE5D00497B08 /* SearchApplicationCell.swift in Sources */,
@@ -801,9 +807,11 @@
 				240837EB218D97A700497B08 /* UICollectionView+ReuseableView.swift in Sources */,
 				2498D3D121D041880041F261 /* AboutUsSettingsViewController.swift in Sources */,
 				240837E1218CE5AD00497B08 /* UIColor+HexValues.swift in Sources */,
+				24BC180321D2B25A00F81F6A /* ThemeFooterView.swift in Sources */,
 				240837D0218CDE6E00497B08 /* BaseLabel.swift in Sources */,
 				24FA054E21949DC2006F7DB8 /* RealmHelper.swift in Sources */,
 				240837D7218CDF8C00497B08 /* SettingsViewController.swift in Sources */,
+				24BC180121D2AC5E00F81F6A /* NoApplicationsView.swift in Sources */,
 				2498D3C921D00FD80041F261 /* UIViewController+Alerts.swift in Sources */,
 				2408377D2189022A00497B08 /* AppDelegate.swift in Sources */,
 			);

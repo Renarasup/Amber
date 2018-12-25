@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PKHUD
 
 protocol ChooseStateColorViewControllerDelegate: class {
     func didChooseStateColor(_ chooseStateViewController: ChooseStateColorViewController, state: Application.StateType, color: UIColor)
@@ -14,7 +15,16 @@ protocol ChooseStateColorViewControllerDelegate: class {
 
 class ChooseStateColorViewController: BaseViewController {
     
+    var coordinator: ApplicationsCoordinator?
+    
+    var settingsVC: SettingsViewController!
+    
     weak var delegate: ChooseStateColorViewControllerDelegate?
+    
+    private let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
+    private lazy var blurEffectView = UIVisualEffectView(effect: blurEffect)
+    
+    private let premiumFeaturesView = UnlockPremiumFeaturesView()
     
     private let cvHeaderTitleLabel = BaseLabel(text: "COLORS", font: UIFont.regular.withSize(13), textColor: .TableViewHeader, numberOfLines: 1)
     private let cvPreviewTitleLabel = BaseLabel(text: "PREVIEW", font: UIFont.regular.withSize(13), textColor: .TableViewHeader, numberOfLines: 1)
@@ -55,7 +65,20 @@ class ChooseStateColorViewController: BaseViewController {
         collectionView.register(ChooseStateColorCell.self)
         collectionView.backgroundColor = .Main
         
+        premiumFeaturesView.alpha = 0
+        blurEffectView.alpha = 0
+        
+        premiumFeaturesView.delegate = self
+        
         previewCell.injectPreviewData(state: state)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handlePurchaseNotification(_:)),
+                                               name: .IAPHelperPurchaseNotification,
+                                               object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleTransactionFailedNotification(_:)),
+                                               name: .IAPHelperTransactionFailedNotification,
+                                               object: nil)
         
         view.add(subview: cvHeaderTitleLabel) { (v, p) in [
             v.topAnchor.constraint(equalTo: p.safeAreaLayoutGuide.topAnchor, constant: Constants.padding),
@@ -80,6 +103,18 @@ class ChooseStateColorViewController: BaseViewController {
             v.trailingAnchor.constraint(equalTo: p.trailingAnchor),
             v.heightAnchor.constraint(equalTo: p.heightAnchor, multiplier: 0.2)
             ]}
+        
+        // Setup Blur View
+        let window = UIApplication.shared.keyWindow!
+        blurEffectView.frame = window.bounds
+        window.addSubview(blurEffectView)
+        
+        window.add(subview: premiumFeaturesView) { (v, p) in [
+            v.heightAnchor.constraint(equalToConstant: view.frame.height * 0.7),
+            v.widthAnchor.constraint(equalTo: p.widthAnchor, multiplier: 0.8),
+            v.centerXAnchor.constraint(equalTo: p.centerXAnchor),
+            v.centerYAnchor.constraint(equalTo: p.centerYAnchor),
+            ]}
     }
     
     override func setupUI() {
@@ -87,6 +122,56 @@ class ChooseStateColorViewController: BaseViewController {
         
         let titleLabel = BaseLabel(text: state.title, font: .regular, textColor: .Tint, numberOfLines: 1)
         navigationItem.titleView = titleLabel
+    }
+    
+    private func animatePremiumFeaturesView() {
+        
+        premiumFeaturesView.setPackage(.design)
+        
+        UIView.animate(withDuration: 0.25) {
+            self.blurEffectView.alpha = 1
+            self.premiumFeaturesView.alpha = 1
+        }
+    }
+    
+    private func deAnimatePremiumFeaturesView() {
+        
+        UIView.animate(withDuration: 0.25) {
+            self.blurEffectView.alpha = 0
+            self.premiumFeaturesView.alpha = 0
+        }
+    }
+    
+    @objc func handlePurchaseNotification(_ notification: Notification) {
+        guard
+            let _ = notification.object as? String
+            //            let index = products.index(where: { product -> Bool in
+            //                product.productIdentifier == productID
+            //            })
+            else {
+                let errorView = PKHUDErrorView(title: "Error", subtitle: "Restoration Failed")
+                PKHUD.sharedHUD.contentView = errorView
+                PKHUD.sharedHUD.show()
+                PKHUD.sharedHUD.hide(afterDelay: 2.0) { (success) in
+                    self.deAnimatePremiumFeaturesView()
+                }
+                return
+        }
+        let successView = PKHUDSuccessView(title: "Success", subtitle: "Restoration Complete")
+        PKHUD.sharedHUD.contentView = successView
+        PKHUD.sharedHUD.show()
+        PKHUD.sharedHUD.hide(afterDelay: 2.0) { (success) in
+            self.deAnimatePremiumFeaturesView()
+        }
+    }
+    
+    @objc func handleTransactionFailedNotification(_ notification: Notification) {
+        let errorView = PKHUDErrorView(title: "Error", subtitle: "Restoration Failed")
+        PKHUD.sharedHUD.contentView = errorView
+        PKHUD.sharedHUD.show()
+        PKHUD.sharedHUD.hide(afterDelay: 2.0) { (success) in
+            self.deAnimatePremiumFeaturesView()
+        }
     }
 }
 
@@ -134,8 +219,9 @@ extension ChooseStateColorViewController: UICollectionViewDelegateFlowLayout, UI
             collectionView.reloadData()
             
         } else {
-            if indexPath.row != 1 {
+            if indexPath.row != 0 {
                 // Show Premium
+                animatePremiumFeaturesView()
             }
         }
     }
@@ -150,5 +236,71 @@ extension ChooseStateColorViewController: UICollectionViewDelegateFlowLayout, UI
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0
+    }
+}
+
+extension ChooseStateColorViewController: UnlockPremiumFeaturesViewDelegate {
+    
+    func dismiss() {
+        deAnimatePremiumFeaturesView()
+    }
+    
+    func didPressBuyAllInOne() {
+        
+        HUD.show(.progress)
+        
+        ApplimeProducts.store.requestProducts { (success, products) in
+            if success {
+                
+                guard let products = products else {
+                    return
+                }
+                
+                guard let idx = products.firstIndex(where: { (product) -> Bool in
+                    if product.productIdentifier == Constants.allInOne {
+                        return true
+                    }
+                    return false
+                }) else { return }
+                
+                ApplimeProducts.store.buyProduct(products[idx])
+            }
+        }
+    }
+    
+    func didPressViewAllInOnePackage() {
+        deAnimatePremiumFeaturesView()
+        
+        coordinator?.globallyShowPackageInformationScreen(settingsVC: settingsVC, package: .allInOne)
+    }
+    
+    func didPressBuy(package: Package) {
+        
+        HUD.show(.progress)
+        
+        ApplimeProducts.store.requestProducts { (success, products) in
+            if success {
+                
+                guard let products = products else {
+                    return
+                }
+                
+                guard let idx = products.firstIndex(where: { (product) -> Bool in
+                    if product.productIdentifier == package.productIdentifier {
+                        return true
+                    }
+                    return false
+                }) else { return }
+                
+                ApplimeProducts.store.buyProduct(products[idx])
+            }
+        }
+    }
+    
+    func didRestorePurchase() {
+        
+        HUD.show(.progress)
+        
+        ApplimeProducts.store.restorePurchases()
     }
 }

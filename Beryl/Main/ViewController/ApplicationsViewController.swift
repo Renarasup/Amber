@@ -9,6 +9,7 @@
 import UIKit
 import RealmSwift
 import StoreKit
+import PKHUD
 
 class ApplicationsViewController: BaseViewController {
     
@@ -32,6 +33,8 @@ class ApplicationsViewController: BaseViewController {
     private var filterState: Application.StateType = .All
 
     // UI Views
+    private let noApplicationsView = NoApplicationsView()
+
     private let tableView = UITableView()
     
     private let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
@@ -59,6 +62,8 @@ class ApplicationsViewController: BaseViewController {
         tableView.tableFooterView = UIView()
         tableView.separatorStyle = .none
         
+        noApplicationsView.alpha = 0
+        
         sortView.delegate = self
         sortView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(onSortPanned(_:))))
         
@@ -66,6 +71,10 @@ class ApplicationsViewController: BaseViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(handlePurchaseNotification(_:)),
                                                name: .IAPHelperPurchaseNotification,
+                                               object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleTransactionFailedNotification(_:)),
+                                               name: .IAPHelperTransactionFailedNotification,
                                                object: nil)
 
         setupViewsLayout()
@@ -108,7 +117,10 @@ class ApplicationsViewController: BaseViewController {
                 filterApplications = SortBy(rawValue: KeyManager.shared.sortBy)?.put(applications: tempApplications) ?? []
             } else {
                 filterApplications = SortBy(rawValue: KeyManager.shared.sortBy)?.put(applications: self.applications) ?? []
-            }            
+            }
+            UIView.animate(withDuration: 0.25) {
+                self.noApplicationsView.alpha = self.filterApplications.count == 0 ? 1 : 0
+            }
         } catch let error as NSError {
             self.alert(error: error)
         }
@@ -119,6 +131,7 @@ class ApplicationsViewController: BaseViewController {
 
     private func setupViewsLayout() {
         view.fillToSuperview(tableView)
+        tableView.fillToSuperview(noApplicationsView)
         
         // Setup Blur View for sorting
         let window = UIApplication.shared.keyWindow!
@@ -133,7 +146,7 @@ class ApplicationsViewController: BaseViewController {
             ]}
         
         window.add(subview: premiumFeaturesView) { (v, p) in [
-            v.heightAnchor.constraint(equalToConstant: view.frame.height * 0.65),
+            v.heightAnchor.constraint(equalToConstant: view.frame.height * 0.7),
             v.widthAnchor.constraint(equalTo: p.widthAnchor, multiplier: 0.8),
             v.centerXAnchor.constraint(equalTo: p.centerXAnchor),
             v.centerYAnchor.constraint(equalTo: p.centerYAnchor),
@@ -172,23 +185,19 @@ class ApplicationsViewController: BaseViewController {
     }
     
     @objc private func onAddApplicationsPressed() {
-        animatePremiumFeaturesView()
-        
-//        if UserDefaults.standard.bool(forKey: Constants.allInOne) || UserDefaults.standard.bool(forKey: Constants.unlimitedApplications) {
-//            coordinator?.showAddApplicationsScreen()
-//        } else if filterApplications.count == 5  {
-//            // show premium
-//            animatePremiumFeaturesView()
-//        } else {
-//            coordinator?.showAddApplicationsScreen()
-//        }
+        if UserDefaults.standard.bool(forKey: Constants.allInOne) || UserDefaults.standard.bool(forKey: Constants.unlimitedApplications) {
+            coordinator?.showAddApplicationsScreen()
+        } else if filterApplications.count == 5  {
+            // show premium
+            animatePremiumFeaturesView()
+        } else {
+            coordinator?.showAddApplicationsScreen()
+        }
     }
     
     @objc private func onSortPressed() {
         animateSortView()
     }
-    var prevTranslationY: CGFloat = 0
-    var currTranslationY: CGFloat = 0
     
     @objc private func onSortPanned(_ sender: UIPanGestureRecognizer) {
         if sender.state == .ended {
@@ -247,12 +256,30 @@ class ApplicationsViewController: BaseViewController {
             //                product.productIdentifier == productID
             //            })
             else {
-                self.alert(title: "Error", message: "Nothing to restore", cancelable: false, handler: nil)
+                let errorView = PKHUDErrorView(title: "Error", subtitle: "Transaction Failed")
+                PKHUD.sharedHUD.contentView = errorView
+                PKHUD.sharedHUD.show()
+                PKHUD.sharedHUD.hide(afterDelay: 2.0) { success in
+                    self.deAnimatePremiumFeaturesView()
+                }
                 return
         }
-        
-        self.alert(title: "Success", message: "\(Package.get(productID).title) transaction complete", cancelable: false, handler: nil)
-        deAnimatePremiumFeaturesView()
+        let successView = PKHUDSuccessView(title: "Success", subtitle: "\(Package.get(productID).title) Transaction Complete")
+        PKHUD.sharedHUD.contentView = successView
+        PKHUD.sharedHUD.show()
+        PKHUD.sharedHUD.hide(afterDelay: 2.0) { success in
+            self.deAnimatePremiumFeaturesView()
+
+        }
+    }
+    
+    @objc func handleTransactionFailedNotification(_ notification: Notification) {
+        let errorView = PKHUDErrorView(title: "Error", subtitle: "Transaction Failed")
+        PKHUD.sharedHUD.contentView = errorView
+        PKHUD.sharedHUD.show()
+        PKHUD.sharedHUD.hide(afterDelay: 2.0) { success in
+            self.deAnimatePremiumFeaturesView()
+        }
     }
 }
 
@@ -325,6 +352,10 @@ extension ApplicationsViewController: ApplicationCellDelegate {
             
             self.tableView.endUpdates()
             
+            UIView.animate(withDuration: 0.25) {
+                self.noApplicationsView.alpha = self.filterApplications.count == 0 ? 1 : 0
+            }
+            
         } catch let error as NSError {
             self.alert(error: error)
         }
@@ -344,8 +375,13 @@ extension ApplicationsViewController: SortViewDelegate {
 }
 
 extension ApplicationsViewController: UnlockPremiumFeaturesViewDelegate {
+    func dismiss() {
+        deAnimatePremiumFeaturesView()
+    }
     
     func didPressBuyAllInOne() {
+        
+        HUD.show(.progress)
         
         ApplimeProducts.store.requestProducts { (success, products) in
             if success {
@@ -373,6 +409,8 @@ extension ApplicationsViewController: UnlockPremiumFeaturesViewDelegate {
     
     func didPressBuy(package: Package) {
         
+        HUD.show(.progress)
+
         ApplimeProducts.store.requestProducts { (success, products) in
             if success {
                 
@@ -393,6 +431,8 @@ extension ApplicationsViewController: UnlockPremiumFeaturesViewDelegate {
     }
     
     func didRestorePurchase() {
+        HUD.show(.progress)
+
         ApplimeProducts.store.restorePurchases()
     }
 }

@@ -7,13 +7,24 @@
 //
 
 import UIKit
+import PKHUD
 
 class ThemeSettingsViewController: BaseViewController {
+    
+    var coordinator: ApplicationsCoordinator?
+    
+    var settingsVC: SettingsViewController!
+    
+    private let footerView = ThemeFooterView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height * 0.4))
     
     private let titleLabel = BaseLabel(text: "Sort By", font: .regular, textColor: .Tint, numberOfLines: 1)
     private let tableView = UITableView(frame: .zero, style: .grouped)
     private let all = ["Light", "Dark"]
     
+    private let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
+    private lazy var blurEffectView = UIVisualEffectView(effect: blurEffect)
+    
+    private let premiumFeaturesView = UnlockPremiumFeaturesView()
     
     func getSelectedIndex() -> Int {
         return all.firstIndex(where: { (theme) -> Bool in
@@ -30,11 +41,36 @@ class ThemeSettingsViewController: BaseViewController {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(UITableViewCell.self)
-        tableView.tableFooterView = UIView()
         tableView.backgroundColor = .Secondary
         tableView.separatorColor = .SettingsCell
+//        tableView.tableFooterView = footerView
+        
+        premiumFeaturesView.delegate = self
+        
+        premiumFeaturesView.alpha = 0
+        blurEffectView.alpha = 0
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handlePurchaseNotification(_:)),
+                                               name: .IAPHelperPurchaseNotification,
+                                               object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleTransactionFailedNotification(_:)),
+                                               name: .IAPHelperTransactionFailedNotification,
+                                               object: nil)
 
         view.fillToSuperview(tableView)
+        
+        // Setup Blur View
+        let window = UIApplication.shared.keyWindow!
+        blurEffectView.frame = window.bounds
+        window.addSubview(blurEffectView)
+        
+        window.add(subview: premiumFeaturesView) { (v, p) in [
+            v.heightAnchor.constraint(equalToConstant: view.frame.height * 0.7),
+            v.widthAnchor.constraint(equalTo: p.widthAnchor, multiplier: 0.8),
+            v.centerXAnchor.constraint(equalTo: p.centerXAnchor),
+            v.centerYAnchor.constraint(equalTo: p.centerYAnchor),
+            ]}
     }
     
     override func setupUI() {
@@ -44,6 +80,56 @@ class ThemeSettingsViewController: BaseViewController {
         
         // Add Title Label
         navigationItem.titleView = titleLabel
+    }
+    
+    private func animatePremiumFeaturesView() {
+        
+        premiumFeaturesView.setPackage(.design)
+        
+        UIView.animate(withDuration: 0.25) {
+            self.blurEffectView.alpha = 1
+            self.premiumFeaturesView.alpha = 1
+        }
+    }
+    
+    private func deAnimatePremiumFeaturesView() {
+        
+        UIView.animate(withDuration: 0.25) {
+            self.blurEffectView.alpha = 0
+            self.premiumFeaturesView.alpha = 0
+        }
+    }
+    
+    @objc func handlePurchaseNotification(_ notification: Notification) {
+        guard
+            let _ = notification.object as? String
+            //            let index = products.index(where: { product -> Bool in
+            //                product.productIdentifier == productID
+            //            })
+            else {
+                let errorView = PKHUDErrorView(title: "Error", subtitle: "Restoration Failed")
+                PKHUD.sharedHUD.contentView = errorView
+                PKHUD.sharedHUD.show()
+                PKHUD.sharedHUD.hide(afterDelay: 2.0) { (success) in
+                    self.deAnimatePremiumFeaturesView()
+                }
+                return
+        }
+        let successView = PKHUDSuccessView(title: "Success", subtitle: "Restoration Complete")
+        PKHUD.sharedHUD.contentView = successView
+        PKHUD.sharedHUD.show()
+        PKHUD.sharedHUD.hide(afterDelay: 2.0) { (success) in
+            self.deAnimatePremiumFeaturesView()
+        }
+    }
+    
+    @objc func handleTransactionFailedNotification(_ notification: Notification) {
+        let errorView = PKHUDErrorView(title: "Error", subtitle: "Restoration Failed")
+        PKHUD.sharedHUD.contentView = errorView
+        PKHUD.sharedHUD.show()
+        PKHUD.sharedHUD.hide(afterDelay: 2.0) { (success) in
+            self.deAnimatePremiumFeaturesView()
+        }
     }
     
     func changeSchemeTo(cs: ColorScheme){
@@ -103,7 +189,7 @@ extension ThemeSettingsViewController: UITableViewDelegate, UITableViewDataSourc
                 changeSchemeTo(cs: ColorScheme(rawValue: all[indexPath.row]) ?? .Light)
             } else {
                 // Show Unlock Premium Features
-                
+                animatePremiumFeaturesView()
             }
         } else {
             KeyManager.shared.theme = all[indexPath.row]
@@ -117,5 +203,71 @@ extension ThemeSettingsViewController: UITableViewDelegate, UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 45
+    }
+}
+
+extension ThemeSettingsViewController: UnlockPremiumFeaturesViewDelegate {
+    
+    func dismiss() {
+        deAnimatePremiumFeaturesView()
+    }
+    
+    func didPressBuyAllInOne() {
+        
+        HUD.show(.progress)
+        
+        ApplimeProducts.store.requestProducts { (success, products) in
+            if success {
+                
+                guard let products = products else {
+                    return
+                }
+                
+                guard let idx = products.firstIndex(where: { (product) -> Bool in
+                    if product.productIdentifier == Constants.allInOne {
+                        return true
+                    }
+                    return false
+                }) else { return }
+                
+                ApplimeProducts.store.buyProduct(products[idx])
+            }
+        }
+    }
+    
+    func didPressViewAllInOnePackage() {
+        deAnimatePremiumFeaturesView()
+        
+        coordinator?.globallyShowPackageInformationScreen(settingsVC: settingsVC, package: .allInOne)
+    }
+    
+    func didPressBuy(package: Package) {
+        
+        HUD.show(.progress)
+        
+        ApplimeProducts.store.requestProducts { (success, products) in
+            if success {
+                
+                guard let products = products else {
+                    return
+                }
+                
+                guard let idx = products.firstIndex(where: { (product) -> Bool in
+                    if product.productIdentifier == package.productIdentifier {
+                        return true
+                    }
+                    return false
+                }) else { return }
+                
+                ApplimeProducts.store.buyProduct(products[idx])
+            }
+        }
+    }
+    
+    func didRestorePurchase() {
+        
+        HUD.show(.progress)
+        
+        ApplimeProducts.store.restorePurchases()
     }
 }

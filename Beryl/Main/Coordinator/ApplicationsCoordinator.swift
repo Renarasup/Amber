@@ -85,6 +85,8 @@ class ApplicationsCoordinator: Coordinator {
     
     func showThemeScreen(settingsVC: SettingsViewController) {
         let themeVC = ThemeSettingsViewController()
+        themeVC.settingsVC = settingsVC
+        themeVC.coordinator = self
         settingsVC.navigationController?.pushViewController(themeVC, animated: true)
     }
     
@@ -96,6 +98,8 @@ class ApplicationsCoordinator: Coordinator {
     
     func showChooseStateColorsScreen(settingsVC: SettingsViewController, state: Application.StateType) {
         let stateColorsVC = ChooseStateColorViewController(state: state)
+        stateColorsVC.coordinator = self
+        stateColorsVC.settingsVC = settingsVC
         settingsVC.navigationController?.pushViewController(stateColorsVC, animated: true)
     }
     
@@ -118,6 +122,12 @@ class ApplicationsCoordinator: Coordinator {
     func showPackageInformationScreen(settingsVC: SettingsViewController, package: Package) {
         let packageInformationVC = PackageInformationViewController(package: package)
         settingsVC.navigationController?.pushViewController(packageInformationVC, animated: true)
+    }
+    
+    func globallyShowPackageInformationScreen(settingsVC: SettingsViewController, package: Package) {
+        let packageInformationVC = PackageInformationViewController(package: package)
+        packageInformationVC.addDropDownBarItem()
+        settingsVC.navigationController?.present(CustomNavigationController(rootViewController: packageInformationVC), animated: true, completion: nil)
     }
     
     func globallyShowPackageInformationScreen(package: Package) {

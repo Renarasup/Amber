@@ -8,6 +8,7 @@
 
 import UIKit
 import StoreKit
+import PKHUD
 
 class PackagesViewController: BaseViewController {
     
@@ -37,12 +38,20 @@ class PackagesViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+                
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(PackageCell.self)
         tableView.separatorStyle = .none
         tableView.backgroundColor = .Main
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handlePurchaseNotification(_:)),
+                                               name: .IAPHelperPurchaseNotification,
+                                               object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleTransactionFailedNotification(_:)),
+                                               name: .IAPHelperTransactionFailedNotification,
+                                               object: nil)
         
         view.fillToSuperview(tableView)
     }
@@ -52,6 +61,32 @@ class PackagesViewController: BaseViewController {
         
         let titleLabel = BaseLabel(text: "Packages", font: .regular, textColor: .Tint, numberOfLines: 1)
         navigationItem.titleView = titleLabel
+    }
+    
+    @objc func handlePurchaseNotification(_ notification: Notification) {
+        guard
+            let productID = notification.object as? String
+            //            let index = products.index(where: { product -> Bool in
+            //                product.productIdentifier == productID
+            //            })
+            else {
+                let errorView = PKHUDErrorView(title: "Error", subtitle: "Transaction Failed")
+                PKHUD.sharedHUD.contentView = errorView
+                PKHUD.sharedHUD.show()
+                PKHUD.sharedHUD.hide(afterDelay: 2.0)
+                return
+        }
+        let successView = PKHUDSuccessView(title: "Success", subtitle: "\(Package.get(productID).title) Transaction Complete")
+        PKHUD.sharedHUD.contentView = successView
+        PKHUD.sharedHUD.show()
+        PKHUD.sharedHUD.hide(afterDelay: 2.0)
+    }
+    
+    @objc func handleTransactionFailedNotification(_ notification: Notification) {
+        let errorView = PKHUDErrorView(title: "Error", subtitle: "Transaction Failed")
+        PKHUD.sharedHUD.contentView = errorView
+        PKHUD.sharedHUD.show()
+        PKHUD.sharedHUD.hide(afterDelay: 2.0)
     }
 }
 

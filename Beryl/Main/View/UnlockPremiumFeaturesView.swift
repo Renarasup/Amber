@@ -9,6 +9,7 @@
 import UIKit
 
 protocol UnlockPremiumFeaturesViewDelegate: class {
+    func dismiss()
     func didPressBuyAllInOne()
     func didPressViewAllInOnePackage()
     func didPressBuy(package: Package)
@@ -21,6 +22,8 @@ class UnlockPremiumFeaturesView: UIView {
     
     private var package: Package?
     
+    private let crossmarkButton = UIButton()
+
     private let imageView = UIImageView()
     private let titleLabel = BaseLabel(text: "Unlock Premium Features", font: .large, textColor: .Tint, numberOfLines: 1)
     private let descriptionLabel = BaseLabel(text: "Do you need more than 5 applications? Do you want to be able to customize the theme, and colors to your own liking?", font: .regular, textColor: .lightGray, numberOfLines: 0)
@@ -33,10 +36,13 @@ class UnlockPremiumFeaturesView: UIView {
     private let viewPackageTitle = BaseLabel(text: "View Package", font: .regular, textColor: .Tint, numberOfLines: 1)
     private let arrowImageView = UIImageView()
 
-    private let restorePurchaseLabel = BaseLabel(text: "Restore Purchases", font: .regular, textColor: .lightGray, numberOfLines: 1)
+    private let restorePurchaseButton = UIButton()
     
     private let topContainerView = UIView()
     private let middleContainerView = UIView()
+    private let bottomContainerView = UIView()
+
+    private let wholeBottomContainerView = UIView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -44,6 +50,9 @@ class UnlockPremiumFeaturesView: UIView {
         imageView.contentMode = .scaleAspectFill
         imageView.image = #imageLiteral(resourceName: "amberlogo")
         
+        crossmarkButton.setImage(#imageLiteral(resourceName: "crossmark").withRenderingMode(.alwaysTemplate), for: .normal)
+        crossmarkButton.tintColor = .lightGray
+
         arrowImageView.image = #imageLiteral(resourceName: "arrow-right").withRenderingMode(.alwaysTemplate)
         arrowImageView.tintColor = .lightGray
         
@@ -56,6 +65,10 @@ class UnlockPremiumFeaturesView: UIView {
         titleLabel.textAlignment = .center
         descriptionLabel.textAlignment = .center
         actionLabel.textAlignment = .center
+        
+        restorePurchaseButton.setTitle("Restore Purchase", for: .normal)
+        restorePurchaseButton.titleLabel?.font = .regular
+        restorePurchaseButton.setTitleColor(.lightGray, for: .normal)
         
         unlockButton.layer.cornerRadius = Constants.smallCornerRadius
         unlockButton.backgroundColor = .PackagesButtons
@@ -73,17 +86,25 @@ class UnlockPremiumFeaturesView: UIView {
         actionLabel.numberOfLines = 0
         
         unlockButton.addTarget(self, action: #selector(onBuyAllInOnePressed), for: .touchUpInside)
-        restorePurchaseLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(onRestorePurchasesPressed)))
+        restorePurchaseButton.addTarget(self, action: #selector(onRestorePurchasesPressed), for: .touchUpInside)
         topContainerView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(onBuySinglePackagePressed)))
         middleContainerView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(onViewAllPackagesPressed)))
-
+        crossmarkButton.addTarget(self, action: #selector(onDismissPressed), for: .touchUpInside)
+        
         setupViewsLayout()
     }
     
     func setupViewsLayout() {
         
+        add(subview: crossmarkButton) { (v, p) in [
+            v.topAnchor.constraint(equalTo: p.topAnchor, constant: Constants.padding),
+            v.leadingAnchor.constraint(equalTo: p.leadingAnchor, constant: Constants.padding),
+            v.heightAnchor.constraint(equalTo: p.widthAnchor, multiplier: 0.08),
+            v.widthAnchor.constraint(equalTo: p.widthAnchor, multiplier: 0.08)
+            ]}
+        
         add(subview: imageView) { (v, p) in [
-            v.topAnchor.constraint(equalTo: p.topAnchor, constant: Constants.padding + 5),
+            v.topAnchor.constraint(equalTo: crossmarkButton.bottomAnchor, constant: Constants.padding),
             v.centerXAnchor.constraint(equalTo: p.centerXAnchor),
             v.heightAnchor.constraint(equalTo: p.heightAnchor, multiplier: 0.1),
             v.widthAnchor.constraint(equalTo: p.widthAnchor, multiplier: 0.4)
@@ -110,21 +131,35 @@ class UnlockPremiumFeaturesView: UIView {
             v.topAnchor.constraint(equalTo: actionLabel.bottomAnchor, constant: Constants.padding),
             v.leadingAnchor.constraint(equalTo: p.leadingAnchor, constant: Constants.padding),
             v.trailingAnchor.constraint(equalTo: p.trailingAnchor, constant: -Constants.padding),
-            v.heightAnchor.constraint(equalTo: p.heightAnchor, multiplier: 0.1),
+            v.heightAnchor.constraint(equalTo: p.widthAnchor, multiplier: 0.12),
             ]}
         
-        add(subview: topContainerView) { (v, p) in [
+        add(subview: wholeBottomContainerView) { (v, p) in [
             v.topAnchor.constraint(equalTo: unlockButton.bottomAnchor, constant: Constants.padding),
             v.leadingAnchor.constraint(equalTo: p.leadingAnchor),
             v.trailingAnchor.constraint(equalTo: p.trailingAnchor),
-            v.heightAnchor.constraint(equalTo: p.heightAnchor, multiplier: 0.1),
+            v.bottomAnchor.constraint(equalTo: p.bottomAnchor),
             ]}
         
-        add(subview: middleContainerView) { (v, p) in [
+        wholeBottomContainerView.add(subview: topContainerView) { (v, p) in [
+            v.topAnchor.constraint(equalTo: p.topAnchor),
+            v.leadingAnchor.constraint(equalTo: p.leadingAnchor),
+            v.trailingAnchor.constraint(equalTo: p.trailingAnchor),
+            v.heightAnchor.constraint(equalTo: p.heightAnchor, multiplier: 0.33),
+            ]}
+        
+        wholeBottomContainerView.add(subview: middleContainerView) { (v, p) in [
             v.topAnchor.constraint(equalTo: topContainerView.bottomAnchor),
             v.leadingAnchor.constraint(equalTo: p.leadingAnchor),
             v.trailingAnchor.constraint(equalTo: p.trailingAnchor),
-            v.heightAnchor.constraint(equalTo: p.heightAnchor, multiplier: 0.1),
+            v.heightAnchor.constraint(equalTo: p.heightAnchor, multiplier: 0.33),
+            ]}
+        
+        wholeBottomContainerView.add(subview: bottomContainerView) { (v, p) in [
+            v.topAnchor.constraint(equalTo: middleContainerView.bottomAnchor),
+            v.leadingAnchor.constraint(equalTo: p.leadingAnchor),
+            v.trailingAnchor.constraint(equalTo: p.trailingAnchor),
+            v.bottomAnchor.constraint(equalTo: p.bottomAnchor),
             ]}
         
         topContainerView.add(subview: onlyPackageTitle) { (v, p) in [
@@ -149,24 +184,44 @@ class UnlockPremiumFeaturesView: UIView {
             v.widthAnchor.constraint(equalTo: p.widthAnchor, multiplier: 0.07)
             ]}
         
-        add(subview: restorePurchaseLabel) { (v, p) in [
-            v.bottomAnchor.constraint(equalTo: p.bottomAnchor, constant: -Constants.padding),
-//            v.topAnchor.constraint(equalTo: middleContainerView.bottomAnchor),
-            v.centerXAnchor.constraint(equalTo: p.centerXAnchor)
+        bottomContainerView.add(subview: restorePurchaseButton) { (v, p) in [
+            v.centerYAnchor.constraint(equalTo: p.centerYAnchor),
+            v.centerXAnchor.constraint(equalTo: p.centerXAnchor),
+            v.widthAnchor.constraint(equalTo: p.widthAnchor, multiplier: 0.7),
+            v.heightAnchor.constraint(equalTo: p.heightAnchor, multiplier: 0.6)
             ]}
-        
-        topContainerView.addSeparatorLine(to: .top, color: .lightGray, height: 0.3)
-        topContainerView.addSeparatorLine(to: .bottom, color: .lightGray, height: 0.3)
         
         let sepView = UIView()
         sepView.backgroundColor = .lightGray
-        
+        let sepView2 = UIView()
+        sepView2.backgroundColor = .lightGray
+        let sepView3 = UIView()
+        sepView3.backgroundColor = .lightGray
+
         add(subview: sepView) { (v, p) in [
-            v.topAnchor.constraint(equalTo: middleContainerView.bottomAnchor),
+            v.bottomAnchor.constraint(equalTo: middleContainerView.bottomAnchor),
             v.leadingAnchor.constraint(equalTo: p.leadingAnchor),
             v.trailingAnchor.constraint(equalTo: p.trailingAnchor),
             v.heightAnchor.constraint(equalToConstant: 0.3)
             ]}
+        
+        add(subview: sepView2) { (v, p) in [
+            v.bottomAnchor.constraint(equalTo: topContainerView.bottomAnchor),
+            v.leadingAnchor.constraint(equalTo: p.leadingAnchor),
+            v.trailingAnchor.constraint(equalTo: p.trailingAnchor),
+            v.heightAnchor.constraint(equalToConstant: 0.3)
+            ]}
+
+        add(subview: sepView3) { (v, p) in [
+            v.topAnchor.constraint(equalTo: unlockButton.bottomAnchor, constant: Constants.padding),
+            v.leadingAnchor.constraint(equalTo: p.leadingAnchor),
+            v.trailingAnchor.constraint(equalTo: p.trailingAnchor),
+            v.heightAnchor.constraint(equalToConstant: 0.3)
+            ]}
+    }
+    
+    @objc private func onDismissPressed() {
+        delegate?.dismiss()
     }
     
     @objc private func onBuyAllInOnePressed() {

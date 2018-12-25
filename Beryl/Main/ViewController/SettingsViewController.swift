@@ -8,6 +8,7 @@
 
 import UIKit
 import MessageUI
+import PKHUD
 
 class SettingsViewController: BaseViewController {
     
@@ -34,6 +35,10 @@ class SettingsViewController: BaseViewController {
                                                name: .IAPHelperPurchaseNotification,
                                                object: nil)
         
+        NotificationCenter.default.addObserver(self, selector: #selector(handleTransactionFailedNotification(_:)),
+                                               name: .IAPHelperTransactionFailedNotification,
+                                               object: nil)
+
         view.fillToSuperview(tableView)
                 
         updateView()
@@ -41,24 +46,36 @@ class SettingsViewController: BaseViewController {
     
     @objc func handlePurchaseNotification(_ notification: Notification) {
         guard
-            let productID = notification.object as? String
+            let _ = notification.object as? String
 //            let index = products.index(where: { product -> Bool in
 //                product.productIdentifier == productID
 //            })
             else {
-                self.alert(title: "Error", message: "Nothing to restore", cancelable: false, handler: nil)
-
+                let errorView = PKHUDErrorView(title: "Error", subtitle: "Restoration Failed")
+                PKHUD.sharedHUD.contentView = errorView
+                PKHUD.sharedHUD.show()
+                PKHUD.sharedHUD.hide(afterDelay: 2.0)
                 return
         }
-        
-        self.alert(title: "Success", message: "\(Package.get(productID).title) restored", cancelable: false, handler: nil)
+        let successView = PKHUDSuccessView(title: "Success", subtitle: "Restoration Complete")
+        PKHUD.sharedHUD.contentView = successView
+        PKHUD.sharedHUD.show()
+        PKHUD.sharedHUD.hide(afterDelay: 2.0)
     }
     
+    @objc func handleTransactionFailedNotification(_ notification: Notification) {
+        let errorView = PKHUDErrorView(title: "Error", subtitle: "Restoration Failed")
+        PKHUD.sharedHUD.contentView = errorView
+        PKHUD.sharedHUD.show()
+        PKHUD.sharedHUD.hide(afterDelay: 2.0)
+    }
+    
+    // About Us Item not included
     func updateView() {
         let myApplicationsSection = SettingsSection(title: "My Applications", items: [ SortApplicationsByItem(), DefaultCurrencyItem() ], footer: nil)
         let designSection = SettingsSection(title: "Design", items: [ ApplicationStateColorItem(), ThemeItem() ], footer: nil)
         let purchasesSection = SettingsSection(title: "Purchases", items: [ RestorePurchasesItem(), ViewPackagesItem() ], footer: nil)
-        let infoSection = SettingsSection(title: "Info", items: [ FeedbackItem(), AboutUsItem(), RateUsItem() ], footer: nil)
+        let infoSection = SettingsSection(title: "Info", items: [ FeedbackItem(), RateUsItem() ], footer: nil)
         
         model = [ myApplicationsSection, designSection, purchasesSection, infoSection ]
         
@@ -99,18 +116,9 @@ class SettingsViewController: BaseViewController {
     }
     
     func restorePurchase() {
+        HUD.show(.progress)
+        
         ApplimeProducts.store.restorePurchases()
-//        SwiftyStoreKit.restorePurchases(atomically: true) { results in
-//            if results.restoreFailedPurchases.count > 0 {
-//                self.alert(title: "Restore Fail", message: "\(results.restoreFailedPurchases)", cancelable: false, handler: nil)
-//            }
-//            else if results.restoredPurchases.count > 0 {
-//                self.alert(title: "Restore Success", message: "\(results.restoredPurchases)", cancelable: false, handler: nil)
-//            }
-//            else {
-//                self.alert(title: "Error", message: "Nothing to restore", cancelable: false, handler: nil)
-//            }
-//        }
     }
     
     func sendEmail() {

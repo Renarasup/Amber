@@ -16,7 +16,6 @@ class StateColorSettingsViewController: BaseViewController {
     private let tableView = UITableView(frame: .zero, style: .grouped)
     private var all = Application.StateType.all
 
-    
 //    func getSelectedIndex() -> Int {
 //        return all.firstIndex(where: { (theme) -> Bool in
 //            if theme == KeyManager.shared.theme {
