@@ -45,6 +45,8 @@ class PackagesViewController: BaseViewController {
         tableView.separatorStyle = .none
         tableView.backgroundColor = .Main
         
+        HUD.hide()
+        
         NotificationCenter.default.addObserver(self, selector: #selector(handlePurchaseNotification(_:)),
                                                name: .IAPHelperPurchaseNotification,
                                                object: nil)

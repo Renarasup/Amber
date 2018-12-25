@@ -70,6 +70,7 @@ class ApplicationMainCell: UITableViewCell {
     }
     
     private func setupViewsLayout() {
+        
         add(subview: containerView) { (v, p) in [
             v.topAnchor.constraint(equalTo: p.topAnchor, constant: Constants.padding - 5),
             v.leadingAnchor.constraint(equalTo: p.leadingAnchor, constant: Constants.padding),
@@ -84,25 +85,15 @@ class ApplicationMainCell: UITableViewCell {
             v.widthAnchor.constraint(equalTo: p.heightAnchor, multiplier: 0.4)
             ]}
         
-        containerView.add(subview: applicationToLabel) { (v, p) in [
+        let sv = UIStackView(arrangedSubviews: [applicationToLabel,jobTitleLabel, salaryLabel, dateLabel])
+        sv.distribution = .fillEqually
+        sv.axis = .vertical
+        
+        containerView.add(subview: sv) { (v, p) in [
             v.topAnchor.constraint(equalTo: p.topAnchor, constant: Constants.padding),
             v.leadingAnchor.constraint(equalTo: p.leadingAnchor, constant: Constants.padding),
-            v.trailingAnchor.constraint(equalTo: companyImageView.leadingAnchor, constant: -Constants.padding)
-            ]}
-        
-        containerView.add(subview: dateLabel) { (v, p) in [
-            v.leadingAnchor.constraint(equalTo: p.leadingAnchor, constant: Constants.padding),
+            v.trailingAnchor.constraint(equalTo: companyImageView.leadingAnchor, constant: -Constants.padding),
             v.bottomAnchor.constraint(equalTo: p.bottomAnchor, constant: -Constants.padding)
-            ]}
-        
-        containerView.add(subview: salaryLabel) { (v, p) in [
-            v.bottomAnchor.constraint(equalTo: dateLabel.topAnchor, constant: -3),
-            v.leadingAnchor.constraint(equalTo: p.leadingAnchor, constant: Constants.padding)
-            ]}
-        
-        containerView.add(subview: jobTitleLabel) { (v, p) in [
-            v.bottomAnchor.constraint(equalTo: salaryLabel.topAnchor, constant: -3),
-            v.leadingAnchor.constraint(equalTo: p.leadingAnchor, constant: Constants.padding)
             ]}
     }
     

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PKHUD
 
 class CustomNavigationController: UINavigationController {
     
@@ -109,6 +110,7 @@ class ApplicationsCoordinator: Coordinator {
     }
     
     func showViewPackagesScreen(settingsVC: SettingsViewController) {
+        HUD.show(.progress)
         ApplimeProducts.store.requestProducts { (bool, products) in
             guard let products = products else {
                 return

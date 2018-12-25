@@ -244,7 +244,7 @@ class UnlockPremiumFeaturesView: UIView {
     
     func setPackage(_ package: Package) {
         unlockButton.setTitle("Unlock for €\(String(format: "%.2f", Package.allInOne.price))", for: .normal)
-        onlyPackageTitle.text = "Only buy \(package.title)"
+        onlyPackageTitle.text = "Or Buy \(package.title)"
         onlyPackagePriceTitle.text = "€\(String(format: "%.2f", package.price))"
         
         self.package = package

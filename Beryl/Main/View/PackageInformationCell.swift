@@ -55,15 +55,18 @@ class PackageInformationCell: UICollectionViewCell {
             v.heightAnchor.constraint(equalToConstant: 0.5)
             ]}
         
-        bottomContainerView.add(subview: titleLabel) { (v, p) in [
-            v.topAnchor.constraint(equalTo: p.topAnchor, constant: Constants.padding),
-            v.centerXAnchor.constraint(equalTo: p.centerXAnchor)
-            ]}
+        let sv = UIStackView(arrangedSubviews: [titleLabel, descriptionLabel])
+        sv.distribution = .fill
+        sv.axis = .vertical
         
-        bottomContainerView.add(subview: descriptionLabel) { (v, p) in [
-            v.bottomAnchor.constraint(equalTo: p.bottomAnchor, constant: -Constants.padding),
+        titleLabel.textAlignment = .center
+        descriptionLabel.textAlignment = .center
+        
+        bottomContainerView.add(subview: sv) { (v, p) in [
+            v.topAnchor.constraint(equalTo: p.topAnchor, constant: 5),
             v.centerXAnchor.constraint(equalTo: p.centerXAnchor),
-            v.widthAnchor.constraint(equalTo: p.widthAnchor, multiplier: 0.72)
+            v.widthAnchor.constraint(equalTo: p.widthAnchor, multiplier: 0.72),
+            v.bottomAnchor.constraint(equalTo: p.bottomAnchor, constant: -5)
             ]}
     }
     

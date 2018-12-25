@@ -156,7 +156,7 @@ class PackageCell: UITableViewCell {
         containerView.add(subview: sv) { (v, p) in [
             v.bottomAnchor.constraint(equalTo: p.bottomAnchor, constant: -Constants.padding),
             v.trailingAnchor.constraint(equalTo: p.trailingAnchor, constant: -Constants.padding),
-            v.heightAnchor.constraint(equalTo: p.heightAnchor, multiplier: 0.15),
+            v.topAnchor.constraint(equalTo: strikedThroughLabel.bottomAnchor, constant: 5),
             v.leadingAnchor.constraint(equalTo: p.leadingAnchor, constant: Constants.padding)
             ]}
     }
