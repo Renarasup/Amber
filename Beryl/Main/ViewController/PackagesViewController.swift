@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import StoreKit
 
 class PackagesViewController: BaseViewController {
     
@@ -15,12 +16,19 @@ class PackagesViewController: BaseViewController {
     private let all = Package.all
     private let tableView = UITableView()
     
+    private var products: [SKProduct]! {
+        didSet {
+            tableView.reloadData()
+        }
+    }
+    
     // Needed to stay at root navController which is settingsVC in this case
     private var settingsVC: SettingsViewController!
     
-    init(settingsVC: SettingsViewController) {
+    init(settingsVC: SettingsViewController, products: [SKProduct]) {
         super.init(nibName: nil, bundle: nil)
         self.settingsVC = settingsVC
+        self.products = products
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -50,7 +58,7 @@ class PackagesViewController: BaseViewController {
 extension PackagesViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return all.count
+        return products?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -61,7 +69,10 @@ extension PackagesViewController: UITableViewDelegate, UITableViewDataSource {
         let cell = cell as! PackageCell
         
         cell.delegate = self
-        cell.model = all[indexPath.row]
+        
+        if let products = products {
+            cell.model = products[indexPath.row]
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -75,7 +86,7 @@ extension PackagesViewController: PackageCellDelegate {
         coordinator?.showPackageInformationScreen(settingsVC: settingsVC, package: package)
     }
     
-    func didBuy(package: Package) {
-        
+    func didBuy(package: Package, product: SKProduct) {
+        ApplimeProducts.store.buyProduct(product)
     }
 }

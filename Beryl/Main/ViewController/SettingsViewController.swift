@@ -31,9 +31,28 @@ class SettingsViewController: BaseViewController {
         let footerView = FooterView(frame: CGRect(x: 0, y: 0, width: 0, height: 80))
         tableView.tableFooterView = footerView
         
+        NotificationCenter.default.addObserver(self, selector: #selector(handlePurchaseNotification(_:)),
+                                               name: .IAPHelperPurchaseNotification,
+                                               object: nil)
+        
         view.fillToSuperview(tableView)
                 
         updateView()
+    }
+    
+    @objc func handlePurchaseNotification(_ notification: Notification) {
+        guard
+            let productID = notification.object as? String
+//            let index = products.index(where: { product -> Bool in
+//                product.productIdentifier == productID
+//            })
+            else {
+                self.alert(title: "Error", message: "Nothing to restore", cancelable: false, handler: nil)
+
+                return
+        }
+        
+        self.alert(title: "Success", message: "\(Package.get(productID).title) restored", cancelable: false, handler: nil)
     }
     
     func updateView() {
@@ -81,17 +100,18 @@ class SettingsViewController: BaseViewController {
     }
     
     func restorePurchase() {
-        SwiftyStoreKit.restorePurchases(atomically: true) { results in
-            if results.restoreFailedPurchases.count > 0 {
-                self.alert(title: "Restore Fail", message: "\(results.restoreFailedPurchases)", cancelable: false, handler: nil)
-            }
-            else if results.restoredPurchases.count > 0 {
-                self.alert(title: "Restore Success", message: "\(results.restoredPurchases)", cancelable: false, handler: nil)
-            }
-            else {
-                self.alert(title: "Error", message: "Nothing to restore", cancelable: false, handler: nil)
-            }
-        }
+        ApplimeProducts.store.restorePurchases()
+//        SwiftyStoreKit.restorePurchases(atomically: true) { results in
+//            if results.restoreFailedPurchases.count > 0 {
+//                self.alert(title: "Restore Fail", message: "\(results.restoreFailedPurchases)", cancelable: false, handler: nil)
+//            }
+//            else if results.restoredPurchases.count > 0 {
+//                self.alert(title: "Restore Success", message: "\(results.restoredPurchases)", cancelable: false, handler: nil)
+//            }
+//            else {
+//                self.alert(title: "Error", message: "Nothing to restore", cancelable: false, handler: nil)
+//            }
+//        }
     }
     
     func sendEmail() {

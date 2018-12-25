@@ -95,10 +95,10 @@ class PackageInformationViewController: BaseViewController {
         if package == .allInOne {
             let mutableString = NSMutableAttributedString()
             
-            let attributedString: NSMutableAttributedString =  NSMutableAttributedString(string: "€1,80")
+            let attributedString: NSMutableAttributedString =  NSMutableAttributedString(string: "€2,19")
             attributedString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSMakeRange(0, attributedString.length))
             
-            let discountAttributedString = NSAttributedString.String("   30% Discount", font: .bold, color: UIColor(rgb: 0xcd6133))
+            let discountAttributedString = NSAttributedString.String("   50% Discount", font: .bold, color: UIColor(rgb: 0xcd6133))
             
             mutableString.append(attributedString)
             mutableString.append(discountAttributedString)

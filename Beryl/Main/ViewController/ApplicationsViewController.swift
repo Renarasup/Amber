@@ -36,6 +36,8 @@ class ApplicationsViewController: BaseViewController {
     private let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
     private lazy var blurEffectView = UIVisualEffectView(effect: blurEffect)
     
+    private let premiumFeaturesView = UnlockPremiumFeaturesView()
+    
     private let sortView = SortView()
     
     private let titleLabel = BaseLabel(text: "My Applications", font: .regular, textColor: .black, numberOfLines: 1)
@@ -73,6 +75,8 @@ class ApplicationsViewController: BaseViewController {
         settingsBarItem.tintColor = .Tint
         addApplicationBarItem.tintColor = .Tint
         sortBarItem.tintColor = .Tint
+        
+        premiumFeaturesView.alpha = 0
         
         sortView.setColors()
     
@@ -120,6 +124,13 @@ class ApplicationsViewController: BaseViewController {
             v.leadingAnchor.constraint(equalTo: p.leadingAnchor, constant: Constants.padding - 5),
             v.trailingAnchor.constraint(equalTo: p.trailingAnchor, constant: -Constants.padding + 5),
             ]}
+        
+        window.add(subview: premiumFeaturesView) { (v, p) in [
+            v.heightAnchor.constraint(equalToConstant: view.frame.height * 0.6),
+            v.widthAnchor.constraint(equalTo: p.widthAnchor, multiplier: 0.8),
+            v.centerXAnchor.constraint(equalTo: p.centerXAnchor),
+            v.centerYAnchor.constraint(equalTo: p.centerYAnchor),
+            ]}
     }
     
     // MARK: - Basic UI Setup
@@ -154,7 +165,16 @@ class ApplicationsViewController: BaseViewController {
     }
     
     @objc private func onAddApplicationsPressed() {
-        coordinator?.showAddApplicationsScreen()
+        animatePremiumFeaturesView()
+        
+//        if UserDefaults.standard.bool(forKey: Constants.allInOne) || UserDefaults.standard.bool(forKey: Constants.unlimitedApplications) {
+//            coordinator?.showAddApplicationsScreen()
+//        } else if filterApplications.count == 5  {
+//            // show premium
+//            animatePremiumFeaturesView()
+//        } else {
+//            coordinator?.showAddApplicationsScreen()
+//        }
     }
     
     @objc private func onSortPressed() {
@@ -189,6 +209,16 @@ class ApplicationsViewController: BaseViewController {
         UIView.animate(withDuration: 0.25) {
             self.blurEffectView.alpha = 0
             self.sortView.alpha = 0
+        }
+    }
+    
+    private func animatePremiumFeaturesView() {
+        
+        premiumFeaturesView.setPackage(.unlimitedApplications)
+        
+        UIView.animate(withDuration: 0.25) {
+            self.blurEffectView.alpha = 1
+            self.premiumFeaturesView.alpha = 1
         }
     }
 }

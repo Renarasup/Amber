@@ -105,9 +105,14 @@ class ApplicationsCoordinator: Coordinator {
     }
     
     func showViewPackagesScreen(settingsVC: SettingsViewController) {
-        let viewPackagesVC = PackagesViewController(settingsVC: settingsVC)
-        viewPackagesVC.coordinator = self
-        settingsVC.navigationController?.pushViewController(viewPackagesVC, animated: true)
+        ApplimeProducts.store.requestProducts { (bool, products) in
+            guard let products = products else {
+                return
+            }
+            let viewPackagesVC = PackagesViewController(settingsVC: settingsVC, products: products)
+            viewPackagesVC.coordinator = self
+            settingsVC.navigationController?.pushViewController(viewPackagesVC, animated: true)
+        }
     }
     
     func showPackageInformationScreen(settingsVC: SettingsViewController, package: Package) {

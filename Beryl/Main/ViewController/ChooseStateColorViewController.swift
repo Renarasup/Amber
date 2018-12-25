@@ -115,21 +115,29 @@ extension ChooseStateColorViewController: UICollectionViewDelegateFlowLayout, UI
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        switch state {
-        case .Accepted:
-            KeyManager.shared.acceptedColor = all[indexPath.row].color.toHexString()
-        case .Applied:
-            KeyManager.shared.appliedColor = all[indexPath.row].color.toHexString()
-        case .Rejected:
-            KeyManager.shared.rejectedColor = all[indexPath.row].color.toHexString()
-        case .Interview:
-            KeyManager.shared.interviewColor = all[indexPath.row].color.toHexString()
-        default:
-            break;
-        }
         
-        previewCell.injectPreviewData(state: state)
-        collectionView.reloadData()
+        if UserDefaults.standard.bool(forKey: Constants.allInOne) || UserDefaults.standard.bool(forKey: Constants.customizeDesign) {
+            switch state {
+            case .Accepted:
+                KeyManager.shared.acceptedColor = all[indexPath.row].color.toHexString()
+            case .Applied:
+                KeyManager.shared.appliedColor = all[indexPath.row].color.toHexString()
+            case .Rejected:
+                KeyManager.shared.rejectedColor = all[indexPath.row].color.toHexString()
+            case .Interview:
+                KeyManager.shared.interviewColor = all[indexPath.row].color.toHexString()
+            default:
+                break;
+            }
+            
+            previewCell.injectPreviewData(state: state)
+            collectionView.reloadData()
+            
+        } else {
+            if indexPath.row != 1 {
+                // Show Premium
+            }
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

@@ -82,6 +82,7 @@ extension ThemeSettingsViewController: UITableViewDelegate, UITableViewDataSourc
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
         cell.textLabel?.font = .medium
         cell.textLabel?.text = all[indexPath.row]
         cell.textLabel?.textColor = .Tint
@@ -96,9 +97,20 @@ extension ThemeSettingsViewController: UITableViewDelegate, UITableViewDataSourc
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        KeyManager.shared.theme = all[indexPath.row]
+        if all[indexPath.row] != "Light" {
+            if UserDefaults.standard.bool(forKey: Constants.allInOne) || UserDefaults.standard.bool(forKey: Constants.customizeDesign) {
+                KeyManager.shared.theme = all[indexPath.row]
+                changeSchemeTo(cs: ColorScheme(rawValue: all[indexPath.row]) ?? .Light)
+            } else {
+                // Show Unlock Premium Features
+                
+            }
+        } else {
+            KeyManager.shared.theme = all[indexPath.row]
+            changeSchemeTo(cs: ColorScheme(rawValue: all[indexPath.row]) ?? .Light)
+        }
+
         
-        changeSchemeTo(cs: ColorScheme(rawValue: all[indexPath.row]) ?? .Light)
         
         tableView.reloadData()
     }

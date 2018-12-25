@@ -15,4 +15,7 @@ struct Constants {
     static let smallCornerRadius: CGFloat = 2.5
     
     static let appVersion = "v1.0.0"
+    static let allInOne = "allinone"
+    static let customizeDesign = "designcustomization"
+    static let unlimitedApplications = "unlimitedapplications"
 }

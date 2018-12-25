@@ -9,12 +9,25 @@
 import UIKit
 
 enum Package {
-    case allInOne, unlimitedApplications, design
+    case allInOne
+    case unlimitedApplications
+    case design
     
     struct Information {
         let title: String
         let description: String
         let image: UIImage
+    }
+    
+    static func get(_ value: String) -> Package {
+        if value == Constants.allInOne {
+            return .allInOne
+        } else if value == Constants.unlimitedApplications {
+            return .unlimitedApplications
+        } else if value == Constants.customizeDesign {
+            return .design
+        }
+        return .allInOne
     }
 }
 
@@ -84,4 +97,11 @@ extension Package {
     }
 
     static let all: [Package] = [.allInOne, .unlimitedApplications, .design]
+}
+
+public struct ApplimeProducts {
+    
+    private static let productIdentifiers: Set<ProductIdentifier> = [Constants.allInOne, Constants.unlimitedApplications, Constants.customizeDesign]
+    
+    public static let store = IAPHelper(productIds: ApplimeProducts.productIdentifiers)
 }

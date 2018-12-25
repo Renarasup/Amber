@@ -45,6 +45,9 @@
 		24685EF021D12E0E00039CC8 /* PackageInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24685EEF21D12E0E00039CC8 /* PackageInformationViewController.swift */; };
 		24685EF221D134F500039CC8 /* PackageInformationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24685EF121D134F500039CC8 /* PackageInformationCell.swift */; };
 		24685EF421D1767E00039CC8 /* FooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24685EF321D1767E00039CC8 /* FooterView.swift */; };
+		24685EF621D24BE000039CC8 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24685EF521D24BE000039CC8 /* StoreKit.framework */; };
+		24685EFB21D24FE400039CC8 /* IAPHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24685EFA21D24FE400039CC8 /* IAPHelper.swift */; };
+		24685EFD21D2689400039CC8 /* UnlockPremiumFeaturesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24685EFC21D2689400039CC8 /* UnlockPremiumFeaturesView.swift */; };
 		2498D39721CBFE9D0041F261 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2498D39621CBFDAA0041F261 /* Roboto-Bold.ttf */; };
 		2498D39921CC141C0041F261 /* UIColor+CustomColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2498D39821CC141C0041F261 /* UIColor+CustomColors.swift */; };
 		2498D39C21CC15590041F261 /* GlobalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2498D39B21CC15590041F261 /* GlobalConstants.swift */; };
@@ -138,6 +141,9 @@
 		24685EEF21D12E0E00039CC8 /* PackageInformationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageInformationViewController.swift; sourceTree = "<group>"; };
 		24685EF121D134F500039CC8 /* PackageInformationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageInformationCell.swift; sourceTree = "<group>"; };
 		24685EF321D1767E00039CC8 /* FooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterView.swift; sourceTree = "<group>"; };
+		24685EF521D24BE000039CC8 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		24685EFA21D24FE400039CC8 /* IAPHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPHelper.swift; sourceTree = "<group>"; };
+		24685EFC21D2689400039CC8 /* UnlockPremiumFeaturesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnlockPremiumFeaturesView.swift; sourceTree = "<group>"; };
 		2498D39621CBFDAA0041F261 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
 		2498D39821CC141C0041F261 /* UIColor+CustomColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+CustomColors.swift"; sourceTree = "<group>"; };
 		2498D39B21CC15590041F261 /* GlobalConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalConstants.swift; sourceTree = "<group>"; };
@@ -181,6 +187,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6E1FD9923C00B10962366D4B /* Pods_Amber.framework in Frameworks */,
+				24685EF621D24BE000039CC8 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -327,6 +334,7 @@
 				24685EE921D113D800039CC8 /* PackageCell.swift */,
 				24685EF121D134F500039CC8 /* PackageInformationCell.swift */,
 				24685EF321D1767E00039CC8 /* FooterView.swift */,
+				24685EFC21D2689400039CC8 /* UnlockPremiumFeaturesView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -363,6 +371,7 @@
 		240837B9218903A200497B08 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				24685EFA21D24FE400039CC8 /* IAPHelper.swift */,
 				2498D39B21CC15590041F261 /* GlobalConstants.swift */,
 				240837DC218CE1D800497B08 /* ReusableViewProtocol.swift */,
 				2498D3C221CF76540041F261 /* KeyManager.swift */,
@@ -473,6 +482,7 @@
 		45C2959A789B9FC5004216A7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				24685EF521D24BE000039CC8 /* StoreKit.framework */,
 				545B75DD84C148DF8D50C60C /* Pods_Amber.framework */,
 				6173FC4F707114239D8F3589 /* Pods_AmberTests.framework */,
 				9A40830FF201DBD817731599 /* Pods_AmberUITests.framework */,
@@ -552,6 +562,11 @@
 				TargetAttributes = {
 					240837782189022A00497B08 = {
 						CreatedOnToolsVersion = 10.0;
+						SystemCapabilities = {
+							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
+						};
 					};
 					2408378F2189022D00497B08 = {
 						CreatedOnToolsVersion = 10.0;
@@ -717,7 +732,9 @@
 				240837F72194402000497B08 /* EditNoteViewController.swift in Sources */,
 				240837B6218902AB00497B08 /* MainController.swift in Sources */,
 				240837BD218903F400497B08 /* ApplicationsCoordinator.swift in Sources */,
+				24685EFD21D2689400039CC8 /* UnlockPremiumFeaturesView.swift in Sources */,
 				240837D5218CDEB400497B08 /* BaseConfig.swift in Sources */,
+				24685EFB21D24FE400039CC8 /* IAPHelper.swift in Sources */,
 				24685EEC21D11C2600039CC8 /* Packages.swift in Sources */,
 				2498D3CD21D01C070041F261 /* ChooseStateColorCell.swift in Sources */,
 				2498D3A821CCDF7D0041F261 /* UIView+Shadows.swift in Sources */,
@@ -931,7 +948,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 26NXGYG734;
-				INFOPLIST_FILE = Amber/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Beryl/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -953,7 +970,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 26NXGYG734;
-				INFOPLIST_FILE = Amber/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Beryl/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

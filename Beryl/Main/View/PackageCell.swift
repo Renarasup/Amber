@@ -7,44 +7,74 @@
 //
 
 import UIKit
+import StoreKit
 
 protocol PackageCellDelegate: class {
     func didView(package: Package)
-    func didBuy(package: Package)
+    func didBuy(package: Package, product: SKProduct)
 }
 
 class PackageCell: UITableViewCell {
 
     weak var delegate: PackageCellDelegate?
     
-    var model: Package! {
+    var package: Package?
+    
+    var model: SKProduct! {
         didSet {
-            packageImageView.image = model.image
-            titleLabel.text = model.title
-            descriptionLabel.text = model.description
             
-            buyPackButton.setTitle("Buy €\(String(format: "%.2f", model.price))".replacingOccurrences(of: ".", with: ","), for: .normal)
-            
-            if let model = model {
-                if model == .allInOne {
-                    let mutableString = NSMutableAttributedString()
-                    
-                    let attributedString: NSMutableAttributedString =  NSMutableAttributedString(string: "€1,80")
-                    attributedString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSMakeRange(0, attributedString.length))
-                    
-                    let discountAttributedString = NSAttributedString.String("   30% Discount", font: .bold, color: UIColor(rgb: 0xcd6133))
-                    
-                    mutableString.append(attributedString)
-                    mutableString.append(discountAttributedString)
-                    
-                    strikedThroughLabel.attributedText = mutableString
-                    descriptionLabel.text = model.description
-                    
-                    add(subview: strikedThroughLabel) { (v, p) in [
-                        v.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: Constants.padding),
-                        v.centerXAnchor.constraint(equalTo: p.centerXAnchor)
-                        ]}
+            if UserDefaults.standard.bool(forKey: Constants.allInOne) {
+                buyPackButton.isEnabled = false
+                buyPackButton.setTitle("Unlocked", for: .normal)
+//                buyPackButton.backgroundColor = UIColor.PackagesButtons.withAlphaComponent(0.3)
+                buyPackButton.backgroundColor = UIColor.lightGray
+            } else if model.productIdentifier == Constants.customizeDesign || model.productIdentifier == Constants.unlimitedApplications {
+                let purchased = UserDefaults.standard.bool(forKey: model.productIdentifier)
+
+                if purchased {
+                    buyPackButton.isEnabled = false
+                    buyPackButton.setTitle("Unlocked", for: .normal)
+                    buyPackButton.backgroundColor = UIColor.lightGray
+                } else {
+                    if IAPHelper.canMakePayments() {
+                        buyPackButton.setTitle("Unlock €\(model.price)".replacingOccurrences(of: ".", with: ","), for: .normal)
+                    } else {
+                        buyPackButton.setTitle("Not Available", for: .normal)
+                    }
                 }
+            } else {
+                if IAPHelper.canMakePayments() {
+                    buyPackButton.setTitle("Unlock €\(model.price)".replacingOccurrences(of: ".", with: ","), for: .normal)
+                } else {
+                    buyPackButton.setTitle("Not Available", for: .normal)
+                }
+            }
+            
+            let package = Package.get(model.productIdentifier)
+            self.package = package
+            
+            packageImageView.image = package.image
+            titleLabel.text = package.title
+            descriptionLabel.text = package.description
+            
+            if package == .allInOne {
+                let mutableString = NSMutableAttributedString()
+                
+                let attributedString: NSMutableAttributedString =  NSMutableAttributedString(string: "€2,19")
+                attributedString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSMakeRange(0, attributedString.length))
+                
+                let discountAttributedString = NSAttributedString.String("   50% Discount", font: .bold, color: UIColor(rgb: 0xcd6133))
+                
+                mutableString.append(attributedString)
+                mutableString.append(discountAttributedString)
+                
+                strikedThroughLabel.attributedText = mutableString
+                descriptionLabel.text = package.description
+                
+                add(subview: strikedThroughLabel) { (v, p) in [
+                    v.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: Constants.padding),
+                    v.centerXAnchor.constraint(equalTo: p.centerXAnchor)
+                    ]}
             }
         }
     }
@@ -132,11 +162,17 @@ class PackageCell: UITableViewCell {
     }
     
     @objc private func onViewPackPressed() {
-        delegate?.didView(package: model)
+        guard let package = package else {
+            return
+        }
+        delegate?.didView(package: package)
     }
     
     @objc private func onBuyPackPressed() {
-        delegate?.didBuy(package: model)
+        guard let package = package else {
+            return
+        }
+        delegate?.didBuy(package: package, product: model)
     }
     
     required init?(coder aDecoder: NSCoder) {
