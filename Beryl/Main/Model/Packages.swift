@@ -33,6 +33,17 @@ enum Package {
 
 extension Package {
     
+    var productIdentifier: String {
+        switch self {
+        case .allInOne:
+            return Constants.allInOne
+        case .design:
+            return Constants.customizeDesign
+        case .unlimitedApplications:
+            return Constants.unlimitedApplications
+        }
+    }
+    
     var pages: [Information] {
         switch self {
         case .allInOne:
@@ -55,11 +66,11 @@ extension Package {
     var price: Double {
         switch self {
         case .allInOne:
-            return 1.26
+            return 1.09
         case .design:
-            return 0.9
+            return 1.09
         case .unlimitedApplications:
-            return 0.9
+            return 1.09
         }
     }
     

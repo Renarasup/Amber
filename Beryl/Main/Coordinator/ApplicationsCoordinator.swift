@@ -119,4 +119,10 @@ class ApplicationsCoordinator: Coordinator {
         let packageInformationVC = PackageInformationViewController(package: package)
         settingsVC.navigationController?.pushViewController(packageInformationVC, animated: true)
     }
+    
+    func globallyShowPackageInformationScreen(package: Package) {
+        let packageInformationVC = PackageInformationViewController(package: package)
+        packageInformationVC.addDropDownBarItem()
+        navigationController.present(CustomNavigationController(rootViewController: packageInformationVC), animated: true, completion: nil)
+    }
 }

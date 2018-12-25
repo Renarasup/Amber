@@ -8,6 +8,7 @@
 
 import UIKit
 import RealmSwift
+import StoreKit
 
 class ApplicationsViewController: BaseViewController {
     
@@ -60,6 +61,12 @@ class ApplicationsViewController: BaseViewController {
         
         sortView.delegate = self
         sortView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(onSortPanned(_:))))
+        
+        premiumFeaturesView.delegate = self
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handlePurchaseNotification(_:)),
+                                               name: .IAPHelperPurchaseNotification,
+                                               object: nil)
 
         setupViewsLayout()
     }
@@ -126,7 +133,7 @@ class ApplicationsViewController: BaseViewController {
             ]}
         
         window.add(subview: premiumFeaturesView) { (v, p) in [
-            v.heightAnchor.constraint(equalToConstant: view.frame.height * 0.6),
+            v.heightAnchor.constraint(equalToConstant: view.frame.height * 0.65),
             v.widthAnchor.constraint(equalTo: p.widthAnchor, multiplier: 0.8),
             v.centerXAnchor.constraint(equalTo: p.centerXAnchor),
             v.centerYAnchor.constraint(equalTo: p.centerYAnchor),
@@ -221,6 +228,32 @@ class ApplicationsViewController: BaseViewController {
             self.premiumFeaturesView.alpha = 1
         }
     }
+    
+    private func deAnimatePremiumFeaturesView() {
+        
+        UIView.animate(withDuration: 0.25) {
+            self.blurEffectView.alpha = 0
+            self.premiumFeaturesView.alpha = 0
+        }
+    }
+    
+    // MARK: - Notifications
+    /***************************************************************/
+    
+    @objc func handlePurchaseNotification(_ notification: Notification) {
+        guard
+            let productID = notification.object as? String
+            //            let index = products.index(where: { product -> Bool in
+            //                product.productIdentifier == productID
+            //            })
+            else {
+                self.alert(title: "Error", message: "Nothing to restore", cancelable: false, handler: nil)
+                return
+        }
+        
+        self.alert(title: "Success", message: "\(Package.get(productID).title) transaction complete", cancelable: false, handler: nil)
+        deAnimatePremiumFeaturesView()
+    }
 }
 
 // MARK: - UITableView Delegate & DataSource Extension
@@ -309,3 +342,58 @@ extension ApplicationsViewController: SortViewDelegate {
         deAnimateSortView()
     }
 }
+
+extension ApplicationsViewController: UnlockPremiumFeaturesViewDelegate {
+    
+    func didPressBuyAllInOne() {
+        
+        ApplimeProducts.store.requestProducts { (success, products) in
+            if success {
+                
+                guard let products = products else {
+                    return
+                }
+                
+                guard let idx = products.firstIndex(where: { (product) -> Bool in
+                    if product.productIdentifier == Constants.allInOne {
+                        return true
+                    }
+                    return false
+                }) else { return }
+                
+                ApplimeProducts.store.buyProduct(products[idx])
+            }
+        }
+    }
+    
+    func didPressViewAllInOnePackage() {
+        deAnimatePremiumFeaturesView()
+        coordinator?.globallyShowPackageInformationScreen(package: .allInOne)
+    }
+    
+    func didPressBuy(package: Package) {
+        
+        ApplimeProducts.store.requestProducts { (success, products) in
+            if success {
+                
+                guard let products = products else {
+                    return
+                }
+                
+                guard let idx = products.firstIndex(where: { (product) -> Bool in
+                    if product.productIdentifier == package.productIdentifier {
+                        return true
+                    }
+                    return false
+                }) else { return }
+                
+                ApplimeProducts.store.buyProduct(products[idx])
+            }
+        }
+    }
+    
+    func didRestorePurchase() {
+        ApplimeProducts.store.restorePurchases()
+    }
+}
+

@@ -8,7 +8,18 @@
 
 import UIKit
 
+protocol UnlockPremiumFeaturesViewDelegate: class {
+    func didPressBuyAllInOne()
+    func didPressViewAllInOnePackage()
+    func didPressBuy(package: Package)
+    func didRestorePurchase()
+}
+
 class UnlockPremiumFeaturesView: UIView {
+    
+    weak var delegate: UnlockPremiumFeaturesViewDelegate?
+    
+    private var package: Package?
     
     private let imageView = UIImageView()
     private let titleLabel = BaseLabel(text: "Unlock Premium Features", font: .large, textColor: .Tint, numberOfLines: 1)
@@ -20,23 +31,32 @@ class UnlockPremiumFeaturesView: UIView {
     private let onlyPackagePriceTitle = BaseLabel(font: .regular, textColor: .lightGray, numberOfLines: 1)
     
     private let viewPackageTitle = BaseLabel(text: "View Package", font: .regular, textColor: .Tint, numberOfLines: 1)
-    
-    private let restorePurchaseLabel = BaseLabel(text: "Restore Purchases", font: .regular, textColor: .lightGray, numberOfLines: 1)
+    private let arrowImageView = UIImageView()
 
+    private let restorePurchaseLabel = BaseLabel(text: "Restore Purchases", font: .regular, textColor: .lightGray, numberOfLines: 1)
+    
+    private let topContainerView = UIView()
+    private let middleContainerView = UIView()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         imageView.contentMode = .scaleAspectFill
         imageView.image = #imageLiteral(resourceName: "amberlogo")
         
+        arrowImageView.image = #imageLiteral(resourceName: "arrow-right").withRenderingMode(.alwaysTemplate)
+        arrowImageView.tintColor = .lightGray
+        
         backgroundColor = .white
         
+        layer.borderWidth = 0.5
+        layer.borderColor = UIColor.lightGray.cgColor
         layer.cornerRadius = Constants.bigCornerRadius
         
         titleLabel.textAlignment = .center
         descriptionLabel.textAlignment = .center
         actionLabel.textAlignment = .center
-
+        
         unlockButton.layer.cornerRadius = Constants.smallCornerRadius
         unlockButton.backgroundColor = .PackagesButtons
         unlockButton.titleLabel?.font = .regular
@@ -52,6 +72,11 @@ class UnlockPremiumFeaturesView: UIView {
         actionLabel.attributedText = mutableString
         actionLabel.numberOfLines = 0
         
+        unlockButton.addTarget(self, action: #selector(onBuyAllInOnePressed), for: .touchUpInside)
+        restorePurchaseLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(onRestorePurchasesPressed)))
+        topContainerView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(onBuySinglePackagePressed)))
+        middleContainerView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(onViewAllPackagesPressed)))
+
         setupViewsLayout()
     }
     
@@ -88,31 +113,86 @@ class UnlockPremiumFeaturesView: UIView {
             v.heightAnchor.constraint(equalTo: p.heightAnchor, multiplier: 0.1),
             ]}
         
-        add(subview: onlyPackageTitle) { (v, p) in [
+        add(subview: topContainerView) { (v, p) in [
             v.topAnchor.constraint(equalTo: unlockButton.bottomAnchor, constant: Constants.padding),
+            v.leadingAnchor.constraint(equalTo: p.leadingAnchor),
+            v.trailingAnchor.constraint(equalTo: p.trailingAnchor),
+            v.heightAnchor.constraint(equalTo: p.heightAnchor, multiplier: 0.1),
+            ]}
+        
+        add(subview: middleContainerView) { (v, p) in [
+            v.topAnchor.constraint(equalTo: topContainerView.bottomAnchor),
+            v.leadingAnchor.constraint(equalTo: p.leadingAnchor),
+            v.trailingAnchor.constraint(equalTo: p.trailingAnchor),
+            v.heightAnchor.constraint(equalTo: p.heightAnchor, multiplier: 0.1),
+            ]}
+        
+        topContainerView.add(subview: onlyPackageTitle) { (v, p) in [
+            v.centerYAnchor.constraint(equalTo: p.centerYAnchor),
             v.leadingAnchor.constraint(equalTo: p.leadingAnchor, constant: Constants.padding)
             ]}
         
-        add(subview: onlyPackagePriceTitle) { (v, p) in [
-            v.topAnchor.constraint(equalTo: unlockButton.bottomAnchor, constant: Constants.padding),
+        topContainerView.add(subview: onlyPackagePriceTitle) { (v, p) in [
+            v.centerYAnchor.constraint(equalTo: p.centerYAnchor),
             v.trailingAnchor.constraint(equalTo: p.trailingAnchor, constant: -Constants.padding)
             ]}
         
-        add(subview: viewPackageTitle) { (v, p) in [
-            v.topAnchor.constraint(equalTo: onlyPackageTitle.bottomAnchor, constant: Constants.padding),
+        middleContainerView.add(subview: viewPackageTitle) { (v, p) in [
+            v.centerYAnchor.constraint(equalTo: p.centerYAnchor),
             v.leadingAnchor.constraint(equalTo: p.leadingAnchor, constant: Constants.padding)
+            ]}
+        
+        middleContainerView.add(subview: arrowImageView) { (v, p) in [
+            v.centerYAnchor.constraint(equalTo: p.centerYAnchor),
+            v.trailingAnchor.constraint(equalTo: p.trailingAnchor, constant: -Constants.padding),
+            v.heightAnchor.constraint(equalTo: p.widthAnchor, multiplier: 0.07),
+            v.widthAnchor.constraint(equalTo: p.widthAnchor, multiplier: 0.07)
             ]}
         
         add(subview: restorePurchaseLabel) { (v, p) in [
             v.bottomAnchor.constraint(equalTo: p.bottomAnchor, constant: -Constants.padding),
+//            v.topAnchor.constraint(equalTo: middleContainerView.bottomAnchor),
             v.centerXAnchor.constraint(equalTo: p.centerXAnchor)
             ]}
+        
+        topContainerView.addSeparatorLine(to: .top, color: .lightGray, height: 0.3)
+        topContainerView.addSeparatorLine(to: .bottom, color: .lightGray, height: 0.3)
+        
+        let sepView = UIView()
+        sepView.backgroundColor = .lightGray
+        
+        add(subview: sepView) { (v, p) in [
+            v.topAnchor.constraint(equalTo: middleContainerView.bottomAnchor),
+            v.leadingAnchor.constraint(equalTo: p.leadingAnchor),
+            v.trailingAnchor.constraint(equalTo: p.trailingAnchor),
+            v.heightAnchor.constraint(equalToConstant: 0.3)
+            ]}
+    }
+    
+    @objc private func onBuyAllInOnePressed() {
+        delegate?.didPressBuy(package: .allInOne)
+    }
+    
+    @objc private func onRestorePurchasesPressed() {
+        delegate?.didRestorePurchase()
+    }
+    
+    @objc private func onBuySinglePackagePressed() {
+        if let package = package {
+            delegate?.didPressBuy(package: package)
+        }
+    }
+    
+    @objc private func onViewAllPackagesPressed() {
+        delegate?.didPressViewAllInOnePackage()
     }
     
     func setPackage(_ package: Package) {
         unlockButton.setTitle("Unlock for €\(String(format: "%.2f", Package.allInOne.price))", for: .normal)
-        onlyPackageTitle.text = "Only \(package.title)"
+        onlyPackageTitle.text = "Only buy \(package.title)"
         onlyPackagePriceTitle.text = "€\(String(format: "%.2f", package.price))"
+        
+        self.package = package
     }
     
     required init?(coder aDecoder: NSCoder) {

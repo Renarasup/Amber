@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SwiftyStoreKit
 import MessageUI
 
 class SettingsViewController: BaseViewController {

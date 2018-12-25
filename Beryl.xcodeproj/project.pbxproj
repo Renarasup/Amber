@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C7653DA149B0D2A13CC7371 /* Pods_BerylTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19ED556F126051A2E641776E /* Pods_BerylTests.framework */; };
 		1BEC0C18CC8FA6E9B115131F /* Pods_AmberUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A40830FF201DBD817731599 /* Pods_AmberUITests.framework */; };
 		2408377D2189022A00497B08 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2408377C2189022A00497B08 /* AppDelegate.swift */; };
 		240837872189022D00497B08 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 240837862189022D00497B08 /* Assets.xcassets */; };
@@ -48,6 +49,7 @@
 		24685EF621D24BE000039CC8 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24685EF521D24BE000039CC8 /* StoreKit.framework */; };
 		24685EFB21D24FE400039CC8 /* IAPHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24685EFA21D24FE400039CC8 /* IAPHelper.swift */; };
 		24685EFD21D2689400039CC8 /* UnlockPremiumFeaturesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24685EFC21D2689400039CC8 /* UnlockPremiumFeaturesView.swift */; };
+		24685F0121D27E6200039CC8 /* UIView+AddSeparatorLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24685F0021D27E6200039CC8 /* UIView+AddSeparatorLine.swift */; };
 		2498D39721CBFE9D0041F261 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2498D39621CBFDAA0041F261 /* Roboto-Bold.ttf */; };
 		2498D39921CC141C0041F261 /* UIColor+CustomColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2498D39821CC141C0041F261 /* UIColor+CustomColors.swift */; };
 		2498D39C21CC15590041F261 /* GlobalConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2498D39B21CC15590041F261 /* GlobalConstants.swift */; };
@@ -76,7 +78,9 @@
 		2498D3D121D041880041F261 /* AboutUsSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2498D3D021D041880041F261 /* AboutUsSettingsViewController.swift */; };
 		24FA054E21949DC2006F7DB8 /* RealmHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24FA054D21949DC2006F7DB8 /* RealmHelper.swift */; };
 		6E1FD9923C00B10962366D4B /* Pods_Amber.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 545B75DD84C148DF8D50C60C /* Pods_Amber.framework */; };
+		7AABD6B4AA1F8B05C18BF234 /* Pods_Beryl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42F8253ABA2882CC42086509 /* Pods_Beryl.framework */; };
 		B8331DF18008D0C95A16356C /* Pods_AmberTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6173FC4F707114239D8F3589 /* Pods_AmberTests.framework */; };
+		E7D7969CBCB89C93C7D4EA99 /* Pods_BerylUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36985802C75AA5EFB17CE965 /* Pods_BerylUITests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,6 +101,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1626A372862F1AB57BBD653F /* Pods-BerylUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BerylUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BerylUITests/Pods-BerylUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		19ED556F126051A2E641776E /* Pods_BerylTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BerylTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		240837792189022A00497B08 /* Beryl.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Beryl.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2408377C2189022A00497B08 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2408377E2189022A00497B08 /* ApplicationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationsViewController.swift; sourceTree = "<group>"; };
@@ -144,6 +150,7 @@
 		24685EF521D24BE000039CC8 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		24685EFA21D24FE400039CC8 /* IAPHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPHelper.swift; sourceTree = "<group>"; };
 		24685EFC21D2689400039CC8 /* UnlockPremiumFeaturesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnlockPremiumFeaturesView.swift; sourceTree = "<group>"; };
+		24685F0021D27E6200039CC8 /* UIView+AddSeparatorLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+AddSeparatorLine.swift"; sourceTree = "<group>"; };
 		2498D39621CBFDAA0041F261 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
 		2498D39821CC141C0041F261 /* UIColor+CustomColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+CustomColors.swift"; sourceTree = "<group>"; };
 		2498D39B21CC15590041F261 /* GlobalConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalConstants.swift; sourceTree = "<group>"; };
@@ -170,14 +177,21 @@
 		2498D3CE21D01C340041F261 /* ChooseStateColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChooseStateColor.swift; sourceTree = "<group>"; };
 		2498D3D021D041880041F261 /* AboutUsSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutUsSettingsViewController.swift; sourceTree = "<group>"; };
 		24FA054D21949DC2006F7DB8 /* RealmHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmHelper.swift; sourceTree = "<group>"; };
+		2A9513D8508AE963A5C58583 /* Pods-Beryl.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Beryl.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Beryl/Pods-Beryl.debug.xcconfig"; sourceTree = "<group>"; };
+		36985802C75AA5EFB17CE965 /* Pods_BerylUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BerylUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		42F8253ABA2882CC42086509 /* Pods_Beryl.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Beryl.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		49521ED36CCA87BCDCDD522B /* Pods-BerylTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BerylTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BerylTests/Pods-BerylTests.debug.xcconfig"; sourceTree = "<group>"; };
 		4B01AD565677843C48FC1484 /* Pods-Amber.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Amber.release.xcconfig"; path = "Pods/Target Support Files/Pods-Amber/Pods-Amber.release.xcconfig"; sourceTree = "<group>"; };
 		545B75DD84C148DF8D50C60C /* Pods_Amber.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Amber.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6173FC4F707114239D8F3589 /* Pods_AmberTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AmberTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C29C86EDB63125CEBAA6422 /* Pods-AmberUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AmberUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-AmberUITests/Pods-AmberUITests.release.xcconfig"; sourceTree = "<group>"; };
 		748765C9A41B80E7E11E3AA1 /* Pods-AmberTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AmberTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AmberTests/Pods-AmberTests.debug.xcconfig"; sourceTree = "<group>"; };
+		78B106DD43A55D016EBF5F1C /* Pods-BerylTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BerylTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BerylTests/Pods-BerylTests.release.xcconfig"; sourceTree = "<group>"; };
 		91E69EF41A1CAB6A6753089D /* Pods-Amber.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Amber.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Amber/Pods-Amber.debug.xcconfig"; sourceTree = "<group>"; };
 		9A40830FF201DBD817731599 /* Pods_AmberUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AmberUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9DBF0DD8E47E017F269AE7BF /* Pods-AmberTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AmberTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-AmberTests/Pods-AmberTests.release.xcconfig"; sourceTree = "<group>"; };
+		B623053DE2535141280A16B6 /* Pods-BerylUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BerylUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BerylUITests/Pods-BerylUITests.release.xcconfig"; sourceTree = "<group>"; };
+		E4C905BAE91101C70F3C4255 /* Pods-Beryl.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Beryl.release.xcconfig"; path = "Pods/Target Support Files/Pods-Beryl/Pods-Beryl.release.xcconfig"; sourceTree = "<group>"; };
 		E9E67367B315262CD437F9FC /* Pods-AmberUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AmberUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AmberUITests/Pods-AmberUITests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -188,6 +202,7 @@
 			files = (
 				6E1FD9923C00B10962366D4B /* Pods_Amber.framework in Frameworks */,
 				24685EF621D24BE000039CC8 /* StoreKit.framework in Frameworks */,
+				7AABD6B4AA1F8B05C18BF234 /* Pods_Beryl.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -196,6 +211,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B8331DF18008D0C95A16356C /* Pods_AmberTests.framework in Frameworks */,
+				0C7653DA149B0D2A13CC7371 /* Pods_BerylTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -204,6 +220,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1BEC0C18CC8FA6E9B115131F /* Pods_AmberUITests.framework in Frameworks */,
+				E7D7969CBCB89C93C7D4EA99 /* Pods_BerylUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -403,6 +420,7 @@
 				2498D3A721CCDF7D0041F261 /* UIView+Shadows.swift */,
 				2498D3C821D00FD80041F261 /* UIViewController+Alerts.swift */,
 				24685EED21D1271D00039CC8 /* NSAttributedString+String.swift */,
+				24685F0021D27E6200039CC8 /* UIView+AddSeparatorLine.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -475,6 +493,12 @@
 				9DBF0DD8E47E017F269AE7BF /* Pods-AmberTests.release.xcconfig */,
 				E9E67367B315262CD437F9FC /* Pods-AmberUITests.debug.xcconfig */,
 				6C29C86EDB63125CEBAA6422 /* Pods-AmberUITests.release.xcconfig */,
+				2A9513D8508AE963A5C58583 /* Pods-Beryl.debug.xcconfig */,
+				E4C905BAE91101C70F3C4255 /* Pods-Beryl.release.xcconfig */,
+				49521ED36CCA87BCDCDD522B /* Pods-BerylTests.debug.xcconfig */,
+				78B106DD43A55D016EBF5F1C /* Pods-BerylTests.release.xcconfig */,
+				1626A372862F1AB57BBD653F /* Pods-BerylUITests.debug.xcconfig */,
+				B623053DE2535141280A16B6 /* Pods-BerylUITests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -486,6 +510,9 @@
 				545B75DD84C148DF8D50C60C /* Pods_Amber.framework */,
 				6173FC4F707114239D8F3589 /* Pods_AmberTests.framework */,
 				9A40830FF201DBD817731599 /* Pods_AmberUITests.framework */,
+				42F8253ABA2882CC42086509 /* Pods_Beryl.framework */,
+				19ED556F126051A2E641776E /* Pods_BerylTests.framework */,
+				36985802C75AA5EFB17CE965 /* Pods_BerylUITests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -636,28 +663,28 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Amber/Pods-Amber-frameworks.sh",
+				"${SRCROOT}/Pods/Target Support Files/Pods-Beryl/Pods-Beryl-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
+				"${BUILT_PRODUCTS_DIR}/PKHUD/PKHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftyStoreKit/SwiftyStoreKit.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PKHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyStoreKit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Amber/Pods-Amber-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Beryl/Pods-Beryl-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		5D3D1B2028066B6335B660BC /* [CP] Check Pods Manifest.lock */ = {
@@ -671,7 +698,7 @@
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-AmberTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-BerylTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -689,7 +716,7 @@
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-AmberUITests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-BerylUITests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -707,7 +734,7 @@
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Amber-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-Beryl-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -761,6 +788,7 @@
 				2498D3AA21CD87130041F261 /* SortView.swift in Sources */,
 				240837C0218905AD00497B08 /* BaseViewController.swift in Sources */,
 				240837EF218DA66600497B08 /* SearchApplicationToViewController.swift in Sources */,
+				24685F0121D27E6200039CC8 /* UIView+AddSeparatorLine.swift in Sources */,
 				24685EE821D111B200039CC8 /* PackagesViewController.swift in Sources */,
 				2498D3C121CF752B0041F261 /* SortBy.swift in Sources */,
 				240837DD218CE1D800497B08 /* ReusableViewProtocol.swift in Sources */,
@@ -942,7 +970,7 @@
 		};
 		240837A52189022D00497B08 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 91E69EF41A1CAB6A6753089D /* Pods-Amber.debug.xcconfig */;
+			baseConfigurationReference = 2A9513D8508AE963A5C58583 /* Pods-Beryl.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -964,7 +992,7 @@
 		};
 		240837A62189022D00497B08 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4B01AD565677843C48FC1484 /* Pods-Amber.release.xcconfig */;
+			baseConfigurationReference = E4C905BAE91101C70F3C4255 /* Pods-Beryl.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -986,7 +1014,7 @@
 		};
 		240837A82189022D00497B08 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 748765C9A41B80E7E11E3AA1 /* Pods-AmberTests.debug.xcconfig */;
+			baseConfigurationReference = 49521ED36CCA87BCDCDD522B /* Pods-BerylTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1008,7 +1036,7 @@
 		};
 		240837A92189022D00497B08 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9DBF0DD8E47E017F269AE7BF /* Pods-AmberTests.release.xcconfig */;
+			baseConfigurationReference = 78B106DD43A55D016EBF5F1C /* Pods-BerylTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1030,7 +1058,7 @@
 		};
 		240837AB2189022D00497B08 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E9E67367B315262CD437F9FC /* Pods-AmberUITests.debug.xcconfig */;
+			baseConfigurationReference = 1626A372862F1AB57BBD653F /* Pods-BerylUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -1051,7 +1079,7 @@
 		};
 		240837AC2189022D00497B08 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6C29C86EDB63125CEBAA6422 /* Pods-AmberUITests.release.xcconfig */;
+			baseConfigurationReference = B623053DE2535141280A16B6 /* Pods-BerylUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;

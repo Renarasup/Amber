@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PKHUD
 
 class PackageInformationViewController: BaseViewController {
     
@@ -48,9 +49,20 @@ class PackageInformationViewController: BaseViewController {
         unlockButton.titleLabel?.font = .regular
         unlockButton.layer.cornerRadius = Constants.smallCornerRadius
         
+        unlockButton.addTarget(self, action: #selector(onUnlockPressed), for: .touchUpInside)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handlePurchaseNotification(_:)),
+                                               name: .IAPHelperPurchaseNotification,
+                                               object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleTransactionFailed(_:)),
+                                               name: .IAPHelperTransactionFailedNotification,
+                                               object: nil)
+        
+
         setupViewsLayout()
     }
-    
+
     private func setupViewsLayout() {
         
         view.add(subview: collectionView) { (v, p) in [
@@ -76,6 +88,39 @@ class PackageInformationViewController: BaseViewController {
             v.bottomAnchor.constraint(equalTo: unlockButton.topAnchor, constant: -Constants.padding),
             v.centerXAnchor.constraint(equalTo: p.centerXAnchor)
             ]}
+    }
+    
+    func addDropDownBarItem() {
+        let dropDownBarItem = UIBarButtonItem(image: #imageLiteral(resourceName: "drop_down").withRenderingMode(.alwaysTemplate), style: .plain, target: self, action: #selector(onDropDownPressed))
+        dropDownBarItem.tintColor = .Tint
+        navigationItem.leftBarButtonItem = dropDownBarItem
+    }
+
+    @objc private func onUnlockPressed() {
+        
+        HUD.show(.progress)
+        
+        guard let package = package else {
+            return
+        }
+
+        ApplimeProducts.store.requestProducts { (success, products) in
+            if success {
+
+                guard let products = products else {
+                    return
+                }
+
+                guard let idx = products.firstIndex(where: { (product) -> Bool in
+                    if product.productIdentifier == package.productIdentifier {
+                        return true
+                    }
+                    return false
+                }) else { return }
+
+                ApplimeProducts.store.buyProduct(products[idx])
+            }
+        }
     }
     
     override func setupUI() {
@@ -111,9 +156,60 @@ class PackageInformationViewController: BaseViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    @objc private func onDropDownPressed() {
+        dismiss(animated: true, completion: nil)
+    }
+    
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         let pageNumber = Int(targetContentOffset.pointee.x / view.frame.width)
         pageControl.currentPage = pageNumber
+    }
+    
+    // MARK: - Notifications
+    /***************************************************************/
+    
+    @objc func handlePurchaseNotification(_ notification: Notification) {
+        guard let productID = notification.object as? String
+            //            let index = products.index(where: { product -> Bool in
+            //                product.productIdentifier == productID
+            //            })
+            else {
+                let errorView = PKHUDErrorView(title: "Error", subtitle: "Transaction Failed")
+                PKHUD.sharedHUD.contentView = errorView
+                PKHUD.sharedHUD.show()
+                PKHUD.sharedHUD.hide(afterDelay: 2.0) { success in
+                    if self.navigationItem.leftBarButtonItem == nil {
+                        self.navigationController?.popToRootViewController(animated: true)
+                    } else {
+                        self.dismiss(animated: true, completion: nil)
+                    }
+                }
+                return
+        }
+        
+        let successView = PKHUDSuccessView(title: "Success", subtitle: "\(Package.get(productID)) Transaction Complete")
+        PKHUD.sharedHUD.contentView = successView
+        PKHUD.sharedHUD.show()
+        PKHUD.sharedHUD.hide(afterDelay: 2.0) { success in
+            if self.navigationItem.leftBarButtonItem == nil {
+                self.navigationController?.popToRootViewController(animated: true)
+            } else {
+                self.dismiss(animated: true, completion: nil)
+            }
+        }
+    }
+    
+    @objc private func handleTransactionFailed(_ notification: Notification) {
+        let errorView = PKHUDErrorView(title: "Error", subtitle: "Transaction Failed")
+        PKHUD.sharedHUD.contentView = errorView
+        PKHUD.sharedHUD.show()
+        PKHUD.sharedHUD.hide(afterDelay: 2.0) { success in
+            if self.navigationItem.leftBarButtonItem == nil {
+                self.navigationController?.popToRootViewController(animated: true)
+            } else {
+                self.dismiss(animated: true, completion: nil)
+            }
+        }
     }
 }
 

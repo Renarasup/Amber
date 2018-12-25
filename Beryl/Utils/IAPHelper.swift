@@ -33,6 +33,8 @@ public typealias ProductsRequestCompletionHandler = (_ success: Bool, _ products
 
 extension Notification.Name {
     static let IAPHelperPurchaseNotification = Notification.Name("IAPHelperPurchaseNotification")
+    static let IAPHelperTransactionFailedNotification = Notification.Name("IAPHelperTransactionFailedNotification")
+
 }
 
 open class IAPHelper: NSObject  {
@@ -166,6 +168,7 @@ extension IAPHelper: SKPaymentTransactionObserver {
         }
         
         SKPaymentQueue.default().finishTransaction(transaction)
+        NotificationCenter.default.post(name: .IAPHelperTransactionFailedNotification, object: nil)
     }
     
     private func deliverPurchaseNotificationFor(identifier: String?) {
@@ -175,4 +178,6 @@ extension IAPHelper: SKPaymentTransactionObserver {
         UserDefaults.standard.set(true, forKey: identifier)
         NotificationCenter.default.post(name: .IAPHelperPurchaseNotification, object: identifier)
     }
+    
+    
 }

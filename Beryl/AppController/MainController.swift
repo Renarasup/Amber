@@ -8,7 +8,6 @@
 
 import UIKit
 import IQKeyboardManagerSwift
-import SwiftyStoreKit
 import RealmSwift
 
 class AppController {
