@@ -96,6 +96,8 @@ class ApplicationsViewController: BaseViewController {
         
         sortView.setColors()
     
+        noApplicationsView.setColors()
+        
         getData()
     }
     

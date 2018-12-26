@@ -12,8 +12,8 @@
 		2408377D2189022A00497B08 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2408377C2189022A00497B08 /* AppDelegate.swift */; };
 		240837872189022D00497B08 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 240837862189022D00497B08 /* Assets.xcassets */; };
 		2408378A2189022D00497B08 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 240837882189022D00497B08 /* LaunchScreen.storyboard */; };
-		240837952189022D00497B08 /* AmberTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240837942189022D00497B08 /* AmberTests.swift */; };
-		240837A02189022D00497B08 /* AmberUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2408379F2189022D00497B08 /* AmberUITests.swift */; };
+		240837952189022D00497B08 /* BerylTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240837942189022D00497B08 /* BerylTests.swift */; };
+		240837A02189022D00497B08 /* BerylUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2408379F2189022D00497B08 /* BerylUITests.swift */; };
 		240837B6218902AB00497B08 /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240837B5218902AB00497B08 /* MainController.swift */; };
 		240837B8218902DE00497B08 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240837B7218902DE00497B08 /* AppCoordinator.swift */; };
 		240837BB218903B800497B08 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 240837BA218903B800497B08 /* Coordinator.swift */; };
@@ -79,7 +79,6 @@
 		24BC180121D2AC5E00F81F6A /* NoApplicationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BC180021D2AC5E00F81F6A /* NoApplicationsView.swift */; };
 		24BC180321D2B25A00F81F6A /* ThemeFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24BC180221D2B25A00F81F6A /* ThemeFooterView.swift */; };
 		24FA054E21949DC2006F7DB8 /* RealmHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24FA054D21949DC2006F7DB8 /* RealmHelper.swift */; };
-		6E1FD9923C00B10962366D4B /* Pods_Amber.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 545B75DD84C148DF8D50C60C /* Pods_Amber.framework */; };
 		7AABD6B4AA1F8B05C18BF234 /* Pods_Beryl.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 42F8253ABA2882CC42086509 /* Pods_Beryl.framework */; };
 		B8331DF18008D0C95A16356C /* Pods_AmberTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6173FC4F707114239D8F3589 /* Pods_AmberTests.framework */; };
 		E7D7969CBCB89C93C7D4EA99 /* Pods_BerylUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36985802C75AA5EFB17CE965 /* Pods_BerylUITests.framework */; };
@@ -112,10 +111,10 @@
 		240837892189022D00497B08 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2408378B2189022D00497B08 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		240837902189022D00497B08 /* BerylTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BerylTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		240837942189022D00497B08 /* AmberTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmberTests.swift; sourceTree = "<group>"; };
+		240837942189022D00497B08 /* BerylTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BerylTests.swift; sourceTree = "<group>"; };
 		240837962189022D00497B08 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2408379B2189022D00497B08 /* BerylUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BerylUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		2408379F2189022D00497B08 /* AmberUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmberUITests.swift; sourceTree = "<group>"; };
+		2408379F2189022D00497B08 /* BerylUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BerylUITests.swift; sourceTree = "<group>"; };
 		240837A12189022D00497B08 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		240837B5218902AB00497B08 /* MainController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainController.swift; sourceTree = "<group>"; };
 		240837B7218902DE00497B08 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
@@ -185,18 +184,12 @@
 		36985802C75AA5EFB17CE965 /* Pods_BerylUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BerylUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		42F8253ABA2882CC42086509 /* Pods_Beryl.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Beryl.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		49521ED36CCA87BCDCDD522B /* Pods-BerylTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BerylTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BerylTests/Pods-BerylTests.debug.xcconfig"; sourceTree = "<group>"; };
-		4B01AD565677843C48FC1484 /* Pods-Amber.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Amber.release.xcconfig"; path = "Pods/Target Support Files/Pods-Amber/Pods-Amber.release.xcconfig"; sourceTree = "<group>"; };
 		545B75DD84C148DF8D50C60C /* Pods_Amber.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Amber.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6173FC4F707114239D8F3589 /* Pods_AmberTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AmberTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6C29C86EDB63125CEBAA6422 /* Pods-AmberUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AmberUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-AmberUITests/Pods-AmberUITests.release.xcconfig"; sourceTree = "<group>"; };
-		748765C9A41B80E7E11E3AA1 /* Pods-AmberTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AmberTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AmberTests/Pods-AmberTests.debug.xcconfig"; sourceTree = "<group>"; };
 		78B106DD43A55D016EBF5F1C /* Pods-BerylTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BerylTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BerylTests/Pods-BerylTests.release.xcconfig"; sourceTree = "<group>"; };
-		91E69EF41A1CAB6A6753089D /* Pods-Amber.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Amber.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Amber/Pods-Amber.debug.xcconfig"; sourceTree = "<group>"; };
 		9A40830FF201DBD817731599 /* Pods_AmberUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AmberUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		9DBF0DD8E47E017F269AE7BF /* Pods-AmberTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AmberTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-AmberTests/Pods-AmberTests.release.xcconfig"; sourceTree = "<group>"; };
 		B623053DE2535141280A16B6 /* Pods-BerylUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BerylUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BerylUITests/Pods-BerylUITests.release.xcconfig"; sourceTree = "<group>"; };
 		E4C905BAE91101C70F3C4255 /* Pods-Beryl.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Beryl.release.xcconfig"; path = "Pods/Target Support Files/Pods-Beryl/Pods-Beryl.release.xcconfig"; sourceTree = "<group>"; };
-		E9E67367B315262CD437F9FC /* Pods-AmberUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AmberUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AmberUITests/Pods-AmberUITests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -204,7 +197,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6E1FD9923C00B10962366D4B /* Pods_Amber.framework in Frameworks */,
 				24685EF621D24BE000039CC8 /* StoreKit.framework in Frameworks */,
 				7AABD6B4AA1F8B05C18BF234 /* Pods_Beryl.framework in Frameworks */,
 			);
@@ -235,8 +227,8 @@
 			isa = PBXGroup;
 			children = (
 				2408377B2189022A00497B08 /* Beryl */,
-				240837932189022D00497B08 /* AmberTests */,
-				2408379E2189022D00497B08 /* AmberUITests */,
+				240837932189022D00497B08 /* BerylTests */,
+				2408379E2189022D00497B08 /* BerylUITests */,
 				2408377A2189022A00497B08 /* Products */,
 				3FD5D73B1C1737875B2F0340 /* Pods */,
 				45C2959A789B9FC5004216A7 /* Frameworks */,
@@ -267,22 +259,22 @@
 			path = Beryl;
 			sourceTree = "<group>";
 		};
-		240837932189022D00497B08 /* AmberTests */ = {
+		240837932189022D00497B08 /* BerylTests */ = {
 			isa = PBXGroup;
 			children = (
-				240837942189022D00497B08 /* AmberTests.swift */,
+				240837942189022D00497B08 /* BerylTests.swift */,
 				240837962189022D00497B08 /* Info.plist */,
 			);
-			path = AmberTests;
+			path = BerylTests;
 			sourceTree = "<group>";
 		};
-		2408379E2189022D00497B08 /* AmberUITests */ = {
+		2408379E2189022D00497B08 /* BerylUITests */ = {
 			isa = PBXGroup;
 			children = (
-				2408379F2189022D00497B08 /* AmberUITests.swift */,
+				2408379F2189022D00497B08 /* BerylUITests.swift */,
 				240837A12189022D00497B08 /* Info.plist */,
 			);
-			path = AmberUITests;
+			path = BerylUITests;
 			sourceTree = "<group>";
 		};
 		240837AD2189024500497B08 /* AppController */ = {
@@ -493,12 +485,6 @@
 		3FD5D73B1C1737875B2F0340 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				91E69EF41A1CAB6A6753089D /* Pods-Amber.debug.xcconfig */,
-				4B01AD565677843C48FC1484 /* Pods-Amber.release.xcconfig */,
-				748765C9A41B80E7E11E3AA1 /* Pods-AmberTests.debug.xcconfig */,
-				9DBF0DD8E47E017F269AE7BF /* Pods-AmberTests.release.xcconfig */,
-				E9E67367B315262CD437F9FC /* Pods-AmberUITests.debug.xcconfig */,
-				6C29C86EDB63125CEBAA6422 /* Pods-AmberUITests.release.xcconfig */,
 				2A9513D8508AE963A5C58583 /* Pods-Beryl.debug.xcconfig */,
 				E4C905BAE91101C70F3C4255 /* Pods-Beryl.release.xcconfig */,
 				49521ED36CCA87BCDCDD522B /* Pods-BerylTests.debug.xcconfig */,
@@ -821,7 +807,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				240837952189022D00497B08 /* AmberTests.swift in Sources */,
+				240837952189022D00497B08 /* BerylTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -829,7 +815,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				240837A02189022D00497B08 /* AmberUITests.swift in Sources */,
+				240837A02189022D00497B08 /* BerylUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

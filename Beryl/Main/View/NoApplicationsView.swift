@@ -19,7 +19,6 @@ class NoApplicationsView: UIView {
         
         backgroundColor = .Main
         
-        
         imageView.image = #imageLiteral(resourceName: "symbol").withRenderingMode(.alwaysTemplate)
         imageView.tintColor = .lightGray
         imageView.contentMode = .scaleAspectFill
@@ -48,6 +47,11 @@ class NoApplicationsView: UIView {
             v.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: Constants.padding),
             v.widthAnchor.constraint(equalTo: p.widthAnchor, multiplier: 0.7)
             ]}
+    }
+    
+    func setColors() {
+        titleLabel.textColor = .Tint
+        backgroundColor = .Main
     }
     
     required init?(coder aDecoder: NSCoder) {
