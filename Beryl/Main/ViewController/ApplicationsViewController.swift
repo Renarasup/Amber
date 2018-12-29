@@ -15,7 +15,7 @@ class ApplicationsViewController: BaseViewController {
     
     // Instance Variables
     var coordinator: ApplicationsCoordinator?
-
+    
     private var applications: [Application] = [] {
         didSet {
             tableView.reloadData()
@@ -31,10 +31,10 @@ class ApplicationsViewController: BaseViewController {
         }
     }
     private var filterState: Application.StateType = .All
-
+    
     // UI Views
     private let noApplicationsView = NoApplicationsView()
-
+    
     private let tableView = UITableView()
     
     private let blurEffect = UIBlurEffect(style: UIBlurEffect.Style.light)
@@ -52,7 +52,7 @@ class ApplicationsViewController: BaseViewController {
     
     // MARK: - Setup Core Components & Delegations
     /***************************************************************/
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -67,6 +67,8 @@ class ApplicationsViewController: BaseViewController {
         sortView.delegate = self
         sortView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(onSortPanned(_:))))
         
+        blurEffectView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(onBlurEffectViewPressed)))
+        
         premiumFeaturesView.delegate = self
         
         NotificationCenter.default.addObserver(self, selector: #selector(handlePurchaseNotification(_:)),
@@ -76,7 +78,7 @@ class ApplicationsViewController: BaseViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(handleTransactionFailedNotification(_:)),
                                                name: .IAPHelperTransactionFailedNotification,
                                                object: nil)
-
+        
         setupViewsLayout()
     }
     
@@ -95,7 +97,7 @@ class ApplicationsViewController: BaseViewController {
         premiumFeaturesView.alpha = 0
         
         sortView.setColors()
-    
+        
         noApplicationsView.setColors()
         
         getData()
@@ -130,7 +132,7 @@ class ApplicationsViewController: BaseViewController {
     
     // MARK: - AutoLayout & Views Layouting
     /***************************************************************/
-
+    
     private func setupViewsLayout() {
         view.fillToSuperview(tableView)
         tableView.fillToSuperview(noApplicationsView)
@@ -139,7 +141,7 @@ class ApplicationsViewController: BaseViewController {
         let window = UIApplication.shared.keyWindow!
         blurEffectView.frame = window.bounds
         window.addSubview(blurEffectView)
-
+        
         window.add(subview: sortView) { (v, p) in [
             v.heightAnchor.constraint(equalToConstant: view.frame.height * 0.6),
             v.bottomAnchor.constraint(equalTo: p.safeAreaLayoutGuide.bottomAnchor, constant: -Constants.padding + 5),
@@ -157,7 +159,7 @@ class ApplicationsViewController: BaseViewController {
     
     // MARK: - Basic UI Setup
     /***************************************************************/
-
+    
     override func setupUI() {
         super.setupUI()
         
@@ -209,6 +211,10 @@ class ApplicationsViewController: BaseViewController {
                 deAnimateSortView()
             }
         }
+    }
+    
+    @objc private func onBlurEffectViewPressed() {
+        deAnimateSortView()
     }
     
     // MARK: - Animations
@@ -271,7 +277,7 @@ class ApplicationsViewController: BaseViewController {
         PKHUD.sharedHUD.show()
         PKHUD.sharedHUD.hide(afterDelay: 2.0) { success in
             self.deAnimatePremiumFeaturesView()
-
+            
         }
     }
     
@@ -412,7 +418,7 @@ extension ApplicationsViewController: UnlockPremiumFeaturesViewDelegate {
     func didPressBuy(package: Package) {
         
         HUD.show(.progress)
-
+        
         ApplimeProducts.store.requestProducts { (success, products) in
             if success {
                 
@@ -434,7 +440,7 @@ extension ApplicationsViewController: UnlockPremiumFeaturesViewDelegate {
     
     func didRestorePurchase() {
         HUD.show(.progress)
-
+        
         ApplimeProducts.store.restorePurchases()
     }
 }

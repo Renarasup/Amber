@@ -32,7 +32,6 @@ class AppController {
             fatalError("Cannot layout app with a nil window.")
         }
         
-        
         // Let Realm handle Migration when adding new properties
         loadRealmConfig()
         
